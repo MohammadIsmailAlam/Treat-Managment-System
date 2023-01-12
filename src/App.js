@@ -8,9 +8,8 @@ function App() {
         <div className="col-6">
           <div className="App">
             <h1> Create Your Treat</h1>
-          </div>
 
-          <div>
+            <div className="selection">
             <div className="img">
               <div>
                 <img src="addImg.png" alt=""></img>
@@ -24,12 +23,15 @@ function App() {
             </div>
 
             <div class="budget">
+              <h3> Give Bugget Limition</h3>
               <input type="text" placeholder="Budget Per Person"></input>
             </div>
 
             <div class="time">
+            <h3> Set Time</h3>
               <input type="time" placeholder="Time Limite"></input>
             </div>
+          </div>
           </div>
         </div>
       </div>
@@ -49,6 +51,9 @@ function App() {
                 </button>
               </form>
             </div>
+          </div>
+          <div className="details">
+            
           </div>
     </div>
     </>
