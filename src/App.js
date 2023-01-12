@@ -15,7 +15,6 @@ function App() {
               <div>
                 <img src="addImg.png" alt=""></img>
               </div>
-
               <div>
                 <input
                   type="file"

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin-top: 50px;
 }
 
 .App-logo {
@@ -55,4 +56,39 @@ label {
 }
 .cointainer {
 background-color: 6A1B1B;
+}
+
+div {
+    margin-left: 150p;
+}
+
+input[type="file"] {
+    display: flex;
+    margin-left: 150px;
+}
+
+input[type="text"] {
+    margin-left: 150px;
+}
+
+input[type="time"] {
+    margin-left: 150px;
+}
+div {}
+
+div {
+    margin-left: 150p;
+}
+
+input[type="file"] {
+    display: flex;
+    margin-left: 150px;
+}
+
+input[type="text"] {
+    margin-left: 150px;
+}
+
+input[type="time"] {
+    margin-left: 150px;
 }
