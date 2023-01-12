@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+img {
+  max-width: 100px;
+}
+form {
+  display: inline-flex;
+}
+button.add-btn {
+  border-radius: 15px;
+  margin-left: 20px;
+  height: 24px;
+}
+
+label {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.cointainer {
+background-color: 6A1B1B;
+}
