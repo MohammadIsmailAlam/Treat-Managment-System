@@ -59,42 +59,11 @@ label {
 background-color: 6A1B1B;
 }
 
-div {
-    margin-left: 150p;
+.menu_selection {
+  position: relative;
+  padding-bottom: 40px;
 }
 
-input[type="file"] {
-    display: flex;
-    margin-left: 150px;
-}
-
-input[type="text"] {
-    margin-left: 150px;
-}
-
-input[type="time"] {
-    margin-left: 150px;
-}
-
-div {
-    margin-left: 150p;
-}
-
-input[type="file"] {
-    display: flex;
-    margin-left: 150px;
-}
-
-input[type="text"] {
-    margin-left: 8px;
-}
-
-input[type="time"] {
-    margin-left: 150px;
-}
-.budget {
-  margin-left: 143px;
-}
-.time h3{
-  margin-left: 150px;
+ul.check_box {
+  list-style-type: none;
 }
