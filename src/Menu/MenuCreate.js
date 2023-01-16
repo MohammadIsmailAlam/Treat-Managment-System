@@ -1,11 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import ManualMenu from "./ManualMenu";
 
 export default function MenuCreate() {
   const [isShow, setIsShow] = useState(false);
-  const handleClose = () => setIsShow(false);
-  const handleShow = () => setIsShow(true);
+  const handleShow = (e) => {
+    setIsShow(e.target.checked)
+  };
+
+
   return (
     <div class="menu_selection">
       <h3>Menu Create Options</h3>
@@ -17,9 +19,10 @@ export default function MenuCreate() {
             type="checkbox"
             class="MenuInput"
             value="Menu"
+            id="Menu"
             onChange={handleShow}
           />
-          <label class="checkbox " for="Menu" onClick = {handleClose}>
+          <label class="checkbox " for="Menu">
             Menu
           </label>
         </li>
@@ -34,7 +37,6 @@ export default function MenuCreate() {
           </div>
         }
       </ul>
-      <ManualMenu/>
     </div>
   );
 }

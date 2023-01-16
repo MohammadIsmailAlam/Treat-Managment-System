@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
 
-export default function ManualMenu() {
+export default function ManualMenu( { setName } ) {
 
   const [isShow, setIsShow] = useState(false);
-  const handleClose = () => setIsShow(false);
-  const handleShow = () => setIsShow(true);
+
+  const handleShow = (e) => {
+    setIsShow(e.target.checked)
+  };
 
   return (
     <div className="menu-selection">
@@ -17,10 +18,11 @@ export default function ManualMenu() {
             type="checkbox"
             class="manualMenuInput"
             value="manualMenu"
+            id="manualMenu"
             onChange={handleShow}
             
           />
-          <label class="checkbox" for="manualMenu" onClick = {handleClose}>
+          <label class="checkbox" for="manualMenu" >
             Manual Menu
           </label>
         </li>
@@ -31,7 +33,7 @@ export default function ManualMenu() {
               <form>
                 <div className="input-group">
                   <label htmlFor="name">Name </label>
-                  <input type="text" id="name" />
+                  <input type="text" id="name" onChange={setName} />
                 </div>
                 <div className="input-group">
                   <label htmlFor="price">Item Price</label>

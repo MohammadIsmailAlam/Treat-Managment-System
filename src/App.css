@@ -63,7 +63,6 @@ background-color: 6A1B1B;
 
 .menu_selection {
   position: relative;
-  padding-bottom: 40px;
 }
 
 ul.check_box {
@@ -93,4 +92,7 @@ li {
 html {
   display: flex;
   justify-content: center;
+}
+button.submit {
+  margin-top: 60px;
 }
