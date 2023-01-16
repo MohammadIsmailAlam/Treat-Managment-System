@@ -1,61 +1,40 @@
+import { useState } from "react";
 import "./App.css";
+import ManualMenu from "./Menu/ManualMenu";
+import MenuCreate from "./Menu/MenuCreate";
 
 function App() {
+  const [name, setName] = useState("");
+  const handleSubmit = (e)=>{
+    console.log(name);
+    e.preventDefault();
+
+  };
   return (
     <>
-    <div className="container">
-    <div className="row">
-        <div className="col-6">
-          <div className="App">
-            <h1> Create Your Treat</h1>
-
-            <div className="selection">
-            <div className="img">
-              <div>
-                <img src="addImg.png" alt=""></img>
-              </div>
-              <div>
-                <input
-                  type="file"
-                  accept="image/jpeg, image/png, image/jpg"
-                ></input>
-              </div>
-            </div>
-
+      <div className="Container">
+        <div className="App">
+          <h1> Create Your Treat</h1>
+          <MenuCreate />
+          <ManualMenu
+          setName = {(e) => setName(e.target.value)}
+          />
+          
+          <div className="selection">  
             <div class="budget">
               <h3> Give Bugget Limition</h3>
               <input type="text" placeholder="Budget Per Person"></input>
             </div>
 
             <div class="time">
-            <h3> Set Time</h3>
+              <h3> Set Time</h3>
               <input type="time" placeholder="Time Limite"></input>
             </div>
           </div>
-          </div>
+          <button className="submit" type="submit" onClick={handleSubmit}>Submit</button>
+          
         </div>
       </div>
-      <div className="col-6">
-            <div className="App">
-              <form>
-                <div className="input-group">
-                  <label htmlFor="name">Name </label>
-                  <input type="text" id="name" />
-                </div>
-                <div className="input-group">
-                  <label htmlFor="price">Item Price</label>
-                  <input type="cost" id="price" />
-                </div>
-                <button type="submit" className="add-btn">
-                  + Add new items
-                </button>
-              </form>
-            </div>
-          </div>
-          <div className="details">
-            
-          </div>
-    </div>
     </>
   );
 }
