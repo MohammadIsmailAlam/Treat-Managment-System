@@ -48,7 +48,9 @@ form {
 button.add-btn {
   border-radius: 15px;
   margin-left: 20px;
-  height: 24px;
+  /* height: 24px; */
+  height: 30px;
+  width: 79px;
 }
 
 label {
@@ -59,42 +61,38 @@ label {
 background-color: 6A1B1B;
 }
 
-div {
-    margin-left: 150p;
+.menu_selection {
+  position: relative;
 }
 
-input[type="file"] {
+ul.check_box {
+  list-style-type: none;
+}
+li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  list-style-type: none;
+}
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.input-group {
+  width: 268px !important;
+}
+
+.manualMenu {
     display: flex;
-    margin-left: 150px;
+    justify-content: center;
+    margin-left: 179px;
+    margin-top: 20px;
 }
-
-input[type="text"] {
-    margin-left: 150px;
+html {
+  display: flex;
+  justify-content: center;
 }
-
-input[type="time"] {
-    margin-left: 150px;
-}
-
-div {
-    margin-left: 150p;
-}
-
-input[type="file"] {
-    display: flex;
-    margin-left: 150px;
-}
-
-input[type="text"] {
-    margin-left: 8px;
-}
-
-input[type="time"] {
-    margin-left: 150px;
-}
-.budget {
-  margin-left: 143px;
-}
-.time h3{
-  margin-left: 150px;
+button.submit {
+  margin-top: 60px;
 }
