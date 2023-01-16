@@ -48,7 +48,9 @@ form {
 button.add-btn {
   border-radius: 15px;
   margin-left: 20px;
-  height: 24px;
+  /* height: 24px; */
+  height: 30px;
+  width: 79px;
 }
 
 label {
@@ -66,4 +68,29 @@ background-color: 6A1B1B;
 
 ul.check_box {
   list-style-type: none;
+}
+li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  list-style-type: none;
+}
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.input-group {
+  width: 268px !important;
+}
+
+.manualMenu {
+    display: flex;
+    justify-content: center;
+    margin-left: 179px;
+    margin-top: 20px;
+}
+html {
+  display: flex;
+  justify-content: center;
 }
