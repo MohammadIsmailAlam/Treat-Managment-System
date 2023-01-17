@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-export default function ManualMenu( { setName } ) {
+export default function ManualMenu( { setName , setPrice} ) {
 
   const [isShow, setIsShow] = useState(false);
 
@@ -37,7 +37,7 @@ export default function ManualMenu( { setName } ) {
                 </div>
                 <div className="input-group">
                   <label htmlFor="price">Item Price</label>
-                  <input type="cost" id="price" />
+                  <input type="cost" id="price" onChange={setPrice}/>
                 </div>
                 <div className="input-group">
                 <button type="submit" className="add-btn">

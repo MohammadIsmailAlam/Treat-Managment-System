@@ -1,12 +1,20 @@
-import { useState } from "react";
+
+import React,{ useState } from "react";
 import "./App.css";
+import { Limits } from "./Menu/Limits";
 import ManualMenu from "./Menu/ManualMenu";
 import MenuCreate from "./Menu/MenuCreate";
 
 function App() {
   const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [budget, setBudget] = useState(0);
+  const [time, setTime] = useState(0);
   const handleSubmit = (e)=>{
     console.log(name);
+    console.log(price);
+    console.log(budget);
+    console.log(time);
     e.preventDefault();
 
   };
@@ -18,19 +26,13 @@ function App() {
           <MenuCreate />
           <ManualMenu
           setName = {(e) => setName(e.target.value)}
+          setPrice = {(e) => setPrice(e.target.value)}
           />
-          
-          <div className="selection">  
-            <div class="budget">
-              <h3> Give Bugget Limition</h3>
-              <input type="text" placeholder="Budget Per Person"></input>
-            </div>
+          <Limits
+          setBudget = {(e) => setBudget(e.target.value)}
+          setTime = {(e) => setTime(e.target.value)}
+          />
 
-            <div class="time">
-              <h3> Set Time</h3>
-              <input type="time" placeholder="Time Limite"></input>
-            </div>
-          </div>
           <button className="submit" type="submit" onClick={handleSubmit}>Submit</button>
           
         </div>

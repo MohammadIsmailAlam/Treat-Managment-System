@@ -9,7 +9,7 @@ export default function MenuCreate() {
 
 
   return (
-    <div class="menu_selection">
+    <div className="menu_selection">
       <h3>Menu Create Options</h3>
         <span class="of_notice">Choose Menu creation option</span>
       <ul class="check_box">
