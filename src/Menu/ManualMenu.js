@@ -1,12 +1,27 @@
 import React from "react";
 import { useState } from "react";
 
-export default function ManualMenu( { setName , setPrice} ) {
-
+export default function ManualMenu({setnamePriceList,namePriceList}  ) {
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
   const [isShow, setIsShow] = useState(false);
 
   const handleShow = (e) => {
     setIsShow(e.target.checked)
+  };
+
+
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setnamePriceList(prev=>{
+      return [...prev,{
+        name,price
+      }]
+    })
+    setName("")
+    setPrice("")
   };
 
   return (
@@ -30,26 +45,29 @@ export default function ManualMenu( { setName , setPrice} ) {
         {isShow && (
           <>
             <div className="manualMenu">
-              <form>
+              <form onSubmit={handleSubmit} id="myForm">
                 <div className="input-group">
                   <label htmlFor="name">Name </label>
-                  <input type="text" id="name" onChange={setName} />
+                  <input type="text" id="name" value={name} onChange={(e)=>setName(e.target.value)}/>
                 </div>
                 <div className="input-group">
                   <label htmlFor="price">Item Price</label>
-                  <input type="cost" id="price" onChange={setPrice}/>
+                  <input type="cost" id="price" value={price} onChange={(e)=>setPrice(e.target.value)}/>
                 </div>
-                <div className="input-group">
                 <button type="submit" className="add-btn">
                   + Add
                 </button>
-                </div>
-               
               </form>
             </div>
 
           </>
         )}
+
+       <ol>
+       {namePriceList.map((item,index)=>{
+          return <li>{item.name} --- {item.price}</li>;
+})}
+       </ol>
       </ul>
     </div>
   );

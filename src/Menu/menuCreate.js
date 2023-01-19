@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-export default function MenuCreate() {
+export default function MenuCreate( setImg) {
   const [isShow, setIsShow] = useState(false);
   const handleShow = (e) => {
     setIsShow(e.target.checked)
@@ -32,8 +32,9 @@ export default function MenuCreate() {
           <div className="img">
               <input
                 type="file"
+                multiple
                 accept="image/jpeg, image/png, image/jpg"
-              ></input>
+              />
           </div>
         }
       </ul>

@@ -6,13 +6,13 @@ import ManualMenu from "./Menu/ManualMenu";
 import MenuCreate from "./Menu/MenuCreate";
 
 function App() {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
+
+  const [namePriceList, setnamePriceList] = useState([])
   const [budget, setBudget] = useState(0);
   const [time, setTime] = useState(0);
   const handleSubmit = (e)=>{
-    console.log(name);
-    console.log(price);
+
+    // console.log(price);
     console.log(budget);
     console.log(time);
     e.preventDefault();
@@ -25,8 +25,8 @@ function App() {
           <h1> Create Your Treat</h1>
           <MenuCreate />
           <ManualMenu
-          setName = {(e) => setName(e.target.value)}
-          setPrice = {(e) => setPrice(e.target.value)}
+          setnamePriceList={setnamePriceList}
+          namePriceList={namePriceList}
           />
           <Limits
           setBudget = {(e) => setBudget(e.target.value)}
