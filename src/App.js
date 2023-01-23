@@ -7,7 +7,7 @@ import MenuCreate from "./Menu/MenuCreate";
 
 function App() {
 
-  const [namePriceList, setnamePriceList] = useState([])
+  const [namePriceList, getNamePriceList] = useState([])
   const [budget, setBudget] = useState(0);
   const [time, setTime] = useState(0);
   const handleSubmit = (e)=>{
@@ -25,7 +25,7 @@ function App() {
           <h1> Create Your Treat</h1>
           <MenuCreate />
           <ManualMenu
-          setnamePriceList={setnamePriceList}
+          getNamePriceList={getNamePriceList}
           namePriceList={namePriceList}
           />
           <Limits

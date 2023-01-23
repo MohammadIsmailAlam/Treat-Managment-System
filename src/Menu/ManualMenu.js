@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-export default function ManualMenu({setnamePriceList,namePriceList}  ) {
+export default function ManualMenu({setNamePriceList,namePriceList}  ) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [isShow, setIsShow] = useState(false);
@@ -15,7 +15,7 @@ export default function ManualMenu({setnamePriceList,namePriceList}  ) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setnamePriceList(prev=>{
+    setNamePriceList(prev=>{
       return [...prev,{
         name,price
       }]
