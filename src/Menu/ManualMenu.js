@@ -10,9 +10,6 @@ export default function ManualMenu({setnamePriceList,namePriceList}  ) {
     setIsShow(e.target.checked)
   };
 
-
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setnamePriceList(prev=>{
@@ -31,7 +28,7 @@ export default function ManualMenu({setnamePriceList,namePriceList}  ) {
           <input
             name="menuTypeList"
             type="checkbox"
-            class="manualMenuInput"
+            className="manualMenuInput"
             value="manualMenu"
             id="manualMenu"
             onChange={handleShow}
@@ -52,7 +49,7 @@ export default function ManualMenu({setnamePriceList,namePriceList}  ) {
                 </div>
                 <div className="input-group">
                   <label htmlFor="price">Item Price</label>
-                  <input type="cost" id="price" value={price} onChange={(e)=>setPrice(e.target.value)}/>
+                  <input type="number" id="price" value={price} onChange={(e)=>setPrice(e.target.value)}/>
                 </div>
                 <button type="submit" className="add-btn">
                   + Add

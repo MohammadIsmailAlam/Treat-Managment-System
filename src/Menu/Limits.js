@@ -1,17 +1,28 @@
-import React from "react";
+import React from 'react'
 
-export const Limits = (setBudget , setTime) => {
+export default function Limits( {setbudget, settime} ) {
+  
+
   return (
-    <div className="selection">
-      <div class="budget">
-        <h3> Bugget Limition </h3>
-        <input type="text" placeholder="Budget Per Person" onChange={setBudget} />
+    <div className='limits'>
+      <div className='budget'>
+        <label htmlFor="budget"> Budget Limit</label> 
+        <input type="number" id='budget' className='budget' 
+        onChange={(event) => { 
+          event.preventDefault();
+          setbudget(event.target.value)}}/>
       </div>
 
-      <div class="time">
-        <h3> Time Limit</h3>
-        <input type="time" placeholder="Time Limite" onChange={setTime} />
+      <div className='time'>
+        <label htmlFor="time"> Time Limit</label>
+        <input type="time" id='time' className='time' 
+        onChange={(event) => {
+          event.preventDefault();
+          settime(event.target.value)}}/>
       </div>
+      
     </div>
-  );
-};
+    
+  )
+}
+

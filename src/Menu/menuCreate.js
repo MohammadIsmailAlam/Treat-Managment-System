@@ -11,18 +11,18 @@ export default function MenuCreate( setImg) {
   return (
     <div className="menu_selection">
       <h3>Menu Create Options</h3>
-        <span class="of_notice">Choose Menu creation option</span>
-      <ul class="check_box">
+        <span className="of_notice">Choose Menu creation option</span>
+      <ul className="check_box">
         <li>
           <input
             name="menuTypeList"
             type="checkbox"
-            class="MenuInput"
+            className="MenuInput"
             value="Menu"
             id="Menu"
             onChange={handleShow}
           />
-          <label class="checkbox " for="Menu">
+          <label className="checkbox " htmlFor="Menu">
             Menu
           </label>
         </li>

@@ -1,23 +1,33 @@
 
 import React,{ useState } from "react";
 import "./App.css";
-import { Limits } from "./Menu/Limits";
+import Limits from "./Menu/Limits";
 import ManualMenu from "./Menu/ManualMenu";
 import MenuCreate from "./Menu/MenuCreate";
 
 function App() {
 
   const [namePriceList, setnamePriceList] = useState([])
-  const [budget, setBudget] = useState(0);
-  const [time, setTime] = useState(0);
+  const [budgetData, setBudget] = useState('')
+  const [timeData, setTime] = useState('')
+
+  const formData = {
+    
+    'NamePriceList': namePriceList,
+    'Budget Limit': budgetData,
+    'Time Limit': timeData
+  }
+  
   const handleSubmit = (e)=>{
+    // console.log(namePriceList);
 
-    // console.log(price);
-    console.log(budget);
-    console.log(time);
-    e.preventDefault();
-
+    // console.log("Buget  " + budgetData, "Time  " + timeData);
+    localStorage.setItem('formData', JSON.stringify(formData));
+   
   };
+
+
+
   return (
     <>
       <div className="Container">
@@ -28,12 +38,12 @@ function App() {
           setnamePriceList={setnamePriceList}
           namePriceList={namePriceList}
           />
-          <Limits
-          setBudget = {(e) => setBudget(e.target.value)}
-          setTime = {(e) => setTime(e.target.value)}
+          <Limits setbudget={setBudget} settime={setTime}
+          // setBudget = {(e) => setBudget(e.target.value)}
+          // setTime = {(e) => setTime(e.target.value)}
           />
 
-          <button className="submit" type="submit" onClick={handleSubmit}>Submit</button>
+          <button className="submit"  onClick={handleSubmit}>Submit</button>
           
         </div>
       </div>

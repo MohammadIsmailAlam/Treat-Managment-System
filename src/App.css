@@ -96,3 +96,13 @@ html {
 button.submit {
   margin-top: 60px;
 }
+.time {margin-top: 20px;}
+
+.budget {
+    margin-top: 20px;
+}
+
+.limits {
+  display:block;;
+  text-align: center;
+}
