@@ -106,3 +106,6 @@ button.submit {
   display:block;;
   text-align: center;
 }
+button.btn.btn-outline-dark {
+  margin-top: 30px;
+}
