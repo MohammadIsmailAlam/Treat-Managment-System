@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Limits( {setbudget, settime} ) {
+export default function Limits( {setbudget, settime, budgetError, timeError, setBudgetError,setTimeError} ) {
   
 
   return (
@@ -10,7 +10,15 @@ export default function Limits( {setbudget, settime} ) {
         <input type="number" id='budget' className='form-control' 
         onChange={(event) => { 
           event.preventDefault();
-          setbudget(event.target.value)}}/>
+          setbudget(event.target.value)
+          setBudgetError(false)
+          }}/>
+
+          {
+            budgetError &&
+
+            <div className="error" style={{color:'red', marginTop:'10px'}}> Budget Can't Be Empty</div>
+          }
       </div>
 
       <div className='time mb-3'>
@@ -18,7 +26,15 @@ export default function Limits( {setbudget, settime} ) {
         <input type="time" id='time' className='form-control' 
         onChange={(event) => {
           event.preventDefault();
-          settime(event.target.value)}}/>
+          settime(event.target.value)
+          setTimeError(false)
+          }}/>
+
+          {
+            timeError &&
+
+            <div className="error" style={{color:'red', marginTop:'10px'}}> Time Can't Be Empty</div>
+          }
       </div>
       
     </div>

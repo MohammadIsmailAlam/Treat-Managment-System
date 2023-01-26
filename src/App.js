@@ -11,6 +11,10 @@ function App() {
   const [budgetData, setBudget] = useState('')
   const [timeData, setTime] = useState('')
 
+  const [budgetError, setBudgetError] = useState(false)
+  const [timeError, setTimeError] = useState(false)
+
+
   const formData = {
     
     'NamePriceList': namePriceList,
@@ -18,7 +22,16 @@ function App() {
     'Time Limit': timeData
   }
   
+  
   const handleSubmit = (e)=>{
+
+    if (budgetData.length === 0) {
+      setBudgetError(true)
+    }
+
+    if (timeData.length === 0) {
+      setTimeError(true)
+    }
     
     // console.log(namePriceList);
 
@@ -39,7 +52,10 @@ function App() {
           setnamePriceList={setnamePriceList}
           namePriceList={namePriceList}
           />
-          <Limits setbudget={setBudget} settime={setTime}
+          <Limits setbudget={setBudget} settime={setTime} 
+          budgetError={budgetError} timeError={timeError} 
+          setBudgetError={setBudgetError} setTimeError={setTimeError}
+          // setBudget = {(e) => setBudget(e.target.value)}
           // setBudget = {(e) => setBudget(e.target.value)}
           // setTime = {(e) => setTime(e.target.value)}
           />
