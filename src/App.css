@@ -96,15 +96,14 @@ html {
 button.submit {
   margin-top: 60px;
 }
-.time {margin-top: 20px;}
 
 .budget {
     margin-top: 20px;
 }
 
 .limits {
-  display:block;;
-  text-align: center;
+  display: grid;
+  justify-content: space-evenly;
 }
 button.btn.btn-outline-dark {
   margin-top: 30px;

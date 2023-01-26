@@ -19,6 +19,7 @@ function App() {
   }
   
   const handleSubmit = (e)=>{
+    
     // console.log(namePriceList);
 
     // console.log("Buget  " + budgetData, "Time  " + timeData);
