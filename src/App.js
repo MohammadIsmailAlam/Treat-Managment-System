@@ -14,10 +14,13 @@ function App() {
   const [budgetError, setBudgetError] = useState(false)
   const [timeError, setTimeError] = useState(false)
 
+  const [checkboxMenuError, setCheckBoxMenuError] = useState (false)
+  const [checkboxManualMenuError, setCheckBoxMAnualMenuError] = useState (false)
+
 
   const formData = {
     
-    'NamePriceList': namePriceList,
+    'Menu List': namePriceList,
     'Budget Limit': budgetData,
     'Time Limit': timeData
   }
@@ -31,12 +34,25 @@ function App() {
 
     if (timeData.length === 0) {
       setTimeError(true)
-    }
     
-    // console.log(namePriceList);
+    }
 
-    // console.log("Buget  " + budgetData, "Time  " + timeData);
-    localStorage.setItem('formData', JSON.stringify(formData));
+    if (!checkboxMenuError) {
+      setCheckBoxMenuError(true)
+    }else {
+      setCheckBoxMenuError(false)
+    }
+
+    
+
+    if (!checkboxManualMenuError) {
+      setCheckBoxMAnualMenuError(true)
+    }else {
+      setCheckBoxMAnualMenuError(false)
+    }
+
+
+    localStorage.setItem('Menu', JSON.stringify(formData));
    
   };
 
@@ -47,17 +63,24 @@ function App() {
       <div className="Container">
         <div className="App">
           <h1> Create Your Treat</h1>
-          <MenuCreate />
+
+          <MenuCreate 
+          setCheckBoxMenuError={setCheckBoxMenuError}
+          />
           <ManualMenu
           setnamePriceList={setnamePriceList}
           namePriceList={namePriceList}
+          setCheckBoxMAnualMenuError={setCheckBoxMAnualMenuError}
           />
+          { 
+          (checkboxMenuError || checkboxManualMenuError) &&
+            <div className="error" style={{color:'red', marginTop:'10px'}}> Choose At list one</div>
+          }
+          
+
           <Limits setbudget={setBudget} settime={setTime} 
           budgetError={budgetError} timeError={timeError} 
           setBudgetError={setBudgetError} setTimeError={setTimeError}
-          // setBudget = {(e) => setBudget(e.target.value)}
-          // setBudget = {(e) => setBudget(e.target.value)}
-          // setTime = {(e) => setTime(e.target.value)}
           />
 
           <button className="submit"  onClick={handleSubmit}>Submit</button>
