@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import "./App.css";
+import Details from "./Details";
 import Limits from "./Menu/Limits";
 import ManualMenu from "./Menu/ManualMenu";
 import MenuCreate from "./Menu/MenuCreate";
@@ -24,9 +25,9 @@ function App() {
   const [listError, setListError] = useState(null);
 
   const formData = {
-    "Menu List": namePriceList,
-    "Budget Limit": budgetData,
-    "Time Limit": timeData,
+    menuList: namePriceList,
+    budget: budgetData,
+    time: timeData,
   };
 
   useEffect(() => {
@@ -87,6 +88,9 @@ function App() {
     localStorage.setItem("formData", JSON.stringify(formData));
   };
 
+  const formValue = JSON.parse(localStorage.getItem("formData"))
+  console.log('formValue----', formValue);
+
   return (
     <>
       <div className="Container">
@@ -124,12 +128,14 @@ function App() {
             setBudgetError={setBudgetError}
             setTimeError={setTimeError}
           />
-
-          <button className="submit" onClick={handleSubmit}>
+          <button className="submit" onClick={handleSubmit}> 
             Submit
           </button>
         </div>
+        <Details formData={formValue}/> 
       </div>
+
+
     </>
   );
 }

@@ -13,7 +13,7 @@ export default function MenuCreate( {setImg, setIsMenuSelected, setErrorMessage}
       setErrorMessage(true);
       
     }
-    setImg(e.target.files[0] || "")
+    setImg(e.target.files[0])
       
   };
 
