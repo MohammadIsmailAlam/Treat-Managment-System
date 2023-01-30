@@ -1,5 +1,4 @@
-
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import "./App.css";
 import Limits from "./Menu/Limits";
@@ -8,83 +7,127 @@ import MenuCreate from "./Menu/MenuCreate";
 
 function App() {
 
-  const [namePriceList, setnamePriceList] = useState([])
-  const [budgetData, setBudget] = useState('')
-  const [timeData, setTime] = useState('')
+  const [img, setImg] = useState([])
+  const [imgErrorMessage, setImgErrorMessage] = useState(null);
 
-  const [budgetError, setBudgetError] = useState(false)
-  const [timeError, setTimeError] = useState(false)
+  const [namePriceList, setnamePriceList] = useState([]);
+  const [budgetData, setBudget] = useState("");
+  const [timeData, setTime] = useState("");
 
+  const [budgetError, setBudgetError] = useState(false);
+  const [timeError, setTimeError] = useState(false);
 
-  const [isMenuSelected, setIsMenuSelected] = useState(false)
-  const [isMenualMenuSelected, setIsMenualMenuSelected] = useState(false)
-  const [shouldShowError, setShouldShowError] = useState(null)
+  const [isMenuSelected, setIsMenuSelected] = useState(false);
+  const [isMenualMenuSelected, setIsMenualMenuSelected] = useState(false);
+  const [shouldShowError, setShouldShowError] = useState(null);
 
+  const [listError, setListError] = useState(null);
 
   const formData = {
-    
-    'NamePriceList': namePriceList,
-    'Budget Limit': budgetData,
-    'Time Limit': timeData
-  }
-  
-  useEffect(()=> {
+    "Menu List": namePriceList,
+    "Budget Limit": budgetData,
+    "Time Limit": timeData,
+  };
+
+  useEffect(() => {
     if (isMenuSelected || isMenualMenuSelected) {
-      setShouldShowError(false)
+      setShouldShowError(false);
     }
-  },[
-    isMenuSelected, isMenualMenuSelected
-  ])
-  
-  const handleSubmit = (e)=>{
+  }, [isMenuSelected, isMenualMenuSelected]);
+
+  useEffect(() => {
+    if (listError !== null) {
+      if (namePriceList.length === 0) {
+        setListError(true);
+      } else {
+        setListError(false);
+      }
+    }
+  }, [namePriceList]);
+
+
+  useEffect(() => {
+    if (imgErrorMessage !== null) {
+      if (img.length === 0) {
+        setImgErrorMessage(true);
+      } else {
+        setImgErrorMessage(false);
+      }
+    }
+  }, [img]);
+
+  const handleSubmit = (e) => {
+
+    if (isMenuSelected && img.length === 0) {
+      setImgErrorMessage(true);
+    } else {
+      setImgErrorMessage(false);
+    }
 
     if (isMenuSelected || isMenualMenuSelected) {
-      setShouldShowError(false)
+      setShouldShowError(false);
     } else {
-      setShouldShowError(true)
+      setShouldShowError(true);
+    }
+
+    if (isMenualMenuSelected && namePriceList.length === 0) {
+      setListError(true);
+    } else {
+      setListError(false);
     }
 
     if (budgetData.length === 0) {
-      setBudgetError(true)
+      setBudgetError(true);
     }
 
     if (timeData.length === 0) {
-      setTimeError(true)
+      setTimeError(true);
     }
 
-    localStorage.setItem('formData', JSON.stringify(formData));
-   
+    localStorage.setItem("formData", JSON.stringify(formData));
   };
-
-
 
   return (
     <>
       <div className="Container">
         <div className="App">
           <h1> Create Your Treat</h1>
-          <MenuCreate
-          setIsMenuSelected={setIsMenuSelected} 
-          />
+          <MenuCreate setIsMenuSelected={setIsMenuSelected}
+            setImg={setImg}
+            setErrorMessage={setImgErrorMessage} />
+          {
+            imgErrorMessage &&
+            <div className="error" style={{ color: 'red', marginTop: '10px' }}> Upload Img </div>
+          }
           <ManualMenu
-          setnamePriceList={setnamePriceList}
-          namePriceList={namePriceList}
-          setIsMenualMenuSelected={setIsMenualMenuSelected}
+            setnamePriceList={setnamePriceList}
+            namePriceList={namePriceList}
+            setIsMenualMenuSelected={setIsMenualMenuSelected}
           />
 
-          {
-            shouldShowError &&
-            <div className="error" style={{color: 'red', marginTop:'10px'}}>
+          {shouldShowError && (
+            <div className="error" style={{ color: "red", marginTop: "10px" }}>
               Choose At List One
             </div>
-          }
-          <Limits setbudget={setBudget} settime={setTime} 
-          budgetError={budgetError} timeError={timeError} 
-          setBudgetError={setBudgetError} setTimeError={setTimeError}
+          )}
+
+          {listError && (
+            <div className="error" style={{ color: "red", marginTop: "10px" }}>
+              Make One
+            </div>
+          )}
+          <Limits
+            setbudget={setBudget}
+            settime={setTime}
+            budgetError={budgetError}
+            timeError={timeError}
+            setBudgetError={setBudgetError}
+            setTimeError={setTimeError}
           />
 
-          <button className="submit"  onClick={handleSubmit}>Submit</button>
-          
+          <button className="submit" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       </div>
     </>
