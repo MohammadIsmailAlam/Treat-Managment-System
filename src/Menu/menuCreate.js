@@ -1,14 +1,12 @@
 import React from "react";
 import { useState } from "react";
 
-export default function MenuCreate( setCheckBoxMenuError) {
+export default function MenuCreate( {setIsMenuSelected} ) {
   const [isShow, setIsShow] = useState(false);
   const handleShow = (e) => {
-    if(setIsShow (e.target.checked)){
-      setCheckBoxMenuError(false)
+    setIsShow(e.target.checked)
+    setIsMenuSelected(e.target.checked)
   };
-    }
-    
 
 
   return (
@@ -24,9 +22,7 @@ export default function MenuCreate( setCheckBoxMenuError) {
             value="Menu"
             id="Menu"
             onChange={handleShow}
-            
           />
-
           <label className="checkbox " htmlFor="Menu">
             Menu
           </label>
