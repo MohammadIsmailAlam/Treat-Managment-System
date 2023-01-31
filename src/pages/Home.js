@@ -82,8 +82,10 @@ const Home = () => {
       setTimeError(true);
     }
     console.log('formData',formData)
-    localStorage.setItem("formData", JSON.stringify(formData));
-    navigate("/details");
+    if (formData.menuList.length && formData.budget.length && formData.time.length) {
+        localStorage.setItem("formData", JSON.stringify(formData));
+        navigate("/details");
+      }
   };
 
   return (
