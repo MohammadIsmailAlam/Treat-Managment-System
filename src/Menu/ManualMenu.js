@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { AiFillDelete } from "react-icons";
 
 export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenualMenuSelected }) {
   const [name, setName] = useState("");
@@ -93,8 +94,20 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
           )}
 
         <ol>
-          {namePriceList.map((item, index) => {
-            return <li>{item.name} --- {item.price}</li>;
+         {namePriceList.map((item, index) => {
+            return (
+              <li>
+                {item.name} --- {item.price}
+                <button style={{borderRadius: "15px", marginLeft:"10px"}} onClick={() => {
+                  setnamePriceList(prev => {
+                    prev.splice(index, 1);
+                    return [...prev];
+                  });
+                }}>
+                  x
+                </button>
+              </li>
+            );
           })}
         </ol>
       </ul>
