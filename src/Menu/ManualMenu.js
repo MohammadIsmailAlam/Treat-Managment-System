@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { AiFillDelete } from "react-icons";
 
 export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenualMenuSelected }) {
   const [name, setName] = useState("");

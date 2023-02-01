@@ -20,7 +20,9 @@ const Home = () => {
   const [shouldShowError, setShouldShowError] = useState(null);
 
   const [listError, setListError] = useState(null);
+
   const navigate = useNavigate();
+
   const formData = {
     "menuList": namePriceList,
     "budget": budgetData,
@@ -83,8 +85,7 @@ const Home = () => {
     }
     console.log('formData',formData)
     if (formData.menuList.length && formData.budget.length && formData.time.length) {
-        localStorage.setItem("formData", JSON.stringify(formData));
-        navigate("/details");
+        navigate('/details', {state: {menuList:namePriceList, budget:budgetData, time: timeData}});
       }
   };
 
