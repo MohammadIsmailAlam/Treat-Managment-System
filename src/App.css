@@ -119,3 +119,8 @@ p {
   margin-top: 10px;
   text-align: center;
 }
+
+button.goBack {
+    border: none;
+    border-radius: 15px;
+}

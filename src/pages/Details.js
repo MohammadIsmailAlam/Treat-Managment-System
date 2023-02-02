@@ -1,14 +1,23 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { FaArrowLeft } from "react-icons/fa";
 
 const Details = () => {
     const location = useLocation();
-    console.log(location)
+    const navigator = useNavigate();
+
+    const handleBackButton = () => {
+       
+       navigator('/', {state:location.state});
+       console.log(location.state)
+    }
 
   return (
     <div className="details-container mt-3 mb-3">
         <header>
-            
+            <button className='goBack' onClick={handleBackButton}>
+            <FaArrowLeft/>
+            </button>
         </header>
     <h2>Details:</h2>
     

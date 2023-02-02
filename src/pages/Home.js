@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Limits from "../Menu/Limits";
 import ManualMenu from "../Menu/ManualMenu";
 import MenuCreate from "../Menu/MenuCreate";
@@ -29,11 +29,27 @@ const Home = () => {
     "time": timeData,
   };
 
+
+  const location = useLocation();
+  useEffect(()=> {
+    console.log(location);
+    if (location.state) {
+      setnamePriceList(location.state.menuList)
+      setBudget(location.state.budget)
+      setTime(location.state.time)
+    }
+  }, [location])
+
+
+
   useEffect(() => {
     if (isMenuSelected || isMenualMenuSelected) {
       setShouldShowError(false);
     }
   }, [isMenuSelected, isMenualMenuSelected]);
+
+
+
 
   useEffect(() => {
     if (listError !== null) {
@@ -46,6 +62,8 @@ const Home = () => {
   }, [namePriceList]);
 
 
+
+
   useEffect(() => {
     if (imgErrorMessage !== null) {
       if (img.length === 0) {
@@ -55,6 +73,8 @@ const Home = () => {
       }
     }
   }, [img]);
+
+
 
   const handleSubmit = (e) => {
 
@@ -118,7 +138,9 @@ const Home = () => {
             </div>
           )}
           <Limits
+          budgetData = {budgetData}
             setbudget={setBudget}
+            timeData = {timeData}
             settime={setTime}
             budgetError={budgetError}
             timeError={timeError}

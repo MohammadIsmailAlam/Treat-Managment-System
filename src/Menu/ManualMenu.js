@@ -75,7 +75,7 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
                   </div>
                   <div className="input-group">
                     <label htmlFor="price">Item Price</label>
-                    <input type="number" id="price" value={price} onChange={(e) => {
+                    <input type="number" id="price" value={price} min onChange={(e) => {
                       setPrice(e.target.value)
                       setPriceError(false)
                     }} />

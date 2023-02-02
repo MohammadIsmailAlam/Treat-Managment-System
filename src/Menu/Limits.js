@@ -1,13 +1,13 @@
 import React from 'react'
 
-export default function Limits( {setbudget, settime, budgetError, timeError, setBudgetError,setTimeError} ) {
+export default function Limits( { budgetData, setbudget, timeData ,settime, budgetError, timeError, setBudgetError,setTimeError} ) {
   
 
   return (
     <div className='limits'>
       <div className='budget mb-3'>
         <label htmlFor="budge floatingInputt"> Budget Limit</label> 
-        <input type="number" id='budget' className='form-control' 
+        <input type="number" id='budget' value={budgetData} className='form-control' 
         onChange={(event) => { 
           event.preventDefault();
           setbudget(event.target.value)
@@ -23,7 +23,7 @@ export default function Limits( {setbudget, settime, budgetError, timeError, set
 
       <div className='time mb-3'>
         <label htmlFor="time floatingInputt"> Time Limit</label>
-        <input type="time" id='time' className='form-control' 
+        <input type="time" id='time' value={timeData} className='form-control' 
         onChange={(event) => {
           event.preventDefault();
           settime(event.target.value)
