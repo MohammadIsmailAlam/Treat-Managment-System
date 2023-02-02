@@ -8,7 +8,6 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
 
   const [nameError, setNameError] = useState(false);
   const [priceError, setPriceError] = useState(false);
-
   const handleShow = (e) => {
     setIsShow(e.target.checked)
     setIsMenualMenuSelected(e.target.checked)
@@ -94,13 +93,16 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
 
         <ol>
          {namePriceList.map((item, index) => {
+         
             return (
               <li>
                 {item.name} --- {item.price}
                 <button style={{borderRadius: "15px", marginLeft:"10px"}} onClick={() => {
+                  console.log(index);
                   setnamePriceList(prev => {
-                    prev.splice(index, 1);
-                    return [...prev];
+                    const newList = prev.slice();
+                    newList.splice(index, 1);
+                    return newList;
                   });
                 }}>
                   x

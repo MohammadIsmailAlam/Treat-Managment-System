@@ -37,9 +37,9 @@ const Home = () => {
       setnamePriceList(location.state.menuList)
       setBudget(location.state.budget)
       setTime(location.state.time)
+      window.history.replaceState({}, document.title)
     }
   }, [location])
-
 
 
   useEffect(() => {
@@ -47,7 +47,6 @@ const Home = () => {
       setShouldShowError(false);
     }
   }, [isMenuSelected, isMenualMenuSelected]);
-
 
 
 
