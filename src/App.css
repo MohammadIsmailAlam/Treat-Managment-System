@@ -39,8 +39,15 @@
 }
 
 img {
-  max-width: 100px;
-  margin-left: 125px;
+  display: grid;
+  max-width: 250px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.fullScreen{
+  
+  max-width: 100vw !important; 
 }
 form {
   display: inline-flex;
@@ -111,16 +118,36 @@ button.btn.btn-outline-dark {
   margin-top: 30px;
 }
 
-.details-container.mb-3 {
-  display: grid;
-  justify-content: center;
-}
-p {
-  margin-top: 10px;
-  text-align: center;
+/* details */
+.goBack {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 20px;
 }
 
-button.goBack {
-    border: none;
-    border-radius: 15px;
+.details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  
+  background-color: lightgray;
+  border: 1px solid black;
+  padding: 10px;
+  text-align: left;
+}
+
+p {
+  margin-top: 20px;
+  font-size: 18px;
 }

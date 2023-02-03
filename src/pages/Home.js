@@ -23,12 +23,6 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  const formData = {
-    "menuList": namePriceList,
-    "budget": budgetData,
-    "time": timeData,
-  };
-
 
   const location = useLocation();
   useEffect(()=> {
@@ -102,9 +96,26 @@ const Home = () => {
     if (timeData.length === 0) {
       setTimeError(true);
     }
+
+    const formData = {
+      "budget": budgetData,
+      "time": timeData,
+    };
+
+    if (isMenuSelected) {
+      formData.img = img
+    }
+
+    if (isMenualMenuSelected) {
+      formData.menuList = namePriceList
+    }
     console.log('formData',formData)
-    if (formData.menuList.length && formData.budget.length && formData.time.length) {
-        navigate('/details', {state: {menuList:namePriceList, budget:budgetData, time: timeData}});
+    
+    if (formData.menuList && formData.budget && formData.time) {
+        navigate('/details', {state: {menuList:namePriceList, budget:budgetData, time: timeData, isChecked: isMenualMenuSelected}});
+      }
+      if (formData.img && formData.budget && formData.time) {
+        navigate('/details', {state: {img:img, budget:budgetData, time: timeData,  isChecked: isMenuSelected}});
       }
   };
 

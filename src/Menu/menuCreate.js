@@ -3,6 +3,8 @@ import { useState } from "react";
 
 export default function MenuCreate( {setImg, setIsMenuSelected, setErrorMessage} ) {
   const [isShow, setIsShow] = useState(false);
+  const [imgURL, setImgURL] = useState("");
+
   const handleShow = (e) => {
     setIsShow(e.target.checked)
     setIsMenuSelected(e.target.checked)
@@ -11,10 +13,10 @@ export default function MenuCreate( {setImg, setIsMenuSelected, setErrorMessage}
   const handleImageUpload = (e) => {
     if (!e.target.files[0]) {
       setErrorMessage(true);
-      
+    } else {
+      setImg(URL.createObjectURL(e.target.files[0]))
+      setImgURL(URL.createObjectURL(e.target.files[0]));
     }
-    setImg(e.target.files[0])
-      
   };
 
   return (
@@ -45,6 +47,7 @@ export default function MenuCreate( {setImg, setIsMenuSelected, setErrorMessage}
                 accept="image/jpeg, image/png, image/jpg"
                 onChange={handleImageUpload}
               />
+              {imgURL && <img src={imgURL} alt="Selected-" />}
           </div>
         }
       </ul>
