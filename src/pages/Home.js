@@ -5,7 +5,7 @@ import ManualMenu from "../Menu/ManualMenu";
 import MenuCreate from "../Menu/MenuCreate";
 const Home = () => {
 
-    const [img, setImg] = useState([])
+  const [img, setImg] = useState([])
   const [imgErrorMessage, setImgErrorMessage] = useState(null);
 
   const [namePriceList, setnamePriceList] = useState([]);
@@ -23,14 +23,17 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-
   const location = useLocation();
+  
   useEffect(()=> {
     console.log(location);
     if (location.state) {
+      setImg(location.state.img)
       setnamePriceList(location.state.menuList)
       setBudget(location.state.budget)
       setTime(location.state.time)
+      setIsMenuSelected(location.state.isMenuChecked)
+      setIsMenualMenuSelected(location.state.isMenualMenuChecked)
       window.history.replaceState({}, document.title)
     }
   }, [location])
@@ -52,7 +55,7 @@ const Home = () => {
         setListError(false);
       }
     }
-  }, [namePriceList]);
+  }, [namePriceList, listError]);
 
 
 
@@ -65,7 +68,7 @@ const Home = () => {
         setImgErrorMessage(false);
       }
     }
-  }, [img]);
+  }, [img,imgErrorMessage]);
 
 
 
@@ -112,10 +115,10 @@ const Home = () => {
     console.log('formData',formData)
     
     if (formData.menuList && formData.budget && formData.time) {
-        navigate('/details', {state: {menuList:namePriceList, budget:budgetData, time: timeData, isChecked: isMenualMenuSelected}});
+        navigate('/details', {state: {menuList:namePriceList, budget:budgetData, time: timeData, isMenualMenuChecked: isMenualMenuSelected}});
       }
       if (formData.img && formData.budget && formData.time) {
-        navigate('/details', {state: {img:img, budget:budgetData, time: timeData,  isChecked: isMenuSelected}});
+        navigate('/details', {state: {img:img, budget:budgetData, time: timeData,  isMenuChecked: isMenuSelected}});
       }
   };
 
@@ -123,9 +126,12 @@ const Home = () => {
     <div className="Container">
         <div className="App">
           <h1> Create Your Treat</h1>
-          <MenuCreate setIsMenuSelected={setIsMenuSelected}
+          <MenuCreate 
+          isMenuSelected={isMenuSelected}
+          setIsMenuSelected={setIsMenuSelected}
             setImg={setImg}
-            setErrorMessage={setImgErrorMessage} />
+            setErrorMessage={setImgErrorMessage}
+            />
           {
             imgErrorMessage &&
             <div className="error" style={{ color: 'red', marginTop: '10px' }}> Upload Img </div>
@@ -133,6 +139,7 @@ const Home = () => {
           <ManualMenu
             setnamePriceList={setnamePriceList}
             namePriceList={namePriceList}
+            isMenualMenuSelected={isMenualMenuSelected}
             setIsMenualMenuSelected={setIsMenualMenuSelected}
           />
 

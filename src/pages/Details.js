@@ -8,13 +8,15 @@ const Details = () => {
     const [fullScreen, setFullScreen] = useState(false);
 
     const handleBackButton = () => {
-        navigator('/', {state: location.state});
+        navigator('/', {state:{...location.state}});
     }
 
     const toggleFullScreen = () => {
         setFullScreen(!fullScreen);
     }
 
+    console.log('location.state: ', location.state);
+  console.log('location.state.img: ', location.state.img);
   return (
     <div className="details-container mt-3 mb-3">
         <header>

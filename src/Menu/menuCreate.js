@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
-export default function MenuCreate( {setImg, setIsMenuSelected, setErrorMessage} ) {
+export default function MenuCreate( {setImg, setIsMenuSelected, setErrorMessage, isMenuSelected} ) {
   const [isShow, setIsShow] = useState(false);
   const [imgURL, setImgURL] = useState("");
+
+  useEffect(()=>{
+    if(isMenuSelected){
+      setIsShow(true)
+    }
+  },[isMenuSelected])
 
   const handleShow = (e) => {
     setIsShow(e.target.checked)
@@ -32,6 +38,7 @@ export default function MenuCreate( {setImg, setIsMenuSelected, setErrorMessage}
             value="Menu"
             id="Menu"
             onChange={handleShow}
+            checked={isShow}
           />
           <label className="checkbox " htmlFor="Menu">
             Menu
