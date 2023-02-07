@@ -55,7 +55,7 @@ const Home = () => {
         setListError(false);
       }
     }
-  }, [namePriceList, listError]);
+  }, [namePriceList]);
 
 
 
@@ -68,7 +68,7 @@ const Home = () => {
         setImgErrorMessage(false);
       }
     }
-  }, [img,imgErrorMessage]);
+  }, [img]);
 
 
 
@@ -113,12 +113,14 @@ const Home = () => {
       formData.menuList = namePriceList
     }
     console.log('formData',formData)
+
     
-    if (formData.menuList && formData.budget && formData.time) {
+    if (formData.img?.length && formData.budget && formData.time) {
+      navigate('/details', {state: {img:img, budget:budgetData, time: timeData,  isMenuChecked: isMenuSelected}});
+    }
+    
+    if (formData.menuList.length && formData.budget && formData.time) {
         navigate('/details', {state: {menuList:namePriceList, budget:budgetData, time: timeData, isMenualMenuChecked: isMenualMenuSelected}});
-      }
-      if (formData.img && formData.budget && formData.time) {
-        navigate('/details', {state: {img:img, budget:budgetData, time: timeData,  isMenuChecked: isMenuSelected}});
       }
   };
 
@@ -129,6 +131,7 @@ const Home = () => {
           <MenuCreate 
           isMenuSelected={isMenuSelected}
           setIsMenuSelected={setIsMenuSelected}
+          img={img}
             setImg={setImg}
             setErrorMessage={setImgErrorMessage}
             />

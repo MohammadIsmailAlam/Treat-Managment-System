@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { TiDelete } from "react-icons/ti";
 
 export default function ManualMenu({
   setnamePriceList,
   namePriceList,
   setIsMenualMenuSelected,
-  isMenualMenuSelected,
+  isMenualMenuSelected
 }) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -140,7 +141,8 @@ export default function ManualMenu({
                       });
                     }}
                   >
-                    x
+                    <TiDelete/>
+
                   </button>
                 </li>
               );

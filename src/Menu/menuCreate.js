@@ -1,15 +1,23 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
-export default function MenuCreate( {setImg, setIsMenuSelected, setErrorMessage, isMenuSelected} ) {
+export default function MenuCreate( {img, setImg, setIsMenuSelected, setErrorMessage, isMenuSelected} ) {
   const [isShow, setIsShow] = useState(false);
   const [imgURL, setImgURL] = useState("");
-
+  const location = useLocation();
   useEffect(()=>{
     if(isMenuSelected){
       setIsShow(true)
     }
   },[isMenuSelected])
+
+  useEffect(() => {
+    if (img) {
+      setImgURL(img);
+    }
+  }, [img]);
+  
 
   const handleShow = (e) => {
     setIsShow(e.target.checked)
@@ -21,9 +29,10 @@ export default function MenuCreate( {setImg, setIsMenuSelected, setErrorMessage,
       setErrorMessage(true);
     } else {
       setImg(URL.createObjectURL(e.target.files[0]))
-      setImgURL(URL.createObjectURL(e.target.files[0]));
     }
   };
+  
+
 
   return (
     <div className="menu_selection">
@@ -50,11 +59,10 @@ export default function MenuCreate( {setImg, setIsMenuSelected, setErrorMessage,
           <div className="img">
               <input
                 type="file"
-                multiple
                 accept="image/jpeg, image/png, image/jpg"
                 onChange={handleImageUpload}
               />
-              {imgURL && <img src={imgURL} alt="Selected-" />}
+              {imgURL && <img src={imgURL} alt="" />}
           </div>
         }
       </ul>
