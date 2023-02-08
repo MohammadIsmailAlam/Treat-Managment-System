@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 
-export default function MenuCreate( {img, setImg, setIsMenuSelected, setErrorMessage, isMenuSelected} ) {
+export default function MenuCreate( { img, setImg, setIsMenuSelected, setErrorMessage, isMenuSelected }) {
   const [isShow, setIsShow] = useState(false);
   const [imgURL, setImgURL] = useState("");
-  const location = useLocation();
+
   useEffect(()=>{
     if(isMenuSelected){
       setIsShow(true)
@@ -33,10 +32,9 @@ export default function MenuCreate( {img, setImg, setIsMenuSelected, setErrorMes
   };
   
 
-
   return (
     <div className="menu_selection">
-      <h3>Menu Create Options</h3>
+      {/* <h3>Menu Create Options</h3> */}
         <span className="of_notice">Choose Menu creation option</span>
       <ul className="check_box">
         <li>

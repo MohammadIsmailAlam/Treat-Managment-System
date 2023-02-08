@@ -70,8 +70,6 @@ const Home = () => {
     }
   }, [img]);
 
-
-
   const handleSubmit = (e) => {
 
     if (isMenuSelected && img.length === 0) {
@@ -114,7 +112,6 @@ const Home = () => {
     }
     console.log('formData',formData)
 
-    
     if (formData.img?.length && formData.budget && formData.time) {
       navigate('/details', {state: {img:img, budget:budgetData, time: timeData,  isMenuChecked: isMenuSelected}});
     }
@@ -127,7 +124,7 @@ const Home = () => {
   return (
     <div className="Container">
         <div className="App">
-          <h1> Create Your Treat</h1>
+          {/* <h1> Create Your Treat</h1> */}
           <MenuCreate 
           isMenuSelected={isMenuSelected}
           setIsMenuSelected={setIsMenuSelected}

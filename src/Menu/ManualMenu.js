@@ -1,13 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { TiDelete } from "react-icons/ti";
+import { MdDeleteForever } from "react-icons/md";
 
-export default function ManualMenu({
-  setnamePriceList,
-  namePriceList,
-  setIsMenualMenuSelected,
-  isMenualMenuSelected
-}) {
+export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenualMenuSelected, isMenualMenuSelected }) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [isShow, setIsShow] = useState(false);
@@ -126,12 +121,12 @@ export default function ManualMenu({
 
         {namePriceList && namePriceList.length > 0 && (
           <ol>
-            {namePriceList.map((item, index) => {
+            {namePriceList?.map((item, index) => {
               return (
                 <li key={index}>
                   {item.name} --- {item.price}
                   <button
-                    style={{ borderRadius: "15px", marginLeft: "10px" }}
+                    style={{ position: "absolute",borderRadius: "15px", marginLeft: "10px", borderRadius: "10px", border: "none" }}
                     onClick={() => {
                       // console.log(index);
                       setnamePriceList((prev) => {
@@ -141,7 +136,7 @@ export default function ManualMenu({
                       });
                     }}
                   >
-                    <TiDelete/>
+                    <MdDeleteForever/>
 
                   </button>
                 </li>
