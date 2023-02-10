@@ -24,7 +24,9 @@ export default function Landing() {
 
     //Delete
     const handleDelete = (id) => {
-        fetch(`http://localhost:3001/treats/${id}`, {method: 'DELETE'})
+        fetch(`http://localhost:3001/treats/${id}`, {
+            method: 'DELETE'
+        })
             .then(response => response.json())
             .then(() => {
                 setData(data.filter(data => data._id !== id));
@@ -38,7 +40,7 @@ export default function Landing() {
 
     return (
         <>
-            <div>
+            <div className="plus">
                 <button onClick={handleOnHome}> + </button>
             </div>
 

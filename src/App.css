@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 180px;
 }
 
 .App-logo {
@@ -36,6 +36,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+body {
+    width: -webkit-fill-available;
 }
 
 img {
@@ -154,4 +158,9 @@ p {
 svg {
   height: 26px;
   width: 20px;
+}
+.plus {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
 }

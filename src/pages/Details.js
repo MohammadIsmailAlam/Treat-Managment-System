@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Details = () => {
   const location = useLocation();
@@ -9,6 +9,25 @@ const Details = () => {
 
   const handleBackButton = () => {
     navigator("/Home", { state: { ...location.state } });
+  };
+
+  const handleSubmit = (e) => {
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+
+        "manualMenuList": location.state?.menuList,
+        "budgetLimitPerPerson": location.state?.budget,
+        "timeLimit": location.state?.time
+      })
+    };
+    fetch("http://localhost:3001/treats", requestOptions)
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+
+      navigator("/")
   };
 
   const toggleFullScreen = () => {
@@ -32,8 +51,11 @@ const Details = () => {
           <FaArrowLeft />
         </button>
       </header>
+
       <h2>Details:</h2>
-      {!location.state?.img && (
+
+      {
+      !location.state?.img && (
         <table>
           <thead>
             <tr>
@@ -53,6 +75,7 @@ const Details = () => {
           </tbody>
         </table>
       )}
+
       <img
         className={fullScreen ? "fullScreen" : ""}
         src={location.state?.img}
@@ -76,7 +99,12 @@ const Details = () => {
       />
 
       <p>Budget Limit: {location.state?.budget}</p>
+
       <p>Time Limit: {location.state?.time}</p>
+
+      <button type="submit" onClick={handleSubmit}>
+        Submit
+      </button>
     </div>
   );
 };
