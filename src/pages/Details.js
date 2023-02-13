@@ -17,7 +17,8 @@ const Details = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-
+        
+        "menuImage": location.state?.img,
         "manualMenuList": location.state?.menuList,
         "budgetLimitPerPerson": location.state?.budget,
         "timeLimit": location.state?.time
@@ -26,7 +27,7 @@ const Details = () => {
     fetch("http://localhost:3001/treats", requestOptions)
       .then((response) => response.json())
       .then((data) => console.log(data))
-
+  
       navigator("/")
   };
 
