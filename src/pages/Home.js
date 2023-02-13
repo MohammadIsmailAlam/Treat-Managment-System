@@ -116,7 +116,7 @@ const Home = () => {
     //   navigate('/details', {state: {img:img, budget:budgetData, time: timeData,  isMenuChecked: isMenuSelected}});
     // }
     
-    if (img && namePriceList && budgetData && timeData) {
+    if ((img.length || namePriceList.length > 0) && budgetData && timeData) {
         navigate('/details', {state: {img: img, menuList:namePriceList, budget:budgetData, time: timeData, isMenualMenuChecked: isMenualMenuSelected ,  isMenuChecked: isMenuSelected}});
       }
   };
