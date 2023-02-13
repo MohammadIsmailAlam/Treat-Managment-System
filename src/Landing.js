@@ -1,13 +1,17 @@
 import { Button, Modal } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {MdDeleteForever} from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md";
 
 export default function Landing() {
     const [show, setShow] = useState(false);
+    const [id, setId] = useState()
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = (_id) => {
+        setShow(true);
+        setId(_id);
+     };
 
     const [data, setData] = useState([]);
     const navigate = useNavigate();
@@ -22,16 +26,18 @@ export default function Landing() {
             });
     }, []);
 
+
     //Delete
-    const handleDelete = (id) => {
+    const handleDelete = () => {
         fetch(`http://localhost:3001/treats/${id}`, {
-            method: 'DELETE'
+           method: 'DELETE',
         })
-            .then(response => response.json())
-            .then(() => {
-                setData(data.filter(data => data._id !== id));
-            });
-    };
+           .then(response => response.json())
+           .then(() => {
+              setData(data.filter(dataItem => dataItem._id !== id));
+           });
+     };
+     
 
 
     function handleOnHome() {
@@ -57,14 +63,15 @@ export default function Landing() {
                             position: "relative",
                         }}
                     >
-                        <button type="button" className="close" aria-label="Close" variant="primary" onClick={handleShow} style={{
+                        <button type="button" className="close" aria-label="Close" variant="primary" onClick={() => handleShow(data._id)} style={{
                             position: "absolute",
                             top: "5px",
                             right: "5px",
                             borderRadius: "10px",
                             border: "none"
                         }}>
-                            <MdDeleteForever/>
+
+                            <MdDeleteForever />
                         </button>
 
                         <Modal show={show} onHide={handleClose}>
