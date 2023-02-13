@@ -17,7 +17,7 @@ const Details = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        
+
         "menuImage": location.state?.img,
         "manualMenuList": location.state?.menuList,
         "budgetLimitPerPerson": location.state?.budget,
@@ -27,8 +27,8 @@ const Details = () => {
     fetch("http://localhost:3001/treats", requestOptions)
       .then((response) => response.json())
       .then((data) => console.log(data))
-  
-      navigator("/")
+
+    navigator("/")
   };
 
   const toggleFullScreen = () => {
@@ -55,28 +55,6 @@ const Details = () => {
 
       <h2>Details:</h2>
 
-      {
-      !location.state?.img && (
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {location.state?.menuList?.map((item, index) => {
-              return (
-                <tr key={index}>
-                  <td>{item?.name}</td>
-                  <td>{item?.price}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      )}
-
       <img
         className={fullScreen ? "fullScreen" : ""}
         src={location.state?.img}
@@ -98,6 +76,28 @@ const Details = () => {
           overflow: fullScreen ? "auto" : "hidden",
         }}
       />
+
+      {
+        location.state?.isMenualMenuChecked && (
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {location.state?.menuList?.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{item?.name}</td>
+                    <td>{item?.price}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
 
       <p>Budget Limit: {location.state?.budget}</p>
 

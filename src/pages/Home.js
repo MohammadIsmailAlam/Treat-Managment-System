@@ -112,12 +112,12 @@ const Home = () => {
     }
     console.log('formData',formData)
 
-    if (formData.img?.length && formData.budget && formData.time) {
-      navigate('/details', {state: {img:img, budget:budgetData, time: timeData,  isMenuChecked: isMenuSelected}});
-    }
+    // if (formData.img?.length && formData.budget && formData.time) {
+    //   navigate('/details', {state: {img:img, budget:budgetData, time: timeData,  isMenuChecked: isMenuSelected}});
+    // }
     
-    if (formData.menuList.length && formData.budget && formData.time) {
-        navigate('/details', {state: {menuList:namePriceList, budget:budgetData, time: timeData, isMenualMenuChecked: isMenualMenuSelected}});
+    if (img && namePriceList && budgetData && timeData) {
+        navigate('/details', {state: {img: img, menuList:namePriceList, budget:budgetData, time: timeData, isMenualMenuChecked: isMenualMenuSelected ,  isMenuChecked: isMenuSelected}});
       }
   };
 

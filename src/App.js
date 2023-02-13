@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import "./App.css";
 import Details from "./pages/Details";
 import Landing from "./Landing";
+import Order from "./pages/Order";
 
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
         <Routes>
         <Route exact path="/" element={<Landing/>}/>
         <Route exact path="/home" element={<Home/>}/>
-          <Route exact path="/details" element={<Details/>}/>
+        <Route exact path="/details" element={<Details/>}/>
+        <Route exact path="/order" element= {<Order/>}/>
         </Routes>
       </Router>
     </>

@@ -24,6 +24,7 @@ export default function MenuCreate( { img, setImg, setIsMenuSelected, setErrorMe
   };
 
   const handleImageUpload = (e) => {
+    console.log(img);
     if (!e.target.files[0]) {
       setErrorMessage(true);
     } else {
