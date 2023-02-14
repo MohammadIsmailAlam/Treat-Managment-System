@@ -75,12 +75,12 @@ background-color: 6A1B1B;
   position: relative;
 }
 
-ul.check_box {
+/* ul.check_box {
   list-style-type: none;
-}
+} */
 li {
   padding-top: 10px;
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
   list-style-type: none;
 }
 .input-group {
@@ -163,4 +163,21 @@ svg {
   margin-top: 10px;
   display: flex;
   justify-content: center;
+}
+
+/* order */
+/* .checkboxes {
+  text-align:center;
+}
+
+.checkboxes input{
+  margin: 0px 0px 0px 0px;
+}
+
+.checkboxes label{
+  margin: 0px 20px 0px 3px;
+  
+} */
+input[type="checkbox"] {
+  margin-right: 10px;
 }
