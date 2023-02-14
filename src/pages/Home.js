@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from "react";
+import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import Limits from "../Menu/Limits";
 import ManualMenu from "../Menu/ManualMenu";
@@ -70,6 +71,10 @@ const Home = () => {
     }
   }, [img]);
 
+  const handleBackButton = () => {
+    navigate("/");
+  };
+
   const handleSubmit = (e) => {
 
     if (isMenuSelected && img.length === 0) {
@@ -124,6 +129,15 @@ const Home = () => {
   return (
     <div className="Container">
         <div className="App">
+
+        <header>
+
+        <button className="goBack" onClick={handleBackButton}>
+          <FaArrowLeft />
+        </button>
+
+      </header>
+
           {/* <h1> Create Your Treat</h1> */}
           <MenuCreate 
           isMenuSelected={isMenuSelected}
