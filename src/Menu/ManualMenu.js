@@ -126,7 +126,7 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
                 <li key={index}>
                   {item.name} --- {item.price}
                   <button
-                    style={{ position: "absolute",borderRadius: "15px", marginLeft: "10px", borderRadius: "10px", border: "none" }}
+                    style={{ position: "absolute",borderRadius: "15px", marginLeft: "10px", border: "none" }}
                     onClick={() => {
                       // console.log(index);
                       setnamePriceList((prev) => {
