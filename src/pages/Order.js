@@ -1,26 +1,58 @@
 import React, { useEffect, useState } from 'react'
 
 export default function Order() {
-    const [data, setData] = useState([]);
+    const [values, setValues] = useState([]);
+    const [selectedItem, setSelectedItem] = useState([]);
     useEffect(() => {
         fetch("http://localhost:3001/treats")
             .then((response) => response.json())
             .then((data) => {
-                setData(data);
-                console.log(data);
+                setValues(data[0]);
+                console.log(data[0]);
             });
     }, []);
+
+    const handleChecked = (e) => {
+        const id = e.target.value;
+        setSelectedItem(prevSelectedItems => {
+            if (e.target.checked) {
+                return [...prevSelectedItems, id];
+            } else {
+                return prevSelectedItems.filter(item => item !== id);
+            }
+        });
+        console.log("selected");
+    };
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (selectedItem.length > 0 && values.manualMenuList) {
+            const selectedItemsData = values.manualMenuList.filter(item => selectedItem.includes(item._id));
+            if (selectedItemsData.length > 0) {
+                alert(`Selected items: ${selectedItemsData.map(item => `${item.name}, ${item._id}`)}`);
+            }
+        }
+    };
+
     return (
         <div className="container">
             <div className="row">
-                <div className="">
-                    <div className="title" style={{ textAlign:"center", marginTop: "10px"}}>
+                <div className="ordersSeelection">
+                    <header style={{textAlign: "center", marginTop: "10px"}}>
                         Order Form Here....
+                    </header>
+                    <div className="title" style={{
+                        textAlign: "center",
+                        marginTop: "10px",
+                        backgroundColor: "lightblue",
+                        fontSize: "24px"
+                    }}>
+                        <p style={{fontFamily: "monospace"}}>
+                            Budget: {values.budgetLimitPerPerson} Time: {values.timeLimit}</p>
                     </div>
-                    <form className='order'>
-                        {data.slice(0, 1).map((_data, index) => (
-                            <li
-                                key={index}
+                    <form className='order' style={{ display: "block" }} onSubmit={handleSubmit}>
+                        {values?.manualMenuList?.map((_data, index) => (
+                            <li key={index}
                                 style={{
                                     border: "1px solid grey",
                                     borderRadius: "12px",
@@ -29,18 +61,21 @@ export default function Order() {
                                     background: "aliceblue",
                                     position: "relative"
                                 }}
-                            />
+                            >
+                                <div className='checkboxes'>
+                                    <label>
+                                        <input type="checkbox" name="selectedItems" value={_data._id} onChange={handleChecked} />
+                                        {_data.name} ---- {_data.price}
+                                    </label>
+                                </div>
+                            </li>
                         ))}
-
                         <div className='input' style={{
                             display: "flex",
                             justifyContent: "center",
                             padding: "2em",
                             margin: "2em"
                         }}>
-
-                            <input type="text" className='menuName' placeholder=' Enter Name ' style={{ border: "1px solid grey" }} />
-                            <input type="number" className='quantity' placeholder=' Quantity ' style={{ border: "1px solid grey" }} />
                             <button type="submit" style={{
                                 border: "1px solid grey",
                                 borderRadius: "12px",
@@ -50,7 +85,6 @@ export default function Order() {
                             }}>
                                 Submit
                             </button>
-
                         </div>
                     </form>
                 </div>
