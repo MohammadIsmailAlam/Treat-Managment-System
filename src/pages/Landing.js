@@ -2,7 +2,6 @@ import { Button, Modal } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
-
 export default function Landing() {
     const [show, setShow] = useState(false);
     const [id, setId] = useState()
@@ -24,13 +23,14 @@ export default function Landing() {
             .then((data) => {
                 setData(data);
                 console.log(data);
+                console.log(typeof data);
             });
     }, []);
 
 
     //Delete
     const handleDelete = () => {
-        fetch(`http://tms-db-bf63c-default-rtdb.firebaseio.com/treats/${id}.json`, {
+        fetch(`http://treat-management-system-default-rtdb.firebaseio.com/treats/${id}.json`, {
            method: 'DELETE',
         })
            .then(response => response.json())
@@ -50,6 +50,8 @@ export default function Landing() {
             </div>
 
             <div>
+                {console.log(data)}
+
                 {Object.values(data).map((data, index) => (
                     
                     <li
