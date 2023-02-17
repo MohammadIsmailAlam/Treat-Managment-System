@@ -24,9 +24,12 @@ const Details = () => {
         "timeLimit": location.state?.time
       })
     };
-    fetch("http://localhost:3001/treats", requestOptions)
+    fetch("https://treat-management-system-default-rtdb.firebaseio.com//treats.json", requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data)
+        console.log(typeof data);
+      })
 
     navigator("/")
   };
