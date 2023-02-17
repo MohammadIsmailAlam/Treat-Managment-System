@@ -95,6 +95,7 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
                   <input
                     type="number"
                     id="price"
+                    min={0}
                     value={price}
                     onChange={(e) => {
                       setPrice(e.target.value);

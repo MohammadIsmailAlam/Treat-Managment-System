@@ -7,7 +7,7 @@ export default function Limits( { budgetData, setbudget, timeData ,settime, budg
     <div className='limits'>
       <div className='budget mb-3'>
         <label htmlFor="budge floatingInputt"> Budget Limit</label> 
-        <input type="number" id='budget' value={budgetData} className='form-control' 
+        <input type="number" id='budget' min={0} value={budgetData} className='form-control' 
         onChange={(event) => { 
           event.preventDefault();
           setbudget(event.target.value)
