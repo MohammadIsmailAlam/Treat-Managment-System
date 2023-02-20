@@ -17,7 +17,6 @@ const Details = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        "id": Math.random().toString(36).slice(2),
         "menuImage": location.state?.img,
         "manualMenuList": location.state?.menuList,
         "budgetLimitPerPerson": location.state?.budget,
