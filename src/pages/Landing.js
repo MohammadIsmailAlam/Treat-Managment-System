@@ -3,41 +3,54 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
 export default function Landing() {
+
     const [show, setShow] = useState(false);
     const [id, setId] = useState()
 
     const handleClose = () => setShow(false);
-    const handleShow = (_id) => {
+
+    const handleShow = (id) => {
         setShow(true);
-        setId(_id);
-     };
+        setId(id);
+    };
 
     const [data, setData] = useState([]);
     const navigate = useNavigate();
 
     //Get
     useEffect(() => {
-        //     https://treat-management-system-default-rtdb.firebaseio.com//treats.json
-        fetch("http://treat-management-system-default-rtdb.firebaseio.com/treats.json", {})
+        //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json
+        fetch("https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json")
             .then((response) => response.json())
             .then((data) => {
                 setData(data);
-                console.log(data);
-                console.log(typeof data);
             });
     }, []);
 
-
     //Delete
-    const handleDelete = () => {
-        fetch(`http://treat-management-system-default-rtdb.firebaseio.com/treats/${id}.json`, {
-           method: 'DELETE',
+    // const handleDelete = (id) => {
+    //     fetch(
+    //         `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${id}.json`, {
+
+    //         method: "DELETE",
+    //         }
+    //     )
+    //         .then((response) => response.json())
+    //         .then(() => {
+    //             setData(Object.values(data).filter((dataItem) => dataItem.id !== id));
+    //         });
+    // };
+
+    const handleDelete = (id) => {
+        fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${id}.json`, {
+          method: "DELETE",
         })
-           .then(response => response.json())
-           .then(() => {
-              setData(data.filter(dataItem => dataItem._id !== id));
-           });
-     };
+          .then(() => {
+            const newData = { ...data };
+            delete newData[id];
+            setData(newData);
+          });
+      };
 
     function handleOnHome() {
         navigate("/Home");
@@ -50,10 +63,7 @@ export default function Landing() {
             </div>
 
             <div>
-                {console.log(data)}
-
-                {Object.values(data).map((data, index) => (
-                    
+                {Object.entries(data).map(([key, value], index) => (
                     <li
                         key={index}
                         style={{
@@ -65,37 +75,36 @@ export default function Landing() {
                             position: "relative",
                         }}
                     >
-                        <button type="button" className="close" aria-label="Close" variant="primary" onClick={() => handleShow(data._id)} style={{
-                            position: "absolute",
-                            top: "5px",
-                            right: "5px",
-                            borderRadius: "10px",
-                            border: "none"
-                        }}>
-
+                        <button type="button" className="close" aria-label="Close" variant="primary" onClick={() => handleShow(key)}
+                            style={{
+                                position: "absolute",
+                                top: "5px",
+                                right: "5px",
+                                borderRadius: "10px",
+                                border: "none",
+                            }}
+                        >
                             <MdDeleteForever />
+
                         </button>
 
                         <Modal show={show} onHide={handleClose}>
 
-                            <Modal.Body>
-                                Are You Sure You Want To Delete It..!!!
-                            </Modal.Body>
+                            <Modal.Body>Are You Sure You Want To Delete It..!!!</Modal.Body>
 
                             <Modal.Footer>
-
-                                <Button variant="primary" onClick={() => { handleDelete(data._id); handleClose(); }}>
+                                <Button variant="primary" onClick={() => { handleDelete(id); handleClose(); }}>
                                     Ok
                                 </Button>
-
                                 <Button variant="secondary" onClick={handleClose}>
                                     Close
                                 </Button>
-
                             </Modal.Footer>
 
                         </Modal>
-                        Budget: {data.budgetLimitPerPerson} ----- Time:{data.timeLimit}
+
+                        Budget: {value.budgetLimitPerPerson} ----- Time:{value.timeLimit}
+
                         <table>
                             <thead>
                                 <tr>
@@ -103,8 +112,10 @@ export default function Landing() {
                                     <th>Price</th>
                                 </tr>
                             </thead>
+
                             <tbody>
-                                {data.manualMenuList?.map((item, index) => {
+
+                                {value.manualMenuList?.map((item, index) => {
                                     return (
                                         <tr key={index}>
                                             <td>{item?.name}</td>
