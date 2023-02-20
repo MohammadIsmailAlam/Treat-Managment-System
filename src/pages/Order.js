@@ -8,11 +8,12 @@ export default function Order() {
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const tradeId = searchParams.get('tradeId');
+    const treatId = searchParams.get('treatId');
 
-    console.log(tradeId);
+    console.log(treatId);
+
     // useEffect(() => {
-    //     alert(tradeId)
+    //     alert(treatId)
     // }, [])
 
     const handleChecked = (e) => {
@@ -28,7 +29,7 @@ export default function Order() {
     };
 
     useEffect(() => {
-        fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${tradeId}.json`)
+        fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${"-NOiUZB5zdz2hZuFlrz7"}.json`)
             .then((response) => response.json())
             .then((data) => {
                 setValues(data);
@@ -56,9 +57,9 @@ export default function Order() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (selectedItem.length > 0 && values.manualMenuList) {
-            const selectedItemsData = values.manualMenuList.filter(item => selectedItem.includes(item._id));
+            const selectedItemsData = values.manualMenuList.filter(item => selectedItem.includes(item.id));
             if (selectedItemsData.length > 0) {
-                console.log(`Selected items: ${selectedItemsData.map(item => `${item.name} ${item._id}`)}`);
+                console.log(`Selected items: ${selectedItemsData.map(item => `${item.name} ${item.id}`)}`);
             }
         }
     };
@@ -85,7 +86,7 @@ export default function Order() {
                     </div>
 
                     <form className='order' style={{ display: "block" }} onSubmit={handleSubmit}>
-                        {values?.manualMenuList?.map((_data, index) => (
+                        {values?.manualMenuList?.map((data, index) => (
                             <li key={index}
                                 style={{
                                     border: "1px solid grey",
@@ -98,8 +99,8 @@ export default function Order() {
                             >
                                 <div className='checkboxes'>
                                     <label>
-                                        <input type="checkbox" name="selectedItems" value={_data._id} onChange={handleChecked} />
-                                        {_data.name} ---- {_data.price}
+                                        <input type="checkbox" name="selectedItems" value={data.id} onChange={handleChecked} />
+                                        {data.name} ---- {data.price}
                                     </label>
                                 </div>
                             </li>
