@@ -55,12 +55,9 @@ img {
 form {
   display: inline-flex;
 }
-button.add-btn {
-  border-radius: 15px;
-  margin-left: 20px;
-  /* height: 24px; */
-  height: 30px;
-  width: 79px;
+button.btn.btn-primary.add{
+  margin-top: 24px;
+  margin-left: 22px;
 }
 
 label {
@@ -68,6 +65,11 @@ label {
   margin-right: 5px;
 }
 .cointainer {
+  display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+height: 100vh;
 background-color: 6A1B1B;
 }
 
