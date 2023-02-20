@@ -17,14 +17,15 @@ const Details = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-
+        "id": Math.random().toString(36).slice(2),
         "menuImage": location.state?.img,
         "manualMenuList": location.state?.menuList,
         "budgetLimitPerPerson": location.state?.budget,
         "timeLimit": location.state?.time
       })
     };
-    fetch("https://treat-management-system-default-rtdb.firebaseio.com//treats.json", requestOptions)
+    //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/
+    fetch("https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
