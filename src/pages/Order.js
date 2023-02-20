@@ -28,7 +28,7 @@ export default function Order() {
     };
 
     useEffect(() => {
-        fetch(`http://treat-management-system-default-rtdb.firebaseio.com/treats/${tradeId}`)
+        fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${tradeId}.json`)
             .then((response) => response.json())
             .then((data) => {
                 setValues(data);
