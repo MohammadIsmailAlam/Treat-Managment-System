@@ -28,6 +28,7 @@ export default function Order() {
         console.log("selected");
     };
 
+    // GET
     useEffect(() => {
         fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${"-NOiUZB5zdz2hZuFlrz7"}.json`)
             .then((response) => response.json())
