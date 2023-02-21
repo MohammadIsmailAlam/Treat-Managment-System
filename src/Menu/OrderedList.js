@@ -17,14 +17,27 @@ export default function OrderedList() {
 
   return (
     <div>
-      <h2>OrderedList</h2>
+        
+      <h2 className='orderList'>
+        OrderedList
+        </h2>
+
       {list && (
         <ul>
           {Object.values(list).map((item, index) => (
-            <li key={index}>
-            {`${item.itemsName} ---- ${item.name}`}
-          </li>
-          
+            <li
+              key={index}
+              style={{
+                border: "1px solid grey",
+                borderRadius: "12px",
+                padding: "2em",
+                margin: "2em",
+                background: "aliceblue",
+                position: "relative",
+              }}
+            >
+              <span>{`${item.itemsName} ---- ${item.name}`}</span>
+            </li>
           ))}
         </ul>
       )}

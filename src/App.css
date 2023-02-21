@@ -183,3 +183,8 @@ svg {
 input[type="checkbox"] {
   margin-right: 10px;
 }
+
+h2.orderList {
+  display: flex;
+  justify-content: center;
+}
