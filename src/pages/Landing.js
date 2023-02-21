@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
 import { BiCopy } from "react-icons/bi";
+import { TiTick } from "react-icons/ti";
 
 export default function Landing() {
     const [show, setShow] = useState(false);
@@ -31,22 +32,29 @@ export default function Landing() {
     //Delete
     const handleDelete = (id) => {
         fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${id}.json`, {
-          method: "DELETE",
+            method: "DELETE",
         })
-          .then(() => {
-            const newData = { ...data };
-            delete newData[id];
-            setData(newData);
-          });
-      };
+            .then(() => {
+                const newData = { ...data };
+                delete newData[id];
+                setData(newData);
+            });
+    };
 
     function handleOnHome() {
         navigate("/Home");
     }
 
-    function handleCopy(id) {
+    const [isCopied, setIsCopied] = useState(null);
+
+    const handleCopyClick = (id) => {
         navigator.clipboard.writeText(id);
-    }
+        setIsCopied(id);
+
+        setTimeout(() => {
+            setIsCopied(null);
+        }, 3000);
+    };
 
     return (
         <>
@@ -89,17 +97,22 @@ export default function Landing() {
                             className="copy"
                             aria-label="Copy"
                             variant="primary"
-                            onClick={() => handleCopy(key)}
+                            onClick={() => handleCopyClick(key)}
                             style={{
                                 position: "absolute",
                                 top: "5px",
                                 right: "1em",
                                 borderRadius: "10px",
                                 border: "none",
+                                height:"0"
                             }}
                         >
-                            <BiCopy/>
-
+                            <BiCopy />
+                            {isCopied === key && (
+                                <p className="success-message">
+                                    <TiTick />
+                                </p>
+                            )}
                         </button>
 
                         <Modal show={show} onHide={handleClose}>
