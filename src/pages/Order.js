@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 export default function Order() {
     const [values, setValues] = useState("");
@@ -10,15 +10,10 @@ export default function Order() {
     const [nameError, setNameError] = useState(false);
 
     const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const treatId = searchParams.get('treatId');
+    const { treatId } = useParams();
 
     console.log(treatId);
-
-    // useEffect(() => {
-    //     alert(treatId)
-    // }, [])
-
+    
     const handleChecked = (e) => {
         const id = e.target.value;
         setSelectedItem(prevSelectedItems => {
@@ -32,7 +27,7 @@ export default function Order() {
     };
 
     useEffect(() => {
-        fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${"-NOocydJiIx0WfznVXkk"}.json`)
+        fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${treatId}.json`)
             .then((response) => response.json())
             .then((data) => {
                 console.log("data", data);
