@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 
 export default function Order() {
-    const [values, setValues] = useState([]);
+    const [values, setValues] = useState("");
     const [selectedItem, setSelectedItem] = useState([]);
     const [remainingTime, setRemainingTime] = useState(0);
 
@@ -14,6 +14,7 @@ export default function Order() {
     const treatId = searchParams.get('treatId');
 
     console.log(treatId);
+
     // useEffect(() => {
     //     alert(treatId)
     // }, [])
@@ -31,40 +32,53 @@ export default function Order() {
     };
 
     useEffect(() => {
-        fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${"-NOnZBJInj0E063LxeXN"}.json`)
+        fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${"-NOocydJiIx0WfznVXkk"}.json`)
             .then((response) => response.json())
             .then((data) => {
+                console.log("data", data);
                 setValues(data);
-                setRemainingTime(data.timeLimit * 60 * 1000);
-                console.log(data);
+                setRemainingTime(data?.timeLimit * 60 * 1000); // add a check for data before accessing timeLimit
+            })
+            .catch((error) => {
+                console.log("error", error);
             });
     }, []);
+    
+    
 
     useEffect(() => {
         const intervalId = setInterval(() => {
             setRemainingTime(remainingTime - 1000);
         }, 1000);
-        clearInterval(intervalId);
+            clearInterval(intervalId);
     }, [remainingTime]);
 
 
     const formatTime = (time) => {
-        const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
+        const hours = Math.floor( (time/(1000*60*60)) % 24 );
         const minutes = Math.floor(time / 60000);
         const seconds = Math.floor((time % 60000) / 1000);
 
         return `${hours}:${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
     };
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
+    
+        if (!name) { // check if name is empty
+            setNameError(true);
+            return;
+        }
+    
         if (selectedItem.length > 0 && values.manualMenuList) {
             const selectedItemsData = values.manualMenuList.filter(item => selectedItem.includes(item.id));
             if (selectedItemsData.length > 0) {
                 console.log(`Selected items: ${selectedItemsData.map(item => `${item.name} ${item.id}`)}`);
             }
         }
-        
+    
+        console.log("the items are", selectedItem);
         fetch('https://treat-management-system-691e2-default-rtdb.firebaseio.com/order.json', {
             method: 'POST',
             headers: {
@@ -72,7 +86,7 @@ export default function Order() {
             },
             body: JSON.stringify({
                 name: name,
-                items: selectedItem
+                itemsName: selectedItem
             })
         })
             .then(response => response.json())
@@ -82,16 +96,16 @@ export default function Order() {
             .catch(error => {
                 console.error('Error posting data:', error);
             });
-
-    };
+    };    
 
     return (
         <div className="container">
-            <div className="row">
-                <div className="ordersSeelection">
-                    <header style={{ textAlign: "center", marginTop: "10px" }}>
-                        Order Form Here....
-                    </header>
+        <div className="row">
+            <div className="ordersSeelection">
+                <header style={{ textAlign: "center", marginTop: "10px" }}>
+                    Order Form Here....
+                </header>
+                {values && (
                     <div className="title" style={{
                         textAlign: "center",
                         marginTop: "10px",
@@ -101,13 +115,14 @@ export default function Order() {
                         <p style={{ fontFamily: "monospace" }}>
                             Budget: {values.budgetLimitPerPerson}</p>
                     </div>
+                )}
 
                     <div style={{ textAlign: 'center' }}>
                         <p>Time Limit: {formatTime(remainingTime)}</p>
                     </div>
 
                     <form className='order' style={{ display: "block" }} onSubmit={handleSubmit}>
-                        {values?.manualMenuList?.map((_data, index) => (
+                        {values?.manualMenuList?.map((data, index) => (
                             <li key={index}
                                 style={{
                                     border: "1px solid grey",
@@ -120,8 +135,8 @@ export default function Order() {
                             >
                                 <div className='checkboxes'>
                                     <label>
-                                        <input type="checkbox" name="selectedItems" value={_data.id} onChange={handleChecked} />
-                                        {_data.name} ---- {_data.price}
+                                        <input type="checkbox" name="selectedItems" value={data.id} onChange={handleChecked} />
+                                        {data.name} ---- {data.price}
                                     </label>
                                 </div>
                             </li>
