@@ -2,10 +2,11 @@ import { Button, Modal } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
-export default function Landing() {
+import { BiCopy } from "react-icons/bi";
 
+export default function Landing() {
     const [show, setShow] = useState(false);
-    const [id, setId] = useState()
+    const [id, setId] = useState();
 
     const handleClose = () => setShow(false);
 
@@ -28,19 +29,6 @@ export default function Landing() {
     }, []);
 
     //Delete
-    // const handleDelete = (id) => {
-    //     fetch(
-    //         `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${id}.json`, {
-
-    //         method: "DELETE",
-    //         }
-    //     )
-    //         .then((response) => response.json())
-    //         .then(() => {
-    //             setData(Object.values(data).filter((dataItem) => dataItem.id !== id));
-    //         });
-    // };
-
     const handleDelete = (id) => {
         fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${id}.json`, {
           method: "DELETE",
@@ -54,6 +42,10 @@ export default function Landing() {
 
     function handleOnHome() {
         navigate("/Home");
+    }
+
+    function handleCopy(id) {
+        navigator.clipboard.writeText(id);
     }
 
     return (
@@ -75,16 +67,38 @@ export default function Landing() {
                             position: "relative",
                         }}
                     >
-                        <button type="button" className="close" aria-label="Close" variant="primary" onClick={() => handleShow(key)}
+                        <button
+                            type="button"
+                            className="close"
+                            aria-label="Delete"
+                            variant="primary"
+                            onClick={() => handleShow(key)}
                             style={{
                                 position: "absolute",
                                 top: "5px",
-                                right: "5px",
+                                right: "5em",
                                 borderRadius: "10px",
                                 border: "none",
                             }}
                         >
                             <MdDeleteForever />
+                        </button>
+
+                        <button
+                            type="button"
+                            className="copy"
+                            aria-label="Copy"
+                            variant="primary"
+                            onClick={() => handleCopy(key)}
+                            style={{
+                                position: "absolute",
+                                top: "5px",
+                                right: "1em",
+                                borderRadius: "10px",
+                                border: "none",
+                            }}
+                        >
+                            <BiCopy/>
 
                         </button>
 
