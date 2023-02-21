@@ -2,88 +2,89 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 
 export default function Order() {
-    const [values, setValues] = useState([]);
-    const [selectedItem, setSelectedItem] = useState([]);
-    const [remainingTime, setRemainingTime] = useState(0);
+  const [values, setValues] = useState(null);
+  const [selectedItem, setSelectedItem] = useState([]);
+  const [remainingTime, setRemainingTime] = useState(0);
 
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const treatId = searchParams.get('treatId');
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const treatId = searchParams.get('treatId');
 
-    console.log(treatId);
+  console.log(treatId);
 
-    // useEffect(() => {
-    //     alert(treatId)
-    // }, [])
+  const handleChecked = (e) => {
+    const id = e.target.value;
+    setSelectedItem(prevSelectedItems => {
+      if (e.target.checked) {
+        return [...prevSelectedItems, id];
+      } else {
+        return prevSelectedItems.filter(item => item !== id);
+      }
+    });
+    console.log("selected");
+  };
 
-    const handleChecked = (e) => {
-        const id = e.target.value;
-        setSelectedItem(prevSelectedItems => {
-            if (e.target.checked) {
-                return [...prevSelectedItems, id];
-            } else {
-                return prevSelectedItems.filter(item => item !== id);
-            }
-        });
-        console.log("selected");
-    };
-
-    // GET
-    useEffect(() => {
-        fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${"-NOiUZB5zdz2hZuFlrz7"}.json`)
-            .then((response) => response.json())
-            .then((data) => {
-                setValues(data);
+  // GET
+  useEffect(() => {
+    fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${"-NOia1OOI3pAqy8YhVbv"}.json`)
+        .then((response) => response.json())
+        .then((data) => {
+            setValues(data);
+            if (data && data.timeLimit) {
                 setRemainingTime(data.timeLimit * 60 * 1000);
-                console.log(data);
-            });
-    }, []);
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setRemainingTime(remainingTime - 1000);
-        }, 1000);
-            clearInterval(intervalId);
-    }, [remainingTime]);
-
-
-    const formatTime = (time) => {
-        const hours = Math.floor( (time/(1000*60*60)) % 24 );
-        const minutes = Math.floor(time / 60000);
-        const seconds = Math.floor((time % 60000) / 1000);
-
-        return `${hours}:${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (selectedItem.length > 0 && values.manualMenuList) {
-            const selectedItemsData = values.manualMenuList.filter(item => selectedItem.includes(item.id));
-            if (selectedItemsData.length > 0) {
-                console.log(`Selected items: ${selectedItemsData.map(item => `${item.name} ${item.id}`)}`);
             }
-        }
-    };
+            console.log(data);
+        });
+}, []);
 
-    return (
-        <div className="container">
-            <div className="row">
-                <div className="ordersSeelection">
-                    <header style={{ textAlign: "center", marginTop: "10px" }}>
-                        Order Form Here....
-                    </header>
-                    <div className="title" style={{
-                        textAlign: "center",
-                        marginTop: "10px",
-                        backgroundColor: "lightblue",
-                        fontSize: "24px"
-                    }}>
-                        <p style={{ fontFamily: "monospace" }}>
-                            Budget: {values.budgetLimitPerPerson}</p>
-                    </div>
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setRemainingTime(remainingTime - 1000);
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, [remainingTime]);
 
-                    <div style={{ textAlign: 'center' }}>
-                        <p>Time Limit: {formatTime(remainingTime)}</p>
+  const formatTime = (time) => {
+    const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor(time / 60000);
+    const seconds = Math.floor((time % 60000) / 1000);
+    return `${hours}:${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (selectedItem.length > 0 && values.manualMenuList) {
+      const selectedItemsData = values.manualMenuList.filter(item => selectedItem.includes(item.id));
+      if (selectedItemsData.length > 0) {
+        console.log(`Selected items: ${selectedItemsData.map(item => `${item.name} ${item.id}`)}`);
+      }
+    }
+  };
+
+  if (values === null) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="ordersSeelection">
+          <header style={{ textAlign: "center", marginTop: "10px" }}>
+            Order Form Here....
+          </header>
+          <div className="title" style={{
+            textAlign: "center",
+            marginTop: "10px",
+            backgroundColor: "lightblue",
+            fontSize: "24px"
+          }}>
+            <p style={{ fontFamily: "monospace" }}>
+              Budget: {values.budgetLimitPerPerson}</p>
+          </div>
+
+          <div style={{ textAlign: 'center' }}>
+            <p>Time
+ Limit: {formatTime(remainingTime)}</p>
                     </div>
 
                     <form className='order' style={{ display: "block" }} onSubmit={handleSubmit}>
