@@ -46,60 +46,88 @@ export default function Order() {
   //       .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   //   };
 
-  const handleChecked = (e) => {
-    const name = e.target.value;
+const handleChecked = (e, itemName) => {
+  const checked = e.target.checked;
 
-    setSelectedItems((prevSelectedItems) => {
-      if (e.target.checked) {
-        return [...prevSelectedItems, name];
-      } else {
-        return prevSelectedItems.filter((item) => item !== name);
-      }
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!name) {
-      setNameError(true);
-      return;
+  setSelectedItems((prevSelectedItems) => {
+    if (checked) {
+      return [...prevSelectedItems, itemName];
+    } else {
+      return prevSelectedItems.filter((item) => item !== itemName);
     }
+  });
+};
 
-    const selectedItemsData = values?.manualMenuList?.filter((item) =>
-      selectedItems.includes(item.name)
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  if (!name) {
+    setNameError(true);
+    return;
+  }
+
+  const selectedItemsData = values?.manualMenuList?.filter((item) =>
+    selectedItems.includes(item.name)
+  );
+
+  if (selectedItemsData.length > 0) {
+    console.log(
+      `Selected items: ${selectedItemsData.map(
+        (item) => `${item.name} ${item.price}`
+      )}`
     );
+  }
 
-    if (selectedItemsData.length > 0) {
-      console.log(
-        `Selected items: ${selectedItemsData.map(
-          (item) => `${item.name} ${item.price}`
-        )}`
-      );
-    }
-
-    console.log("the items are", selectedItems);
-
+  console.log("the items are", selectedItems);
     // post
+    // fetch(
+    //   "https://treat-management-system-691e2-default-rtdb.firebaseio.com/order.json",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       name: name,
+    //       itemsName: selectedItems,
+    //     }),
+    //   }
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("Data posted:", data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error posting data:", error);
+    //   });
+
+
     fetch(
-      "https://treat-management-system-691e2-default-rtdb.firebaseio.com/order.json",
+      `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${treatId}.json`,
       {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: name,
-          itemsName: selectedItems,
+          manualMenuList: [
+            ...values?.manualMenuList?.map((item) => {
+              if (selectedItems.includes(item.name)) {
+                if (!item.selectedBy) {
+                  item.selectedBy = [];
+                }
+                item.selectedBy.push({ name });
+              }
+              return item;
+            }),
+          ],
+          budgetLimitPerPerson: values.budgetLimitPerPerson,
+          timeLimit: values.timeLimit
         }),
       }
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log("Data posted:", data);
-      })
-      .catch((error) => {
-        console.error("Error posting data:", error);
+        console.log(data);
       });
   };
 
@@ -149,12 +177,12 @@ export default function Order() {
               >
                 <div className="checkboxes">
                   <label>
-                    <input
+                  <input
                       type="checkbox"
-                      name="selectedItems"
                       value={data.name}
-                      onChange={handleChecked}
+                      onChange={(e) => handleChecked(e, data.name)}
                     />
+
                     {data.name} ---- {data.price}
                   </label>
                 </div>

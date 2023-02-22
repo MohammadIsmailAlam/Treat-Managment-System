@@ -17,10 +17,11 @@ const Details = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        "menuImage": location.state?.img,
+        // "menuImage": location.state?.img,
         "manualMenuList": location.state?.menuList,
         "budgetLimitPerPerson": location.state?.budget,
-        "timeLimit": location.state?.time
+        "timeLimit": location.state?.time,
+        "selectedBy": []
       })
     };
     //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/
