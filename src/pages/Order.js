@@ -4,11 +4,8 @@ import { useParams } from "react-router-dom";
 export default function Order() {
   const [values, setValues] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
-  // const [remainingTime, setRemainingTime] = useState(0);
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState(false);
-
-  // const location = useLocation();
   const { treatId } = useParams();
 
   //   Get
@@ -20,31 +17,11 @@ export default function Order() {
       .then((data) => {
         console.log("data", data);
         setValues(data);
-        // setRemainingTime(data?.timeLimit * 60 * 1000);
       })
       .catch((error) => {
         console.log("error", error);
       });
   }, [treatId]);
-
-  // //   time handle
-  //   useEffect(() => {
-  //     const intervalId = setInterval(() => {
-  //       setRemainingTime((prevRemainingTime) => prevRemainingTime - 1000);
-  //     }, 1000);
-
-  //     return () => clearInterval(intervalId);
-  //   }, []);
-
-  //   const formatTime = (time) => {
-  //     const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
-  //     const minutes = Math.floor(time / 60000);
-  //     const seconds = Math.floor((time % 60000) / 1000);
-
-  //     return `${hours}:${minutes
-  //       .toString()
-  //       .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  //   };
 
 const handleChecked = (e, itemName) => {
   const checked = e.target.checked;
@@ -80,29 +57,8 @@ const handleSubmit = (e) => {
   }
 
   console.log("the items are", selectedItems);
-    // post
-    // fetch(
-    //   "https://treat-management-system-691e2-default-rtdb.firebaseio.com/order.json",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       name: name,
-    //       itemsName: selectedItems,
-    //     }),
-    //   }
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("Data posted:", data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error posting data:", error);
-    //   });
 
-
+  // Patch/Update
     fetch(
       `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${treatId}.json`,
       {

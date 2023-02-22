@@ -1,9 +1,9 @@
 import React, { useState,useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
-import Limits from "../Menu/Limits";
-import ManualMenu from "../Menu/ManualMenu";
-import MenuCreate from "../Menu/MenuCreate";
+import Limits from "../Components/Limits";
+import ManualMenu from "../Components/ManualMenu";
+import MenuCreate from "../Components/MenuCreate";
 const Home = () => {
 
   const [img, setImg] = useState([])
