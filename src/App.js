@@ -5,12 +5,10 @@ import "./App.css";
 import Details from "./pages/Details";
 import Landing from "./pages/Landing";
 import Order from "./pages/Order";
-import OrderedList from "./Menu/OrderedList";
+import OrderedList from "./Components/OrderedList";
 
 
 function App() {
-
-  
   return (
     <>
       <Router>
