@@ -138,19 +138,23 @@ export default function Landing() {
                                 <tr>
                                     <th>Name</th>
                                     <th>Price</th>
+                                    <th>Orderd By</th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
                                 {value.manualMenuList?.map((item, index) => {
+                                    // console.log(item);
                                     return (
                                         <tr key={index}>
                                             <td>{item?.name}</td>
                                             <td>{item?.price}</td>
+                                            <td>{item?.selectedBy?.map((person) => person.name).join(", ")}</td>
                                         </tr>
                                     );
                                 })}
+
                             </tbody>
                         </table>
                     </li>
