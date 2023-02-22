@@ -39,16 +39,7 @@ const Details = () => {
   };
 
   return (
-    <div
-      style={{
-        border: "1px solid grey",
-        borderRadius: "12px",
-        padding: "2em",
-        margin: "2em",
-        background: "aliceblue",
-        position: "relative",
-      }}
-      className="details-container mt-3 mb-3 "
+    <div className="border details-container mt-3 mb-3 "
     >
       <header>
         <button className="goBack" onClick={handleBackButton}>

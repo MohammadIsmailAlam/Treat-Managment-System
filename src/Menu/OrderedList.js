@@ -23,18 +23,11 @@ export default function OrderedList() {
         </h2>
 
       {list && (
-        <ul>
+        <ul className='border'>
           {Object.values(list).map((item, index) => (
             <li
               key={index}
-              style={{
-                border: "1px solid grey",
-                borderRadius: "12px",
-                padding: "2em",
-                margin: "2em",
-                background: "aliceblue",
-                position: "relative",
-              }}
+              className="border"
             >
               <span>{`${item.itemsName} ---- ${item.name}`}</span>
             </li>
