@@ -1,26 +1,12 @@
-import React, { useState } from 'react'
-import { Button, Modal} from 'react-bootstrap'
+import React from 'react'
 
 export default function SuccessMsg() {
-  const [showModal, setShowModal] = useState(false);
-  const handleModalClose =()=> {
-    setShowModal(true)
-  }
   return (
-    <div className="container">
-      <Modal show={showModal} onHide={handleModalClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Success!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Your order has been placed successfully.
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleModalClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+    <div class="success-message" style={{ textAlign: "center", marginTop: "20px" }}>
+      <i class="fa fa-check-circle"></i>
+      <h2>Success!</h2>
+      <p>Your action was completed successfully.</p>
     </div>
-  );
+
+  )
 }
