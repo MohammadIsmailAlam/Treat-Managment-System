@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  margin-top: 80px;
 }
 
 .App-logo {
@@ -40,6 +39,12 @@
 
 body {
     width: -webkit-fill-available;
+    border: 1px solid grey;
+    border-radius: 12px;
+    padding: 6em;
+    margin: 2em;
+    background: aliceblue;
+    position: relative;
 }
 
 img {
@@ -188,3 +193,12 @@ h2.orderList {
   display: flex;
   justify-content: center;
 }
+
+.border{
+    border: 1px solid grey;
+    border-radius: 12px;
+    padding: 2em;
+    margin: 2em;
+    background: aliceblue;
+    position: relative;
+  }
