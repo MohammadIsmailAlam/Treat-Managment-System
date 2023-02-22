@@ -46,40 +46,40 @@ export default function Order() {
   //       .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   //   };
 
-const handleChecked = (e, itemName) => {
-  const checked = e.target.checked;
+  const handleChecked = (e) => {
+    const name = e.target.value;
 
-  setSelectedItems((prevSelectedItems) => {
-    if (checked) {
-      return [...prevSelectedItems, itemName];
-    } else {
-      return prevSelectedItems.filter((item) => item !== itemName);
+    setSelectedItems((prevSelectedItems) => {
+      if (e.target.checked) {
+        return [...prevSelectedItems, name];
+      } else {
+        return prevSelectedItems.filter((item) => item !== name);
+      }
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name) {
+      setNameError(true);
+      return;
     }
-  });
-};
 
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-
-  if (!name) {
-    setNameError(true);
-    return;
-  }
-
-  const selectedItemsData = values?.manualMenuList?.filter((item) =>
-    selectedItems.includes(item.name)
-  );
-
-  if (selectedItemsData.length > 0) {
-    console.log(
-      `Selected items: ${selectedItemsData.map(
-        (item) => `${item.name} ${item.price}`
-      )}`
+    const selectedItemsData = values?.manualMenuList?.filter((item) =>
+      selectedItems.includes(item.name)
     );
-  }
 
-  console.log("the items are", selectedItems);
+    if (selectedItemsData.length > 0) {
+      console.log(
+        `Selected items: ${selectedItemsData.map(
+          (item) => `${item.name} ${item.price}`
+        )}`
+      );
+    }
+
+    console.log("the items are", selectedItems);
+
     // post
     // fetch(
     //   "https://treat-management-system-691e2-default-rtdb.firebaseio.com/order.json",
@@ -104,30 +104,27 @@ const handleSubmit = (e) => {
 
 
     fetch(
-      `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${treatId}.json`,
-      {
+      `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${treatId}.json`,{
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          manualMenuList: [
-            ...values?.manualMenuList?.map((item) => {
-              if (selectedItems.includes(item.name)) {
-                if (!item.selectedBy) {
-                  item.selectedBy = [];
-                }
-                item.selectedBy.push({ name });
-              }
-              return item;
-            }),
-          ],
-          budgetLimitPerPerson: values.budgetLimitPerPerson,
-          timeLimit: values.timeLimit
-        }),
-      }
-    )
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        manualMenuList: [
+          ...values?.manualMenuList?.map((item) => {
+            if (!item.selectedBy) {
+              item.selectedBy = [];
+            }
+            item.selectedBy.push({name});
+            return item;
+          }),
+        ],
+        budgetLimitPerPerson: values.budgetLimitPerPerson,
+        timeLimit: values.timeLimit,
+      })
+      })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        console.log(typeof data);
       });
   };
 
@@ -177,12 +174,12 @@ const handleSubmit = (e) => {
               >
                 <div className="checkboxes">
                   <label>
-                  <input
+                    <input
                       type="checkbox"
+                      name="selectedItems"
                       value={data.name}
-                      onChange={(e) => handleChecked(e, data.name)}
+                      onChange={handleChecked}
                     />
-
                     {data.name} ---- {data.price}
                   </label>
                 </div>
