@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
 import { BiCopy } from "react-icons/bi";
 import { TiTick } from "react-icons/ti";
-import OrderedList from "../Menu/OrderedList";
+// import OrderedList from "../Menu/OrderedList";
 
 export default function Landing() {
     const [show, setShow] = useState(false);
@@ -156,7 +156,7 @@ export default function Landing() {
                     </li>
                 ))}
             </div>
-            <OrderedList/>
+            {/* <OrderedList/> */}
         </>
     );
 }

@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+// import SuccessMsg from "../Menu/SuccessMsg";
 
 export default function Order() {
   const [values, setValues] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
+  
+  // const [show, setShow] = useState(false)
+
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState(false);
   const { treatId } = useParams();
@@ -84,6 +88,7 @@ const handleSubmit = (e) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        // setShow(true)
       });
   };
 
@@ -189,6 +194,7 @@ const handleSubmit = (e) => {
               >
                 Submit
               </button>
+              {/* {show && <SuccessMsg />} */}
             </div>
           </form>
         </div>
