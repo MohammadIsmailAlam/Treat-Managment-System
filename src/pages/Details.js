@@ -32,7 +32,7 @@ const Details = () => {
         console.log(typeof data);
       })
 
-    navigator("/")
+    navigator("/landing")
   };
 
   const toggleFullScreen = () => {

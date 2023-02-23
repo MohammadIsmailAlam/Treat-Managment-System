@@ -72,7 +72,7 @@ const Home = () => {
   }, [img]);
 
   const handleBackButton = () => {
-    navigate("/");
+    navigate("/landing");
   };
 
   const handleSubmit = (e) => {
