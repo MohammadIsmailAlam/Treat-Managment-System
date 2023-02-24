@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Treat-Managment-System/static/css/main.282b983a.css",
+    "main.js": "/Treat-Managment-System/static/js/main.fd818c94.js",
+    "static/js/787.e996eae7.chunk.js": "/Treat-Managment-System/static/js/787.e996eae7.chunk.js",
+    "index.html": "/Treat-Managment-System/index.html",
+    "main.282b983a.css.map": "/Treat-Managment-System/static/css/main.282b983a.css.map",
+    "main.fd818c94.js.map": "/Treat-Managment-System/static/js/main.fd818c94.js.map",
+    "787.e996eae7.chunk.js.map": "/Treat-Managment-System/static/js/787.e996eae7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.282b983a.css",
+    "static/js/main.fd818c94.js"
+  ]
+}
