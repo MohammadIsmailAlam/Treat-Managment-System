@@ -19,21 +19,21 @@ const DashBoard = () => {
       console.log(auth.currentUser);
     } else {
       // User is signed out
-      navigate("/SignUp");
+      navigate("/");
     }
   });
 
   return (
-    <div className="home">
+    <div className="home" style={{borderRadius:"10px", marginBottom:"20px"}}>
       <button onClick={handleLogOut}>Log Out</button>
       {auth.currentUser ? (
         <>
           <h2>{auth.currentUser.displayName}</h2>
           <h2>{auth.currentUser.email}</h2>
-          <h2>{auth.currentUser.uid}</h2>
+          {/* <h2>{auth.currentUser.uid}</h2> */}
         </>
       ) : (
-        <p>{auth.currentUser.displayName}</p>
+        <p>Loading...</p>
       )}
     </div>
   );
