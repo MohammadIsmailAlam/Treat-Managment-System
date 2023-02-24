@@ -68,3 +68,33 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+    <!-- const requestOptions = {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        // "menuImage": location.state?.img,
+        manualMenuList: [
+          ...values?.manualMenuList?.map((item) => {
+            if (!item.selectedBy) {
+              item.selectedBy = [];
+            }
+            item.selectedBy.push("ismail");
+            return item;
+          }),
+        ],
+        budgetLimitPerPerson: values.budgetLimitPerPerson,
+        timeLimit: values.timeLimit,
+      }),
+    };
+    //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/
+    fetch(
+      // "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json",
+      `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${treatId}.json`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        console.log(typeof data);
+      }); -->

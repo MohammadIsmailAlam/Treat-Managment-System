@@ -1,128 +1,211 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import SuccessMsg from "../Components/SuccessMsg";
 
 export default function Order() {
-    const [values, setValues] = useState([]);
-    const [selectedItem, setSelectedItem] = useState([]);
-    const [remainingTime, setRemainingTime] = useState(0);
+  const [values, setValues] = useState(null);
+  const [selectedItems, setSelectedItems] = useState([]);
 
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const tradeId = searchParams.get('tradeId');
+  const [showSucccess, setShowSuccess] = useState(false);
 
-    console.log(tradeId);
-    // useEffect(() => {
-    //     alert(tradeId)
-    // }, [])
+  const [name, setName] = useState("");
+  const [nameError, setNameError] = useState(false);
+  const { treatId } = useParams();
 
-    const handleChecked = (e) => {
-        const id = e.target.value;
-        setSelectedItem(prevSelectedItems => {
-            if (e.target.checked) {
-                return [...prevSelectedItems, id];
-            } else {
-                return prevSelectedItems.filter(item => item !== id);
-            }
-        });
-        console.log("selected");
-    };
-
-    useEffect(() => {
-        fetch(`http://localhost:3001/treats/${tradeId}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setValues(data);
-                setRemainingTime(data.timeLimit * 60 * 1000);
-                console.log(data);
-            });
-    }, []);
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setRemainingTime(remainingTime - 1000);
-        }, 1000);
-            clearInterval(intervalId);
-    }, [remainingTime]);
-
-
-    const formatTime = (time) => {
-        const hours = Math.floor( (time/(1000*60*60)) % 24 );
-        const minutes = Math.floor(time / 60000);
-        const seconds = Math.floor((time % 60000) / 1000);
-
-        return `${hours}:${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (selectedItem.length > 0 && values.manualMenuList) {
-            const selectedItemsData = values.manualMenuList.filter(item => selectedItem.includes(item._id));
-            if (selectedItemsData.length > 0) {
-                console.log(`Selected items: ${selectedItemsData.map(item => `${item.name} ${item._id}`)}`);
-            }
-        }
-    };
-
-    return (
-        <div className="container">
-            <div className="row">
-                <div className="ordersSeelection">
-                    <header style={{ textAlign: "center", marginTop: "10px" }}>
-                        Order Form Here....
-                    </header>
-                    <div className="title" style={{
-                        textAlign: "center",
-                        marginTop: "10px",
-                        backgroundColor: "lightblue",
-                        fontSize: "24px"
-                    }}>
-                        <p style={{ fontFamily: "monospace" }}>
-                            Budget: {values.budgetLimitPerPerson}</p>
-                    </div>
-
-                    <div style={{ textAlign: 'center' }}>
-                        <p>Time Limit: {formatTime(remainingTime)}</p>
-                    </div>
-
-                    <form className='order' style={{ display: "block" }} onSubmit={handleSubmit}>
-                        {values?.manualMenuList?.map((_data, index) => (
-                            <li key={index}
-                                style={{
-                                    border: "1px solid grey",
-                                    borderRadius: "12px",
-                                    padding: "2em",
-                                    margin: "2em",
-                                    background: "aliceblue",
-                                    position: "relative"
-                                }}
-                            >
-                                <div className='checkboxes'>
-                                    <label>
-                                        <input type="checkbox" name="selectedItems" value={_data._id} onChange={handleChecked} />
-                                        {_data.name} ---- {_data.price}
-                                    </label>
-                                </div>
-                            </li>
-                        ))}
-                        <div className='input' style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            padding: "2em",
-                            margin: "2em"
-                        }}>
-                            <button type="submit" style={{
-                                border: "1px solid grey",
-                                borderRadius: "12px",
-                                background: "aliceblue",
-                                marginLeft: "10px",
-                                position: "relative"
-                            }}>
-                                Submit
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+  //   Get
+  useEffect(() => {
+    fetch(
+      `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${treatId}.json`
     )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data);
+        setValues(data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }, [treatId]);
+
+  const handleChecked = (e, itemName) => {
+    const checked = e.target.checked;
+
+    setSelectedItems((prevSelectedItems) => {
+      if (checked) {
+        return [...prevSelectedItems, itemName];
+      } else {
+        return prevSelectedItems.filter((item) => item !== itemName);
+      }
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name) {
+      setNameError(true);
+      return;
+    }
+
+    const selectedItemsData = values?.manualMenuList?.filter((item) =>
+      selectedItems.includes(item.name)
+    );
+
+    if (selectedItemsData.length > 0) {
+      console.log(
+        `Selected items: ${selectedItemsData.map(
+          (item) => `${item.name} ${item.price}`
+        )}`
+      );
+    }
+
+    console.log("the items are", selectedItems);
+
+    // Patch/Update
+    fetch(
+      `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${treatId}.json`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          manualMenuList: [
+            ...values?.manualMenuList?.map((item) => {
+              if (selectedItems.includes(item.name)) {
+                if (!item.selectedBy) {
+                  item.selectedBy = [];
+                }
+                item.selectedBy.push({ name });
+              }
+              return item;
+            }),
+          ],
+          budgetLimitPerPerson: values.budgetLimitPerPerson,
+          timeLimit: values.timeLimit,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+
+    setShowSuccess(true);
+    console.log(showSucccess);
+
+    setSelectedItems([]);
+    setName("");
+    setNameError(false);
+  };
+
+  return (
+    <div className="container">
+      {showSucccess ? (
+        <SuccessMsg />
+      ) : (
+        <div className="row">
+          <div className="ordersSeelection">
+            <header style={{ textAlign: "center", marginTop: "10px" }}>
+              Order Form Here....
+            </header>
+            {values && (
+              <div
+                className="title"
+                style={{
+                  textAlign: "center",
+                  marginTop: "10px",
+                  backgroundColor: "lightblue",
+                  fontSize: "24px",
+                }}
+              >
+                <p style={{ fontFamily: "monospace" }}>
+                  Budget: {values?.budgetLimitPerPerson}
+                </p>
+              </div>
+            )}
+
+            <div style={{ textAlign: "center" }}>
+              <p>Time Limit: {values?.timeLimit}</p>
+            </div>
+
+            <form
+              className="order"
+              style={{ display: "block" }}
+              onSubmit={handleSubmit}
+            >
+              {values?.manualMenuList?.map((data, index) => (
+                <li
+                  key={index}
+                  style={{
+                    border: "1px solid grey",
+                    borderRadius: "12px",
+                    padding: "2em",
+                    margin: "2em",
+                    background: "aliceblue",
+                    position: "relative",
+                  }}
+                >
+                  <div className="checkboxes">
+                    <label>
+                      <input
+                        type="checkbox"
+                        value={data.name}
+                        onChange={(e) => handleChecked(e, data.name)}
+                      />
+                      {data.name} ---- {data.price}
+                    </label>
+                  </div>
+                </li>
+              ))}
+              <div className="form-group">
+                <label htmlFor="name">Name </label>
+                <input
+                  type="text"
+                  name="name"
+                  className="form-control"
+                  value={name}
+                  style={{ marginRight: "10px" }}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    setNameError(false);
+                  }}
+                />
+
+                {nameError && (
+                  <div
+                    className="error"
+                    style={{ color: "red", marginTop: "10px" }}
+                  >
+                    {" "}
+                    Name Can't Be Empty
+                  </div>
+                )}
+              </div>
+              <div
+                className="input"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "2em",
+                  margin: "2em",
+                }}
+              >
+                <button
+                  type="submit"
+                  style={{
+                    border: "1px solid grey",
+                    borderRadius: "12px",
+                    background: "aliceblue",
+                    marginLeft: "10px",
+                    position: "relative",
+                  }}
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

@@ -12,23 +12,27 @@ const Details = () => {
   };
 
   const handleSubmit = (e) => {
-
+    // POST
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-
-        "menuImage": location.state?.img,
+        // "menuImage": location.state?.img,
         "manualMenuList": location.state?.menuList,
         "budgetLimitPerPerson": location.state?.budget,
-        "timeLimit": location.state?.time
+        "timeLimit": location.state?.time,
+        "selectedBy": []
       })
     };
-    fetch("http://localhost:3001/treats", requestOptions)
+    //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/
+    fetch("https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json", requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data)
+        console.log(typeof data);
+      })
 
-    navigator("/")
+    navigator("/landing")
   };
 
   const toggleFullScreen = () => {
@@ -36,16 +40,7 @@ const Details = () => {
   };
 
   return (
-    <div
-      style={{
-        border: "1px solid grey",
-        borderRadius: "12px",
-        padding: "2em",
-        margin: "2em",
-        background: "aliceblue",
-        position: "relative",
-      }}
-      className="details-container mt-3 mb-3 "
+    <div className="border details-container mt-3 mb-3 "
     >
       <header>
         <button className="goBack" onClick={handleBackButton}>

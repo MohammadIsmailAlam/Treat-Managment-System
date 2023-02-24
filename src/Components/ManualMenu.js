@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
+import "bootstrap/dist/css/bootstrap.css";
 
 export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenualMenuSelected, isMenualMenuSelected }) {
+  
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [isShow, setIsShow] = useState(false);
@@ -68,12 +70,14 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
           <>
             <div className="manualMenu">
               <form onSubmit={handleSubmit} id="myForm">
-                <div className="input-group">
+                <div className="form-group">
                   <label htmlFor="name">Name </label>
                   <input
                     type="text"
                     id="name"
+                    className="form-control"
                     value={name}
+                    style={{ marginRight: "10px" }}
                     onChange={(e) => {
                       setName(e.target.value);
                       setNameError(false);
@@ -90,12 +94,15 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
                     </div>
                   )}
                 </div>
-                <div className="input-group">
+                <div className="form-group">
                   <label htmlFor="price">Item Price</label>
                   <input
                     type="number"
                     id="price"
+                    min={0}
+                    className="form-control"
                     value={price}
+                    style={{ marginLeft: "10px" }}
                     onChange={(e) => {
                       setPrice(e.target.value);
                       setPriceError(false);
@@ -111,7 +118,8 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
                     </div>
                   )}
                 </div>
-                <button type="submit" className="add-btn">
+                <button type="submit" className="btn btn-primary add"
+                >
                   + Add
                 </button>
               </form>
@@ -126,7 +134,12 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
                 <li key={index}>
                   {item.name} --- {item.price}
                   <button
-                    style={{ position: "absolute",borderRadius: "15px", marginLeft: "10px", border: "none" }}
+                    style={{
+                      position: "absolute",
+                      borderRadius: "15px",
+                      marginLeft: "10px",
+                      border: "none",
+                    }}
                     onClick={() => {
                       // console.log(index);
                       setnamePriceList((prev) => {
@@ -136,8 +149,7 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
                       });
                     }}
                   >
-                    <MdDeleteForever/>
-
+                    <MdDeleteForever />
                   </button>
                 </li>
               );
