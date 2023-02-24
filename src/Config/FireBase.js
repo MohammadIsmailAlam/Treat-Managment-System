@@ -1,8 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import firebase from "firebase/app"
 import { getAnalytics } from "firebase/analytics";
-import "firebase/storage"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -11,6 +9,7 @@ import "firebase/storage"
 const firebaseConfig = {
   apiKey: "AIzaSyBJCEe0xhShwMtPJyiCbjGRSg4cHpkBDrU",
   authDomain: "treat-management-system-691e2.firebaseapp.com",
+  databaseURL: "https://treat-management-system-691e2-default-rtdb.firebaseio.com",
   projectId: "treat-management-system-691e2",
   storageBucket: "treat-management-system-691e2.appspot.com",
   messagingSenderId: "994892144309",
@@ -21,6 +20,3 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const storage = firebase.storage();
-
-export { storage, firebase as default };
