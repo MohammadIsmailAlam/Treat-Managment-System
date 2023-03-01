@@ -49,13 +49,15 @@ export default function Landing() {
     const [isCopied, setIsCopied] = useState(null);
 
     const handleCopyClick = (id) => {
-        navigator.clipboard.writeText(id);
+        const url = `${window.location.origin}/order/${id}`;
+        navigator.clipboard.writeText(url);
         setIsCopied(id);
-
+    
         setTimeout(() => {
             setIsCopied(null);
         }, 3000);
     };
+    
 
     return (
         <>
