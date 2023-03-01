@@ -41,10 +41,14 @@ body {
     width: -webkit-fill-available;
     border: 1px solid grey;
     border-radius: 12px;
-    padding: 2em;
+    padding: 5em;
     margin: 2em;
     background: aliceblue;
     position: relative;
+}
+h1 {
+  font-weight: 100;
+  margin-bottom: 2.5rem;
 }
 
 img {
@@ -85,6 +89,9 @@ background-color: 6A1B1B;
 /* ul.check_box {
   list-style-type: none;
 } */
+ul {
+  padding-left: 0;
+}
 li {
   padding-top: 10px;
   /* padding-bottom: 10px; */
@@ -101,10 +108,11 @@ li {
 }
 
 .manualMenu {
-    display: flex;
-    justify-content: center;
-    margin-left: 179px;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin: 2rem;
+  margin-left: 120px;
 }
 html {
   display: flex;
