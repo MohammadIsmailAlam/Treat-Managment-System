@@ -12,6 +12,9 @@ export default function Order() {
   const [nameError, setNameError] = useState(false);
   const { treatId } = useParams();
 
+  const [rTime, setrTime] = useState("12:00");
+  const [showTime, setShowTime] = useState("00:00");
+
   //   Get
   useEffect(() => {
     fetch(
@@ -20,12 +23,62 @@ export default function Order() {
       .then((response) => response.json())
       .then((data) => {
         console.log("data", data);
+        console.log("need to eatch", data.timeLimit);
         setValues(data);
+        setrTime(data.timeLimit)
+        console.log("reminnimg time", rTime);
       })
       .catch((error) => {
         console.log("error", error);
       });
   }, [treatId]);
+
+  useEffect(() => {
+    // Get the current date as a Date object
+    const today = new Date();
+
+    // Create a new Date object with the input time set for today's date
+    const inputTime = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+      0,
+      0,
+      0
+    );
+    inputTime.setHours(parseInt(rTime.split(":")[0], 10));
+    inputTime.setMinutes(parseInt(rTime.split(":")[1], 10));
+
+    const countdownInterval = setInterval(() => {
+      const now = new Date();
+
+      console.log(
+        "time",
+        inputTime.toLocaleTimeString(),
+        now.toLocaleTimeString()
+      );
+      const diffMs = inputTime - now;
+
+      const diffHours = Math.floor(Math.abs(diffMs) / (1000 * 60 * 60));
+      const diffMinutes = Math.floor((Math.abs(diffMs) % (1000 * 60 * 60)) / (1000 * 60));
+      const diffSecond = Math.floor(
+        ((Math.abs(diffMs) % (1000 * 60 * 60)) % (1000 * 60)) / 1000
+      );
+
+      console.log("Se", ((diffMs % (1000 * 60 * 60)) % (1000 * 60)) / 1000);
+      console.log("Second", diffSecond);
+
+      if (diffMs <= 0) {
+        clearInterval(countdownInterval);
+        setShowTime("Time's up!");
+        console.log("time is showing", showTime);
+      } else {
+        setShowTime(`${diffHours}:${diffMinutes}:${diffSecond}`);
+        // setShowTime(diffSecond.toString());
+      }
+    }, 1000);
+    return () => clearInterval(countdownInterval);
+  }, [rTime]);
 
   const handleChecked = (e, itemName) => {
     const checked = e.target.checked;
@@ -124,7 +177,7 @@ export default function Order() {
             )}
 
             <div style={{ textAlign: "center" }}>
-              <p>Time Limit: {values?.timeLimit}</p>
+              <p>Time Limit: {showTime}</p>
             </div>
 
             <form
