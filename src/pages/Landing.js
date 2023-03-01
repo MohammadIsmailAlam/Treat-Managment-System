@@ -141,23 +141,24 @@ export default function Landing() {
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Orderd By</th>
+                                    <th>Total</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-
                                 {value.manualMenuList?.map((item, index) => {
-                                    // console.log(item);
+                                    const selectedCount = item.selectedBy?.length || 0; // Count the number of times item has been selected
                                     return (
                                         <tr key={index}>
                                             <td>{item?.name}</td>
                                             <td>{item?.price}</td>
                                             <td>{item?.selectedBy?.map((person) => person.name).join(", ")}</td>
+                                            <td>{selectedCount}</td> {/* Add a new table data cell */}
                                         </tr>
                                     );
                                 })}
-
                             </tbody>
+
                         </table>
                     </li>
                 ))}
