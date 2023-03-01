@@ -3,7 +3,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import Limits from "../Components/Limits";
 import ManualMenu from "../Components/ManualMenu";
-import MenuCreate from "../Components/MenuCreate";
+// import MenuCreate from "../Components/MenuCreate";
 const Home = () => {
 
   const [img, setImg] = useState([])
@@ -138,8 +138,8 @@ const Home = () => {
 
       </header>
 
-          {/* <h1> Create Your Treat</h1> */}
-          <MenuCreate 
+          <h1> Create Your Treat</h1>
+          {/* <MenuCreate 
           isMenuSelected={isMenuSelected}
           setIsMenuSelected={setIsMenuSelected}
           img={img}
@@ -149,7 +149,7 @@ const Home = () => {
           {
             imgErrorMessage &&
             <div className="error" style={{ color: 'red', marginTop: '10px' }}> Upload Img </div>
-          }
+          } */}
           <ManualMenu
             setnamePriceList={setnamePriceList}
             namePriceList={namePriceList}
