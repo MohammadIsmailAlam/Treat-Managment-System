@@ -25,16 +25,17 @@ const DashBoard = () => {
 
   return (
     <div className="home" style={{borderRadius:"10px", marginBottom:"20px"}}>
-      <button onClick={handleLogOut}>Log Out</button>
       {auth.currentUser ? (
         <>
           <h2>{auth.currentUser.displayName}</h2>
           <h2>{auth.currentUser.email}</h2>
-          {/* <h2>{auth.currentUser.uid}</h2> */}
         </>
       ) : (
         <p>Loading...</p>
       )}
+
+      <button onClick={handleLogOut}>Log Out</button>
+      
     </div>
   );
 }  
