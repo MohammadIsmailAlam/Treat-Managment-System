@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 81vh;
 }
 
 .signup {
@@ -34,7 +34,7 @@
 }
 
 .signup button {
-  background-color: #008cff;
+  background-color: #00bcd4;
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -46,7 +46,7 @@
 }
 
 .signup button:hover {
-  background-color: #0064ff;
+  background-color: #0097a7;
 }
 
 .signup p {
@@ -62,12 +62,12 @@
 }
 
 .signup a {
-  color: #008cff;
+  color: #00bcd4;
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
 .signup a:hover {
-  color: #0064ff;
+  color: #0097a7;
 }
