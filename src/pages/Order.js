@@ -5,6 +5,7 @@ import SuccessMsg from "../Components/SuccessMsg";
 export default function Order() {
   const [values, setValues] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItemsError, setSelectedItemsError] = useState(false);
 
   const [showSucccess, setShowSuccess] = useState(false);
 
@@ -25,7 +26,7 @@ export default function Order() {
         console.log("data", data);
         console.log("need to eatch", data.timeLimit);
         setValues(data);
-        setrTime(data.timeLimit)
+        setrTime(data.timeLimit);
         console.log("reminnimg time", rTime);
       })
       .catch((error) => {
@@ -60,7 +61,9 @@ export default function Order() {
       const diffMs = inputTime - now;
 
       const diffHours = Math.floor(Math.abs(diffMs) / (1000 * 60 * 60));
-      const diffMinutes = Math.floor((Math.abs(diffMs) % (1000 * 60 * 60)) / (1000 * 60));
+      const diffMinutes = Math.floor(
+        (Math.abs(diffMs) % (1000 * 60 * 60)) / (1000 * 60)
+      );
       const diffSecond = Math.floor(
         ((Math.abs(diffMs) % (1000 * 60 * 60)) % (1000 * 60)) / 1000
       );
@@ -83,6 +86,8 @@ export default function Order() {
   const handleChecked = (e, itemName) => {
     const checked = e.target.checked;
 
+    setSelectedItemsError(false);
+
     setSelectedItems((prevSelectedItems) => {
       if (checked) {
         return [...prevSelectedItems, itemName];
@@ -95,8 +100,19 @@ export default function Order() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    let hasError = false;
+
     if (!name) {
       setNameError(true);
+      hasError = true;
+    }
+
+    if (selectedItems.length === 0) {
+      setSelectedItemsError(true);
+      hasError = true;
+    }
+
+    if (hasError) {
       return;
     }
 
@@ -209,6 +225,15 @@ export default function Order() {
                   </div>
                 </li>
               ))}
+              {selectedItemsError && (
+                <div
+                  className="error"
+                  style={{ color: "red", marginTop: "10px" }}
+                >
+                  {" "}
+                  Please select at least one item
+                </div>
+              )}
               <div className="form-group">
                 <label htmlFor="name">Name </label>
                 <input
