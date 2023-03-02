@@ -210,3 +210,11 @@ h2.orderList {
     background: aliceblue;
     position: relative;
   }
+
+  button {
+    border: 1px solid grey;
+    border-radius : 12px;
+    background : aliceblue;
+    margin-left : 10px;
+    position: relative;
+  }
