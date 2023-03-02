@@ -7,6 +7,9 @@ export default function Order() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedItemsError, setSelectedItemsError] = useState(false);
 
+  const [isTimeUp, setIsTimeUp] = useState(false);
+
+
   const [showSucccess, setShowSuccess] = useState(false);
 
   const [name, setName] = useState("");
@@ -75,6 +78,7 @@ export default function Order() {
         clearInterval(countdownInterval);
         setShowTime("Time's up!");
         console.log("time is showing", showTime);
+        setIsTimeUp(true);
       } else {
         setShowTime(`${diffHours}:${diffMinutes}:${diffSecond}`);
         // setShowTime(diffSecond.toString());
@@ -105,6 +109,10 @@ export default function Order() {
     if (!name) {
       setNameError(true);
       hasError = true;
+    }
+
+    if (isTimeUp) {
+      hasError(true)
     }
 
     if (selectedItems.length === 0) {
@@ -156,6 +164,8 @@ export default function Order() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setSelectedItems([]);
+        setShowSuccess(true);
       });
 
     setShowSuccess(true);
@@ -165,6 +175,8 @@ export default function Order() {
     setName("");
     setNameError(false);
   };
+
+  const isDisabled = isTimeUp;
 
   return (
     <div className="container">
@@ -193,7 +205,11 @@ export default function Order() {
             )}
 
             <div style={{ textAlign: "center" }}>
-              <p>Time Limit: {showTime}</p>
+              {isTimeUp ? (
+                <p style={{ color: "red" }}>Time is up, this is not valid anymore.</p>
+              ) : (
+                <p>Time Limit: {showTime}</p>
+              )}
             </div>
 
             <form
@@ -267,18 +283,11 @@ export default function Order() {
                   margin: "2em",
                 }}
               >
-                <button
-                  type="submit"
-                  style={{
-                    border: "1px solid grey",
-                    borderRadius: "12px",
-                    background: "aliceblue",
-                    marginLeft: "10px",
-                    position: "relative",
-                  }}
-                >
-                  Submit
-                </button>
+                <div style={{ textAlign: "center" }}>
+                  <button type="submit" disabled={isDisabled}>
+                    Submit
+                  </button>
+                </div>
               </div>
             </form>
           </div>
