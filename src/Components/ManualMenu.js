@@ -71,7 +71,7 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
             <div className="manualMenu">
               <form onSubmit={handleSubmit} id="myForm">
                 <div className="form-group">
-                  <label htmlFor="name">Name </label>
+                  <label htmlFor="name"> Item Name </label>
                   <input
                     type="text"
                     id="name"
