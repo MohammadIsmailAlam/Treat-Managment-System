@@ -80,7 +80,9 @@ export default function Order() {
         console.log("time is showing", showTime);
         setIsTimeUp(true);
       } else {
-        setShowTime(`${diffHours}:${diffMinutes}:${diffSecond}`);
+        setShowTime(`${diffHours.toString().padStart(2, "0")}:${diffMinutes
+          .toString()
+          .padStart(2, "0")}:${diffSecond.toString().padStart(2, "0")}`);        
         // setShowTime(diffSecond.toString());
       }
     }, 1000);
