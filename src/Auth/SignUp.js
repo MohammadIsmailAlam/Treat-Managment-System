@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import firebase from "../Config/FireBase";
-import { getAuth, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import "../Styles/Signup.css"
+import "../Styles/Signup.css";
+import { userContext } from "../App";
 
 const Signup = () => {
   const auth = getAuth();
   const navigate = useNavigate();
+  const context = useContext(userContext);
 
   let [name, setName] = useState("");
   let [email, setEmail] = useState("");
@@ -34,6 +41,7 @@ const Signup = () => {
           }).then(() => {
             // Profile updated!
             setErr("");
+            context.setUserEmail(email);
             navigate("/Home");
           });
         })
@@ -58,13 +66,25 @@ const Signup = () => {
     <div id="signup">
       <div className="signup">
         <h2>Create a account!</h2>
-        <input onChange={(e) => setName(e.target.value)} type="text" placeholder="Enter your name" />
-        <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter your email" />
-        <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter your password" />
+        <input
+          onChange={(e) => setName(e.target.value)}
+          type="text"
+          placeholder="Enter your name"
+        />
+        <input
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+          placeholder="Enter your email"
+        />
+        <input
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          placeholder="Enter your password"
+        />
         <p>{err}</p>
         <button onClick={handleSubmit}>Sign Up</button>
         <div>
-            You have already account? <Link to="/">Login</Link>
+          You have already account? <Link to="/">Login</Link>
         </div>
       </div>
     </div>

@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import firebase from "../Config/FireBase";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import "../Styles/Login.css"
+import "../Styles/Login.css";
+import { userContext } from "../App";
 
 const Login = () => {
   const auth = getAuth();
@@ -12,6 +17,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
+
+  const context = useContext(userContext);
 
   const validateEmail = (email) => {
     const re = /\S+@\S+\.\S+/;
@@ -29,6 +36,8 @@ const Login = () => {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           setErr("");
+          console.log("sjfvbhdskjvbdsvjsdfj", email);
+          context.setUserEmail(email);
           navigate("/Home");
         })
         .catch((error) => {
@@ -53,15 +62,22 @@ const Login = () => {
   return (
     <div id="login">
       <div className="login">
-        <h2 style={{marginBottom:"3.5rem"}}>Login your account!</h2>
-        <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter your email" />
-        <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter your password" />
+        <h2 style={{ marginBottom: "3.5rem" }}>Login your account!</h2>
+        <input
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+          placeholder="Enter your email"
+        />
+        <input
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          placeholder="Enter your password"
+        />
         <p>{err}</p>
         <button onClick={handleSubmit}>Login</button>
-        <div className="footer" style={{marginTop:"10px"}}>
-            Don't have an account? <Link to="/SignUp">Sign Up</Link>
+        <div className="footer" style={{ marginTop: "10px" }}>
+          Don't have an account? <Link to="/SignUp">Sign Up</Link>
         </div>
-        
       </div>
     </div>
   );
