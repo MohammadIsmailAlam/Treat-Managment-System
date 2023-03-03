@@ -38,7 +38,7 @@ const Login = () => {
           setErr("");
           console.log("sjfvbhdskjvbdsvjsdfj", email);
           context.setUserEmail(email);
-          navigate("/Home");
+          navigate("/landing");
         })
         .catch((error) => {
           console.log(error.code);
