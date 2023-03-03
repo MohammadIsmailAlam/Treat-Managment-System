@@ -27,15 +27,18 @@ export default function Landing() {
 
   //Get
   useEffect(() => {
-    //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json
     fetch(
       "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json"
     )
       .then((response) => response.json())
       .then((data) => {
-        setData(data);
+        const filteredData = Object.values(data).filter(
+          (treat) => treat.userEmail === context.userEmail
+        );
+        setData(filteredData);
       });
   }, []);
+  
 
   //Delete
   const handleDelete = (id) => {
@@ -154,6 +157,14 @@ export default function Landing() {
                 </Button>
               </Modal.Footer>
             </Modal>
+
+            {value.userEmail === context.userEmail && (
+              <>
+                User Email: {context.userEmail}
+              </>
+            )}
+            <br />
+            <br />
             Budget: {value.budgetLimitPerPerson} ----- Time:{value.timeLimit}
             <table>
               <thead>
@@ -173,9 +184,7 @@ export default function Landing() {
                       <td>{item?.name}</td>
                       <td>{item?.price}</td>
                       <td>
-                        {item?.selectedBy
-                          ?.map((person) => person.name)
-                          .join(", ")}
+                        {item?.selectedBy?.map((person) => person.name).join(", ")}
                       </td>
                       <td>{selectedCount}</td>
                     </tr>
