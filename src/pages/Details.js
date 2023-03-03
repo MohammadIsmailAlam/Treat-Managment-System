@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
+import { userContext } from "../App";
 
 const Details = () => {
   const location = useLocation();
   const navigator = useNavigate();
   const [fullScreen, setFullScreen] = useState(false);
+
+  const context = useContext(userContext);
+  console.log(context);
 
   const handleBackButton = () => {
     navigator("/Home", { state: { ...location.state } });
@@ -13,26 +17,31 @@ const Details = () => {
 
   const handleSubmit = (e) => {
     // POST
+    console.log(context.userEmail);
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         // "menuImage": location.state?.img,
-        "manualMenuList": location.state?.menuList,
-        "budgetLimitPerPerson": location.state?.budget,
-        "timeLimit": location.state?.time,
-        "selectedBy": []
-      })
+        manualMenuList: location.state?.menuList,
+        budgetLimitPerPerson: location.state?.budget,
+        timeLimit: location.state?.time,
+        selectedBy: [],
+        userEmail: context.userEmail,
+      }),
     };
     //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/
-    fetch("https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json", requestOptions)
+    fetch(
+      "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json",
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         console.log(typeof data);
-      })
+      });
 
-    navigator("/landing")
+    navigator("/landing");
   };
 
   const toggleFullScreen = () => {
