@@ -5,7 +5,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { BiCopy } from "react-icons/bi";
 import { TiTick } from "react-icons/ti";
 import { userContext } from "../App";
-import { getAuth, signOut } from "firebase/auth";
+// import { getAuth, signOut } from "firebase/auth";
 // import OrderedList from "../Menu/OrderedList";
 
 export default function Landing() {
@@ -69,14 +69,14 @@ export default function Landing() {
       setIsCopied(null);
     }, 3000);
   };
-  const auth = getAuth();
+  // const auth = getAuth();
 
-  let handleLogOut = () => {
-    signOut(auth).then(() => {
-      // Sign-out successful.
-      navigate("/");
-    });
-  };
+  // let handleLogOut = () => {
+  //   signOut(auth).then(() => {
+  //     // Sign-out successful.
+  //     navigate("/");
+  //   });
+  // };
 
   return (
     <>
@@ -85,7 +85,7 @@ export default function Landing() {
         style={{ display: "flex", justifyContent: "space-between" }}
       >
         <button onClick={handleOnHome}> + </button>
-        <button onClick={handleLogOut}>Log Out</button>
+        {/* <button onClick={handleLogOut}>Log Out</button> */}
       </div>
 
       <div>
