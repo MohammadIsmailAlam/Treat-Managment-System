@@ -72,7 +72,7 @@ const Home = () => {
   }, [img]);
 
   const handleBackButton = () => {
-    navigate("/landing");
+    navigate("/DashBoard");
   };
 
   const handleSubmit = (e) => {
