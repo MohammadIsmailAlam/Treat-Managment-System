@@ -41,7 +41,7 @@ body {
     width: -webkit-fill-available;
     border: 1px solid grey;
     border-radius: 12px;
-    padding: 5em;
+    padding: 1em;
     margin: 2em;
     background: aliceblue;
     position: relative;
@@ -219,3 +219,8 @@ h2.orderList {
     margin-left : 10px;
     position: relative;
   }
+
+  header {
+    padding: 1rem;
+    text-align: end;
+}
