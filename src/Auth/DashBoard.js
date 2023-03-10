@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../Config/FireBase";
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import Landing from "../pages/Landing";
+import Header from "../Components/Header";
 
 const DashBoard = () => {
   const auth = getAuth();
@@ -16,7 +18,7 @@ const DashBoard = () => {
         // User is signed out
         navigate("/");
       }
-    });
+    },[user]);
 
     // Cleanup function
     return () => {
@@ -24,18 +26,14 @@ const DashBoard = () => {
     };
   }, [auth, navigate]);
 
-  let handleLogOut = () => {
-    signOut(auth).then(() => {
-      // Sign-out successful.
-      navigate("/");
-    });
-  };
-
   return (
-    <div className="home" style={{ borderRadius: "10px", marginBottom: "20px" }}>
-      <h2>Welcome, {user?.displayName}</h2>
-      <button onClick={handleLogOut}>Log Out</button>
-    </div>
+    <>
+      <Header />
+      <div className="home" style={{ borderRadius: "10px", marginBottom: "20px" }}>
+        <h2>Welcome, {user?.displayName}</h2>
+        {user && <Landing />}
+      </div>
+    </>
   );
 };
 
