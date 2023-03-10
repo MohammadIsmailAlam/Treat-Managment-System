@@ -27,7 +27,7 @@ const Details = () => {
         budgetLimitPerPerson: location.state?.budget,
         timeLimit: location.state?.time,
         selectedBy: [],
-        userEmail: context.userEmail,
+        userEmail: context.userEmail
       }),
     };
     //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/
@@ -41,7 +41,7 @@ const Details = () => {
         console.log(typeof data);
       });
 
-    navigator("/landing");
+    navigator("/DashBoard");
   };
 
   const toggleFullScreen = () => {

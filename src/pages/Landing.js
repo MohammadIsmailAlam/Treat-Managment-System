@@ -157,14 +157,7 @@ export default function Landing() {
                 </Button>
               </Modal.Footer>
             </Modal>
-
-            {value.userEmail === context.userEmail && (
-              <>
-                User Email: {context.userEmail}
-              </>
-            )}
-            <br />
-            <br />
+            
             Budget: {value.budgetLimitPerPerson} ----- Time:{value.timeLimit}
             <table>
               <thead>

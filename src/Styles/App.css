@@ -175,9 +175,10 @@ svg {
   width: 20px;
 }
 .plus {
-  margin-top: 10px;
+  margin: 2em;
   display: flex;
   justify-content: center;
+  
 }
 
 /* order */
