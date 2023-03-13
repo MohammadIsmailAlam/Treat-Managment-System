@@ -34,12 +34,14 @@ const Login = () => {
       setErr("Password must be at least 8 characters long!");
     } else {
       signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          setErr("");
-          console.log("sjfvbhdskjvbdsvjsdfj", email);
-          context.setUserEmail(email);
-          navigate("/DashBoard");
-        })
+      .then((userCredential) => {
+        setErr("");
+        console.log("sjfvbhdskjvbdsvjsdfj", email);
+        context.setUserEmail(email);
+        localStorage.setItem('userEmail', email); // save email in local storage
+        navigate("/DashBoard");
+      })
+
         .catch((error) => {
           console.log(error.code);
           if (error.code === "auth/wrong-password") {
