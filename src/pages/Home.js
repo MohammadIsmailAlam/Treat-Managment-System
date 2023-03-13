@@ -166,7 +166,8 @@ const Home = () => {
 
           {shouldShowError && (
             <div className="error" style={{ color: "red", marginTop: "10px" }}>
-              Choose At List One
+              {/* Choose At List One */}
+              Make A Menu First
             </div>
           )}
 
