@@ -122,8 +122,17 @@ const Home = () => {
     // }
     
     if ((img.length || namePriceList.length > 0) && budgetData && timeData) {
-        navigate('/details', {state: {img: img, menuList:namePriceList, budget:budgetData, time: timeData, isMenualMenuChecked: isMenualMenuSelected ,  isMenuChecked: isMenuSelected}});
-      }
+      navigate("/details", {
+        state: {
+          img: img,
+          menuList: namePriceList,
+          budget: budgetData,
+          time: timeData,
+          isMenualMenuChecked: isMenualMenuSelected,
+          isMenuChecked: isMenuSelected,
+        },
+      });
+    }
   };
 
   return (
@@ -131,12 +140,10 @@ const Home = () => {
         <div className="App">
 
         <header>
-
-        <button className="goBack" onClick={handleBackButton}>
-          <FaArrowLeft />
-        </button>
-
-      </header>
+          <button className="goBack" onClick={handleBackButton}>
+            <FaArrowLeft />
+          </button>
+        </header>
 
           <h1> Create Your Treat</h1>
           {/* <MenuCreate 
