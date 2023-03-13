@@ -49,40 +49,38 @@ const Details = () => {
   };
 
   return (
-    <div className="border details-container mt-3 mb-3 "
-    >
+    <>
       <header>
         <button className="goBack" onClick={handleBackButton}>
           <FaArrowLeft />
         </button>
       </header>
+      <div className="border details-container mt-3 mb-3 ">
+        <h2>Details:</h2>
 
-      <h2>Details:</h2>
+        <img
+          className={fullScreen ? "fullScreen" : ""}
+          src={location.state?.img}
+          alt=""
+          onClick={toggleFullScreen}
+          style={{
+            cursor: "pointer",
+            maxWidth: "100%",
+            maxHeight: "100%",
+            width: fullScreen ? "auto" : "250px",
+            height: "auto",
+            position: fullScreen ? "fixed" : "static",
+            top: fullScreen ? 0 : "auto",
+            left: fullScreen ? 0 : "auto",
+            right: fullScreen ? 0 : "auto",
+            bottom: fullScreen ? 0 : "auto",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            zIndex: fullScreen ? 1000 : "auto",
+            overflow: fullScreen ? "auto" : "hidden",
+          }}
+        />
 
-      <img
-        className={fullScreen ? "fullScreen" : ""}
-        src={location.state?.img}
-        alt=""
-        onClick={toggleFullScreen}
-        style={{
-          cursor: "pointer",
-          maxWidth: "100%",
-          maxHeight: "100%",
-          width: fullScreen ? "auto" : "250px",
-          height: "auto",
-          position: fullScreen ? "fixed" : "static",
-          top: fullScreen ? 0 : "auto",
-          left: fullScreen ? 0 : "auto",
-          right: fullScreen ? 0 : "auto",
-          bottom: fullScreen ? 0 : "auto",
-          backgroundColor: "rgba(0,0,0,0.5)",
-          zIndex: fullScreen ? 1000 : "auto",
-          overflow: fullScreen ? "auto" : "hidden",
-        }}
-      />
-
-      {
-        location.state?.isMenualMenuChecked && (
+        {location.state?.isMenualMenuChecked && (
           <table>
             <thead>
               <tr>
@@ -107,10 +105,11 @@ const Details = () => {
 
       <p>Time Limit: {location.state?.time}</p>
 
-      <button type="submit" onClick={handleSubmit}>
-        Submit
-      </button>
-    </div>
+        <button type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
+      </div>
+    </>
   );
 };
 
