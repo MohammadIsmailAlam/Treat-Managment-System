@@ -91,7 +91,7 @@ export default function Landing() {
         <button onClick={handleOnHome}> + </button>
         {/* <button onClick={handleLogOut}>Log Out</button> */}
       </div>
-
+      <h2 style={{fontSize : "23px"}}> Previous Treats</h2>
       <div>
         {Object.entries(data).map(([key, value], index) => (
           <li
