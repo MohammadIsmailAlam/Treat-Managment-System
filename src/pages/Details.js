@@ -17,7 +17,7 @@ const Details = () => {
 
   const handleSubmit = (e) => {
     // POST
-    console.log(context.userEmail);
+    // console.log(context.userEmail);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
