@@ -23,7 +23,7 @@ export default function Landing() {
   const navigate = useNavigate();
 
   const context = useContext(userContext);
-  console.log(context);
+  // console.log(context);
 
   //Get
   useEffect(() => {
@@ -32,13 +32,16 @@ export default function Landing() {
     )
       .then((response) => response.json())
       .then((data) => {
-        const filteredData = Object.values(data).filter(
-          (treat) => treat.userEmail === context.userEmail
-        );
-        setData(filteredData);
+        // console.log("Before", data);
+        // const filteredData = Object.values(data)
+        //   .filter((treat, key) => treat.userEmail === context.userEmail);
+        const filteredData = Object.entries(data)
+          .filter(([key, treat]) => treat.userEmail === context.userEmail)
+          .map(([key, treat]) => [key, treat]);
+        // console.log("filtered ", Object.fromEntries(filteredData));
+        setData(Object.fromEntries(filteredData));
       });
   }, []);
-  
 
   //Delete
   const handleDelete = (id) => {
@@ -50,6 +53,7 @@ export default function Landing() {
     ).then(() => {
       const newData = { ...data };
       delete newData[id];
+      console.log(newData);
       setData(newData);
     });
   };
@@ -157,7 +161,6 @@ export default function Landing() {
                 </Button>
               </Modal.Footer>
             </Modal>
-            
             Budget: {value.budgetLimitPerPerson} ----- Time:{value.timeLimit}
             <table>
               <thead>
@@ -177,7 +180,9 @@ export default function Landing() {
                       <td>{item?.name}</td>
                       <td>{item?.price}</td>
                       <td>
-                        {item?.selectedBy?.map((person) => person.name).join(", ")}
+                        {item?.selectedBy
+                          ?.map((person) => person.name)
+                          .join(", ")}
                       </td>
                       <td>{selectedCount}</td>
                     </tr>
