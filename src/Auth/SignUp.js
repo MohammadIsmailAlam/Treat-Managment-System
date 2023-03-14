@@ -42,7 +42,7 @@ const Signup = () => {
             // Profile updated!
             setErr("");
             context.setUserEmail(email);
-            navigate("/Home");
+            navigate("/DashBoard");
           });
         })
         .catch((error) => {
