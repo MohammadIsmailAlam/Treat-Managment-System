@@ -13,6 +13,10 @@
   }
 }
 
+div#root {
+  margin: 2em;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -142,7 +146,6 @@ button.btn.btn-outline-dark {
   border: none;
   cursor: pointer;
   outline: none;
-  margin-bottom: 20px;
 }
 
 .details-container {
@@ -220,8 +223,24 @@ h2.orderList {
     position: relative;
   }
 
-  header {
+  /* header {
+    display: flex;
+    justify-content: end;
     padding: 1rem;
-    text-align: end;
     background-color: teal;
+    position: fixed;
+     width: 100%;
+} */
+
+header {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: teal;
+  z-index: 1;
 }
