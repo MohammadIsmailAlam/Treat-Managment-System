@@ -20,19 +20,6 @@ const DashBoard = () => {
         setUser(user);
         const email = localStorage.getItem('userEmail');
         context.setUserEmail(email);
-
-        fetch(
-          "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json"
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            if (data) { // Check if data is null or undefined
-              const filteredData = Object.values(data).filter(
-                (treat) => treat.userEmail === email
-              );
-              setData(filteredData);
-            }
-          });
       } else {
         navigate("/");
       }
