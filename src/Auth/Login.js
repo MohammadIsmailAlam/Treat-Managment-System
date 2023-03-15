@@ -57,7 +57,7 @@ const Login = () => {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      navigate("/Home");
+      navigate("/DashBoard");
     }
   });
 
