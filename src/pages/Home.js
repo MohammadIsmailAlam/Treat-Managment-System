@@ -27,7 +27,7 @@ const Home = () => {
   const location = useLocation();
   
   useEffect(()=> {
-    console.log(location);
+    // console.log(location);
     if (location.state) {
       setImg(location.state.img)
       setnamePriceList(location.state.menuList)
@@ -130,7 +130,7 @@ const Home = () => {
           time: timeData,
           isMenualMenuChecked: isMenualMenuSelected,
           isMenuChecked: isMenuSelected,
-        },
+        }
       });
     }
   };
