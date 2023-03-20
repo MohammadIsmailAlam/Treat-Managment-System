@@ -12,7 +12,7 @@ const Details = () => {
   console.log(context);
 
   const handleBackButton = () => {
-    navigator("/Home", { state: { ...location.state } });
+    navigator("/menuCreate", { state: { ...location.state }});
   };
 
   const handleSubmit = (e) => {
