@@ -187,7 +187,7 @@ export default function Order() {
       ) : (
         <div className="row">
           <div className="ordersSeelection">
-            <header style={{ textAlign: "center", marginTop: "10px" }}>
+            <header style={{ textAlign: "center", marginTop: "10px", justifyContent: "space-evenly"}}>
               Order Form Here....
             </header>
             {values && (
