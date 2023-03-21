@@ -11,6 +11,9 @@ const Home = () => {
   const [namePriceList, setnamePriceList] = useState([]);
   const [budgetData, setBudget] = useState("");
   const [timeData, setTime] = useState("");
+  const [searchParam, setSearchParam] = useSearchParams();
+  const key = searchParam.get("key");
+  console.log("Key ", key);
 
   const [budgetError, setBudgetError] = useState(false);
   const [timeError, setTimeError] = useState(false);
@@ -26,7 +29,7 @@ const Home = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // console.log(location);
+    console.log("location state : ", location);
     if (location.state) {
       setImg(location.state.img);
       setnamePriceList(location.state.menuList);
@@ -112,8 +115,11 @@ const Home = () => {
     // if (formData.img?.length && formData.budget && formData.time) {
     //   navigate('/details', {state: {img:img, budget:budgetData, time: timeData,  isMenuChecked: isMenuSelected}});
     // }
-    if ((img && img.length > 0) || (namePriceList && namePriceList.length > 0)) {
-      navigate("/details", {
+    if (
+      (img && img.length > 0) ||
+      (namePriceList && namePriceList.length > 0)
+    ) {
+      navigate(key ? "/details?key=" + key : "/details", {
         state: {
           img: img,
           menuList: namePriceList,
@@ -121,11 +127,11 @@ const Home = () => {
           time: timeData,
           isMenualMenuChecked: isMenualMenuSelected,
           isMenuChecked: isMenuSelected,
+          key: key,
         },
       });
     }
-}
-
+  };
 
   return (
     <div className="Container">

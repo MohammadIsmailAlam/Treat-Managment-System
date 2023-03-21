@@ -82,14 +82,15 @@ export default function Landing() {
   //   });
   // };
 
-  const editItem = (value) => {
+  const editItem = (value, key) => {
     console.log("item ", value);
-    navigate("/menuCreate", {
+    navigate("/menuCreate?key=" + key, {
       state: {
         menuList: value.manualMenuList,
         budget: value.budgetLimitPerPerson,
         time: value.timeLimit,
         isMenualMenuChecked: true,
+        key: key,
       },
     });
   };
@@ -206,7 +207,7 @@ export default function Landing() {
               <button
                 type="button"
                 style={{ marginTop: "15px" }}
-                onClick={() => editItem(value)}
+                onClick={() => editItem(value, key)}
               >
                 Edit Treat
               </button>

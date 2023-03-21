@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { userContext } from "../App";
 
 const Details = () => {
@@ -9,17 +9,19 @@ const Details = () => {
   const [fullScreen, setFullScreen] = useState(false);
 
   const context = useContext(userContext);
-  console.log(context);
+  const [searchParam, setSearchParam] = useSearchParams();
+  const key = searchParam.get("key");
+  console.log(context, " => ", key);
 
   const handleBackButton = () => {
-    navigator("/menuCreate", { state: { ...location.state }});
+    navigator("/menuCreate", { state: { ...location.state } });
   };
 
   const handleSubmit = (e) => {
     // POST
     // console.log(context.userEmail);
     const requestOptions = {
-      method: "POST",
+      method: key ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         // "menuImage": location.state?.img,
@@ -27,14 +29,17 @@ const Details = () => {
         budgetLimitPerPerson: location.state?.budget,
         timeLimit: location.state?.time,
         selectedBy: [],
-        userEmail: context.userEmail
+        userEmail: context.userEmail,
       }),
     };
+
+    let url =
+      "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json";
+    if (key) {
+      url = `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${key}.json`;
+    }
     //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/
-    fetch(
-      "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json",
-      requestOptions
-    )
+    fetch(url, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -101,9 +106,9 @@ const Details = () => {
           </table>
         )}
 
-      <p>Budget Limit: {location.state?.budget}</p>
+        <p>Budget Limit: {location.state?.budget}</p>
 
-      <p>Time Limit: {location.state?.time}</p>
+        <p>Time Limit: {location.state?.time}</p>
 
         <button type="submit" onClick={handleSubmit}>
           Submit
