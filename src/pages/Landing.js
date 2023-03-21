@@ -190,6 +190,14 @@ export default function Landing() {
                 })}
               </tbody>
             </table>
+            <div className="edit-treat">
+              <button type="button"
+              style={{marginTop: "15px"}}
+              onClick={()=> alert(key)}
+              >
+                Edit Treat
+              </button>
+            </div>
           </li>
         ))}
       </div>
