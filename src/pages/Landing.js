@@ -59,7 +59,7 @@ export default function Landing() {
   };
 
   function handleOnHome() {
-    navigate("/Home");
+    navigate("/menuCreate");
   }
 
   const [isCopied, setIsCopied] = useState(null);
@@ -82,6 +82,18 @@ export default function Landing() {
   //   });
   // };
 
+  const editItem = (value) => {
+    console.log("item ", value);
+    navigate("/menuCreate", {
+      state: {
+        menuList: value.manualMenuList,
+        budget: value.budgetLimitPerPerson,
+        time: value.timeLimit,
+        isMenualMenuChecked: true,
+      },
+    });
+  };
+
   return (
     <>
       <div
@@ -91,7 +103,7 @@ export default function Landing() {
         <button onClick={handleOnHome}> + </button>
         {/* <button onClick={handleLogOut}>Log Out</button> */}
       </div>
-      <h2 style={{fontSize : "23px"}}> Previous Treats</h2>
+      <h2 style={{ fontSize: "23px" }}> Previous Treats</h2>
       <div>
         {Object.entries(data).map(([key, value], index) => (
           <li
@@ -191,9 +203,10 @@ export default function Landing() {
               </tbody>
             </table>
             <div className="edit-treat">
-              <button type="button"
-              style={{marginTop: "15px"}}
-              onClick={()=> alert(key)}
+              <button
+                type="button"
+                style={{ marginTop: "15px" }}
+                onClick={() => editItem(value)}
               >
                 Edit Treat
               </button>

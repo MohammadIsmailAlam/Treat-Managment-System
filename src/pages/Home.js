@@ -1,12 +1,11 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import Limits from "../Components/Limits";
 import ManualMenu from "../Components/ManualMenu";
 // import MenuCreate from "../Components/MenuCreate";
 const Home = () => {
-
-  const [img, setImg] = useState([])
+  const [img, setImg] = useState([]);
   const [imgErrorMessage, setImgErrorMessage] = useState(null);
 
   const [namePriceList, setnamePriceList] = useState([]);
@@ -25,28 +24,25 @@ const Home = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  
-  useEffect(()=> {
+
+  useEffect(() => {
     // console.log(location);
     if (location.state) {
-      setImg(location.state.img)
-      setnamePriceList(location.state.menuList)
-      setBudget(location.state.budget)
-      setTime(location.state.time)
-      setIsMenuSelected(location.state.isMenuChecked)
-      setIsMenualMenuSelected(location.state.isMenualMenuChecked)
-      window.history.replaceState({}, document.title)
+      setImg(location.state.img);
+      setnamePriceList(location.state.menuList);
+      setBudget(location.state.budget);
+      setTime(location.state.time);
+      setIsMenuSelected(location.state.isMenuChecked);
+      setIsMenualMenuSelected(location.state.isMenualMenuChecked);
+      window.history.replaceState({}, document.title);
     }
-  }, [location])
-
+  }, [location]);
 
   useEffect(() => {
     if (isMenuSelected || isMenualMenuSelected) {
       setShouldShowError(false);
     }
   }, [isMenuSelected, isMenualMenuSelected]);
-
-
 
   useEffect(() => {
     if (listError !== null) {
@@ -57,9 +53,6 @@ const Home = () => {
       }
     }
   }, [namePriceList]);
-
-
-
 
   useEffect(() => {
     if (imgErrorMessage !== null) {
@@ -76,7 +69,6 @@ const Home = () => {
   };
 
   const handleSubmit = (e) => {
-
     if (isMenuSelected && img.length === 0) {
       setImgErrorMessage(true);
     } else {
@@ -104,24 +96,23 @@ const Home = () => {
     }
 
     const formData = {
-      "budget": budgetData,
-      "time": timeData,
+      budget: budgetData,
+      time: timeData,
     };
 
     if (isMenuSelected) {
-      formData.img = img
+      formData.img = img;
     }
 
     if (isMenualMenuSelected) {
-      formData.menuList = namePriceList
+      formData.menuList = namePriceList;
     }
-    console.log('formData',formData)
+    console.log("formData", formData);
 
     // if (formData.img?.length && formData.budget && formData.time) {
     //   navigate('/details', {state: {img:img, budget:budgetData, time: timeData,  isMenuChecked: isMenuSelected}});
     // }
-    
-    if ((img.length || namePriceList.length > 0) && budgetData && timeData) {
+    if ((img && img.length > 0) || (namePriceList && namePriceList.length > 0)) {
       navigate("/details", {
         state: {
           img: img,
@@ -130,23 +121,23 @@ const Home = () => {
           time: timeData,
           isMenualMenuChecked: isMenualMenuSelected,
           isMenuChecked: isMenuSelected,
-        }
+        },
       });
     }
-  };
+}
+
 
   return (
     <div className="Container">
-        <div className="App">
-
+      <div className="App">
         <header>
           <button className="goBack" onClick={handleBackButton}>
             <FaArrowLeft />
           </button>
         </header>
 
-          <h1> Create Your Treat</h1>
-          {/* <MenuCreate 
+        <h1> Create Your Treat</h1>
+        {/* <MenuCreate 
           isMenuSelected={isMenuSelected}
           setIsMenuSelected={setIsMenuSelected}
           img={img}
@@ -157,41 +148,41 @@ const Home = () => {
             imgErrorMessage &&
             <div className="error" style={{ color: 'red', marginTop: '10px' }}> Upload Img </div>
           } */}
-          <ManualMenu
-            setnamePriceList={setnamePriceList}
-            namePriceList={namePriceList}
-            isMenualMenuSelected={isMenualMenuSelected}
-            setIsMenualMenuSelected={setIsMenualMenuSelected}
-          />
+        <ManualMenu
+          setnamePriceList={setnamePriceList}
+          namePriceList={namePriceList}
+          isMenualMenuSelected={isMenualMenuSelected}
+          setIsMenualMenuSelected={setIsMenualMenuSelected}
+        />
 
-          {shouldShowError && (
-            <div className="error" style={{ color: "red", marginTop: "10px" }}>
-              {/* Choose At List One */}
-              Make A Menu First
-            </div>
-          )}
+        {shouldShowError && (
+          <div className="error" style={{ color: "red", marginTop: "10px" }}>
+            {/* Choose At List One */}
+            Make A Menu First
+          </div>
+        )}
 
-          {listError && (
-            <div className="error" style={{ color: "red", marginTop: "10px" }}>
-              Make One
-            </div>
-          )}
-          <Limits
-          budgetData = {budgetData}
-            setbudget={setBudget}
-            timeData = {timeData}
-            settime={setTime}
-            budgetError={budgetError}
-            timeError={timeError}
-            setBudgetError={setBudgetError}
-            setTimeError={setTimeError}
-          />
-          <button className="submit" onClick={handleSubmit}>
-            Submit
-          </button>
-        </div>
+        {listError && (
+          <div className="error" style={{ color: "red", marginTop: "10px" }}>
+            Make One
+          </div>
+        )}
+        <Limits
+          budgetData={budgetData}
+          setbudget={setBudget}
+          timeData={timeData}
+          settime={setTime}
+          budgetError={budgetError}
+          timeError={timeError}
+          setBudgetError={setBudgetError}
+          setTimeError={setTimeError}
+        />
+        <button className="submit" onClick={handleSubmit}>
+          Submit
+        </button>
       </div>
-  )
-}
+    </div>
+  );
+};
 
-export default Home
+export default Home;
