@@ -14,7 +14,7 @@ const Header = () => {
   
     return (
       <header>
-        <button onClick={handleLogOut}>Log Out</button>
+        <button onClick={handleLogOut} style={{marginLeft: "auto"}}>Log Out</button>
       </header>
     );
   };

@@ -155,9 +155,8 @@ button.btn.btn-outline-dark {
 }
 
 table {
-  width: 80%;
+  width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
 }
 
 th, td {
@@ -234,7 +233,7 @@ h2.orderList {
 
 header {
   display: flex;
-  justify-content: end;
+  justify-content: start;
   align-items: center;
   padding: 1rem;
   position: fixed;
@@ -243,4 +242,13 @@ header {
   width: 100%;
   background-color: teal;
   z-index: 1;
+}
+
+.table {
+  border: 1px solid grey;
+  border-radius: 12px;
+  padding: 2em;
+  margin: 2em;
+  background: aliceblue;
+  position: relative;
 }

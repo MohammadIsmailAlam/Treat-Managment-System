@@ -86,6 +86,7 @@ const Details = () => {
         />
 
         {location.state?.isMenualMenuChecked && (
+          <div className="table">
           <table>
             <thead>
               <tr>
@@ -104,6 +105,7 @@ const Details = () => {
               })}
             </tbody>
           </table>
+          </div>
         )}
 
         <p>Budget Limit: {location.state?.budget}</p>

@@ -1,9 +1,9 @@
-import { Button, Modal } from "react-bootstrap";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { MdDeleteForever } from "react-icons/md";
+import { Button, Modal } from "react-bootstrap";
 import { BiCopy } from "react-icons/bi";
+import { MdDeleteForever } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
+import { useNavigate } from "react-router-dom";
 import { userContext } from "../App";
 // import { getAuth, signOut } from "firebase/auth";
 // import OrderedList from "../Menu/OrderedList";
