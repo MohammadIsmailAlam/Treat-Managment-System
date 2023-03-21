@@ -59,7 +59,7 @@ export default function Landing() {
   };
 
   function handleOnHome() {
-    navigate("/menuCreate");
+    navigate("/menu");
   }
 
   const [isCopied, setIsCopied] = useState(null);
@@ -84,7 +84,7 @@ export default function Landing() {
 
   const editItem = (value, key) => {
     console.log("item ", value);
-    navigate("/menuCreate?key=" + key, {
+    navigate("/menu?key=" + key, {
       state: {
         menuList: value.manualMenuList,
         budget: value.budgetLimitPerPerson,

@@ -14,7 +14,7 @@ const Details = () => {
   console.log(context, " => ", key);
 
   const handleBackButton = () => {
-    navigator("/menuCreate", { state: { ...location.state } });
+    navigator("/menu", { state: { ...location.state } });
   };
 
   const handleSubmit = (e) => {
