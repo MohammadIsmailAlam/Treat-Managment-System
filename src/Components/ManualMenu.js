@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
-import "bootstrap/dist/css/bootstrap.css";
+
 
 export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenualMenuSelected, isMenualMenuSelected }) {
   
