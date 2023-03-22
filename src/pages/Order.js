@@ -27,11 +27,11 @@ export default function Order() {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
+        // console.log("data", data);
         console.log("need to eatch", data.timeLimit);
         setValues(data);
         setrTime(data.timeLimit);
-        console.log("reminnimg time", rTime);
+        // console.log("reminnimg time", rTime);
       })
       .catch((error) => {
         console.log("error", error);
@@ -57,11 +57,11 @@ export default function Order() {
     const countdownInterval = setInterval(() => {
       const now = new Date();
 
-      console.log(
-        "time",
-        inputTime.toLocaleTimeString(),
-        now.toLocaleTimeString()
-      );
+      // console.log(
+      //   "time",
+      //   inputTime.toLocaleTimeString(),
+      //   now.toLocaleTimeString()
+      // );
       const diffMs = inputTime - now;
 
       const diffHours = Math.floor(Math.abs(diffMs) / (1000 * 60 * 60));
@@ -72,13 +72,13 @@ export default function Order() {
         ((Math.abs(diffMs) % (1000 * 60 * 60)) % (1000 * 60)) / 1000
       );
 
-      console.log("Se", ((diffMs % (1000 * 60 * 60)) % (1000 * 60)) / 1000);
-      console.log("Second", diffSecond);
+      // console.log("Se", ((diffMs % (1000 * 60 * 60)) % (1000 * 60)) / 1000);
+      // console.log("Second", diffSecond);
 
       if (diffMs <= 0) {
         clearInterval(countdownInterval);
         setShowTime("Time's up!");
-        console.log("time is showing", showTime);
+        // console.log("time is showing", showTime);
         setIsTimeUp(true);
       } else {
         setShowTime(`${diffHours.toString().padStart(2, "0")}:${diffMinutes
@@ -130,7 +130,7 @@ export default function Order() {
 
     const totalCost = selectedItemsData.reduce(
       (acc, item) => {
-        const price = parseFloat(item.price);
+        const price = parseInt(item.price);
         if (!isNaN(price)) {
           return acc + price;
         } else {
@@ -142,9 +142,9 @@ export default function Order() {
     
   
     // Check if total cost exceeds budget limit
-    if (totalCost > values.budgetLimitPerPerson) {
+    if ( parseInt(totalCost) > values.budgetLimitPerPerson ) {
       setBudgetError(true);
-      console.log(totalCost);
+      // console.log("JHVKHASJVGSDVH" , totalCost);
       hasError = true;
     }
   
@@ -177,16 +177,13 @@ export default function Order() {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setSelectedItems([]);
         setShowSuccess(true);
       });
   
     setShowSuccess(true);
-    console.log(showSucccess);
-
-    setBudgetError(true);
-    console.log("hhsgdshdhsdhh-======" , budgetError);
+    // console.log(showSucccess);
   
     setSelectedItems([]);
     setName("");
@@ -306,8 +303,7 @@ export default function Order() {
                 style={{
                   display: "flex",
                   justifyContent: "center",
-                  padding: "2em",
-                  margin: "2em",
+                  padding: "2em"
                 }}
               >
                 <div style={{ textAlign: "center" }}>
