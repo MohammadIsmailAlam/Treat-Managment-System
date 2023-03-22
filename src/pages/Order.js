@@ -14,6 +14,7 @@ export default function Order() {
 
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState(false);
+  const [budgetError, setBudgetError] = useState(false);
   const { treatId } = useParams();
 
   const [rTime, setrTime] = useState("12:00");
@@ -105,41 +106,52 @@ export default function Order() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     let hasError = false;
-
+  
     if (!name) {
       setNameError(true);
       hasError = true;
     }
-
+  
     if (isTimeUp) {
-      hasError(true)
+      hasError = true;
     }
-
+  
     if (selectedItems.length === 0) {
       setSelectedItemsError(true);
       hasError = true;
     }
-
-    if (hasError) {
-      return;
-    }
-
+  
+    // Calculate total cost of selected items
     const selectedItemsData = values?.manualMenuList?.filter((item) =>
       selectedItems.includes(item.name)
     );
 
-    if (selectedItemsData.length > 0) {
-      console.log(
-        `Selected items: ${selectedItemsData.map(
-          (item) => `${item.name} ${item.price}`
-        )}`
-      );
+    const totalCost = selectedItemsData.reduce(
+      (acc, item) => {
+        const price = parseFloat(item.price);
+        if (!isNaN(price)) {
+          return acc + price;
+        } else {
+          return acc;
+        }
+      },
+      0
+    ).toFixed(2);
+    
+  
+    // Check if total cost exceeds budget limit
+    if (totalCost > values.budgetLimitPerPerson) {
+      setBudgetError(true);
+      console.log(totalCost);
+      hasError = true;
     }
-
-    console.log("the items are", selectedItems);
-
+  
+    if (hasError) {
+      return;
+    }
+  
     // Patch/Update
     fetch(
       `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${treatId}.json`,
@@ -169,10 +181,13 @@ export default function Order() {
         setSelectedItems([]);
         setShowSuccess(true);
       });
-
+  
     setShowSuccess(true);
     console.log(showSucccess);
 
+    setBudgetError(true);
+    console.log("hhsgdshdhsdhh-======" , budgetError);
+  
     setSelectedItems([]);
     setName("");
     setNameError(false);
@@ -203,6 +218,16 @@ export default function Order() {
                 <p style={{ fontFamily: "monospace" }}>
                   Budget: {values?.budgetLimitPerPerson}
                 </p>
+
+                {budgetError && (
+                  <div
+                    className="error"
+                    style={{ color: "red", marginTop: "10px" }}
+                  >
+                    Budget Limit Crossed
+                  </div>
+                )}
+                
               </div>
             )}
 
