@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import Header from "../Components/Header";
 import Limits from "../Components/Limits";
 import ManualMenu from "../Components/ManualMenu";
 // import MenuCreate from "../Components/MenuCreate";
-const Home = () => {
+const Menu = () => {
   const [img, setImg] = useState([]);
   const [imgErrorMessage, setImgErrorMessage] = useState(null);
 
@@ -136,59 +136,72 @@ const Home = () => {
   return (
     <div className="Container">
       <div className="App">
-        <header>
-          <button className="goBack" onClick={handleBackButton}>
-            <FaArrowLeft />
-          </button>
-        </header>
-
-        <h1> Create Your Treat</h1>
-        {/* <MenuCreate 
-          isMenuSelected={isMenuSelected}
-          setIsMenuSelected={setIsMenuSelected}
-          img={img}
-            setImg={setImg}
-            setErrorMessage={setImgErrorMessage}
+        <Header />
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Caption your source of misery......"
+        />
+        <div className="row">
+          <div className="col-6">
+            {/* <MenuCreate 
+                isMenuSelected={isMenuSelected}
+                setIsMenuSelected={setIsMenuSelected}
+                img={img}
+                  setImg={setImg}
+                  setErrorMessage={setImgErrorMessage}
+                  />
+                {
+                  imgErrorMessage &&
+                  <div className="error" style={{ color: 'red', marginTop: '10px' }}> Upload Img </div>
+                } */}
+            <ManualMenu
+              setnamePriceList={setnamePriceList}
+              namePriceList={namePriceList}
+              isMenualMenuSelected={isMenualMenuSelected}
+              setIsMenualMenuSelected={setIsMenualMenuSelected}
             />
-          {
-            imgErrorMessage &&
-            <div className="error" style={{ color: 'red', marginTop: '10px' }}> Upload Img </div>
-          } */}
-        <ManualMenu
-          setnamePriceList={setnamePriceList}
-          namePriceList={namePriceList}
-          isMenualMenuSelected={isMenualMenuSelected}
-          setIsMenualMenuSelected={setIsMenualMenuSelected}
-        />
 
-        {shouldShowError && (
-          <div className="error" style={{ color: "red", marginTop: "10px" }}>
-            {/* Choose At List One */}
-            Make A Menu First
-          </div>
-        )}
+            {shouldShowError && (
+              <div
+                className="error"
+                style={{ color: "red", marginTop: "10px" }}
+              >
+                {/* Choose At List One */}
+                Make A Menu First
+              </div>
+            )}
 
-        {listError && (
-          <div className="error" style={{ color: "red", marginTop: "10px" }}>
-            Make One
+            {listError && (
+              <div
+                className="error"
+                style={{ color: "red", marginTop: "10px" }}
+              >
+                Make One
+              </div>
+            )}
           </div>
-        )}
-        <Limits
-          budgetData={budgetData}
-          setbudget={setBudget}
-          timeData={timeData}
-          settime={setTime}
-          budgetError={budgetError}
-          timeError={timeError}
-          setBudgetError={setBudgetError}
-          setTimeError={setTimeError}
-        />
+          <div className="col-6">
+            <Limits
+              budgetData={budgetData}
+              setbudget={setBudget}
+              timeData={timeData}
+              settime={setTime}
+              budgetError={budgetError}
+              timeError={timeError}
+              setBudgetError={setBudgetError}
+              setTimeError={setTimeError}
+            />
+          </div>
+        </div>
+        <div className="btn-submit">
         <button className="submit" onClick={handleSubmit}>
-          Submit
+        Press and Hold to Say “ Bye Bye “ to your  Money !
         </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default Menu;
