@@ -72,7 +72,7 @@ const DashBoard = () => {
           </p>
           <button
             className="btn btn-primary"
-            onClick={() => navigate("/Order")}
+            onClick={() => navigate("/orderedList")}
           >
             Let's Go
           </button>
