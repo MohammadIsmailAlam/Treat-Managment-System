@@ -1,20 +1,69 @@
-a.btn.btn-primary {
-    margin-right: 250px;
-    margin-left: 10px;
-}
-
-img.card-img-top {
-    margin: auto;
+.card-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem;
 }
 
 .card {
-    margin: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  border-radius: 30px !important;
+}
+
+.card:hover {
+  box-shadow: 0 2px 6px rgba(255, 0, 0, 0.25);
+}
+
+.card-img-top {
+  object-fit: cover;
+  border-radius: 30px !important;
+  margin-bottom: 1rem;
+  max-width: 200px !important;
 }
 
 .card-title {
-    margin-left: 10px;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
-p.card-text {
-    margin-left: 10px;
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  white-space: break-spaces;
+}
+
+button.btn.btn-primary {
+  color: black;
+}
+
+.home {
+  margin: 2rem;
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.home h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card button {
+  margin-top: auto;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(255, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 1);
 }

@@ -50,9 +50,12 @@ const DashBoard = () => {
             Add list of items (dont forget to mention prices) and also the
             budget per person and set a time limit !
           </p>
-          <a href="navigate (/Order)" className="btn btn-primary">
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate("/menu")}
+          >
             Let's Go
-          </a>
+          </button>
         </div>
 
         <div className="card">
@@ -67,9 +70,12 @@ const DashBoard = () => {
             Save your ordering time by using a template and make use of popular
             ready made template !
           </p>
-          <a href="navigate (/Order)" className="btn btn-primary">
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate("/Order")}
+          >
             Let's Go
-          </a>
+          </button>
         </div>
 
         <div className="card">
@@ -83,9 +89,13 @@ const DashBoard = () => {
           <p className="card-text" style={{ marginTop: "0.5em" }}>
             Simply reuse your old and favorite list :D
           </p>
-          <a href="navigate (/Order)" className="btn btn-primary">
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate("/Order")}
+            // style={{marginTop: "10px"}}
+          >
             Let's Go
-          </a>
+          </button>
         </div>
       </div>
 
