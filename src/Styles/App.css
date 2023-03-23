@@ -1,6 +1,6 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
 .App-logo {
   height: 40vmin;
@@ -29,7 +29,7 @@ div#root {
 }
 
 .App-link {
-  color: #61dafb;
+  /* color: #61dafb; */
 }
 
 @keyframes App-logo-spin {
@@ -46,8 +46,9 @@ body {
     /* border: 1px solid grey;
     border-radius: 12px; */
     /* padding: 1em; */
-    margin: 5em;
-    background: aliceblue;
+    /* margin: 5em; */
+    margin-top: 65px;
+    background: rgba(255, 255, 255, 1);
     position: relative;
 }
 h1 {
@@ -57,7 +58,7 @@ h1 {
 
 img {
   display: grid;
-  max-width: 150px;
+  max-width: 175px;
   /* margin-top: 20px;
   margin-left: auto;
   margin-right: auto; */
@@ -66,11 +67,23 @@ img {
   max-width: 100vw !important; 
 }
 form {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgba(255, 0, 0, 0.25);
+  padding: 20px;
+  border-radius: 10px;
 }
+
+.contant {
+  display: flex;
+  /* margin-bottom: 20px; */
+}
+
 button.btn.btn-primary.add{
-  margin-top: 24px;
+  /* margin-top: 24px; */
   margin-left: 22px;
+  border: none;
+  background: none;
 }
 
 label {
@@ -96,46 +109,50 @@ background-color: 6A1B1B;
 ul {
   padding-left: 0;
 }
+
 li {
   padding-top: 10px;
   /* padding-bottom: 10px; */
   list-style-type: none;
 }
+
 .input-group {
   position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
 }
+
 .input-group {
   width: 268px !important;
 }
 
 .manualMenu {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  /* justify-content: center; */
   margin: 2rem;
-  margin-left: 120px;
+  /* margin-left: 120px; */
+  /* margin-top: 2em; */
 }
+
 html {
   display: flex;
   justify-content: center;
 }
-button.submit {
-  margin-top: 15px;
-  border-radius: 10px;
-  border-style: solid;
-}
+/* button.submit {
+  display: block;
+  margin: 2em;
+  width: 50%;
+} */
 
 .budget {
     margin-top: 20px;
 }
 
-.limits {
+/* .limits {
   display: grid;
   justify-content: space-evenly;
-}
+} */
 button.btn.btn-outline-dark {
   margin-top: 30px;
 }
@@ -157,6 +174,7 @@ button.btn.btn-outline-dark {
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 1em;
 }
 
 th, td {
@@ -183,20 +201,6 @@ svg {
   justify-content: center;
   
 }
-
-/* order */
-/* .checkboxes {
-  text-align:center;
-}
-
-.checkboxes input{
-  margin: 0px 0px 0px 0px;
-}
-
-.checkboxes label{
-  margin: 0px 20px 0px 3px;
-  
-} */
 input[type="checkbox"] {
   margin-right: 10px;
 }
@@ -223,15 +227,6 @@ h2.orderList {
     position: relative;
   }
 
-  /* header {
-    display: flex;
-    justify-content: end;
-    padding: 1rem;
-    background-color: teal;
-    position: fixed;
-     width: 100%;
-} */
-
 header {
   display: flex;
   justify-content: start;
@@ -254,4 +249,31 @@ header {
   margin: 2em;
   background: aliceblue;
   position: relative;
+}
+
+input.form-control{
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  appearance: none;
+  border-radius: 0.375rem;
+  padding-left: 2rem;
+  background-color: rgba(238, 238, 238, 1);
+}
+
+.limits {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgba(255, 0, 0, 0.25);
+  padding: 20px;
+  border-radius: 10px;
+  width: fit-content;
+  margin: 2em;
+}
+
+.btn-submit {
+  display: grid;
+  width: 60%;
+  margin: 2em;
 }

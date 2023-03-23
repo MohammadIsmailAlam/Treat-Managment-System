@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
+import "../Styles/table.css";
 import { useState } from "react";
-import { MdDeleteForever } from "react-icons/md";
+import addBtn from "../asset/img/Ellipse 1.png";
 
-
-export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenualMenuSelected, isMenualMenuSelected }) {
-  
+export default function ManualMenu({
+  setnamePriceList,
+  namePriceList,
+  setIsMenualMenuSelected,
+  isMenualMenuSelected,
+}) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState(true);
 
   const [nameError, setNameError] = useState(false);
   const [priceError, setPriceError] = useState(false);
@@ -33,16 +37,14 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
     if (price.length === 0) {
       setPriceError(true);
     }
+
     if (name.length > 0 && price.length > 0) {
-      setnamePriceList((prev) => {
-        return [
-          ...prev,
-          {
-            name,
-            price,
-          },
-        ];
-      });
+      // Update state with new item
+      const newItem = { name, price };
+      const updatedList = [...namePriceList, newItem];
+      setnamePriceList(updatedList);
+
+      // Reset input fields
       setName("");
       setPrice("");
     }
@@ -51,7 +53,7 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
   return (
     <div className="menu-selection">
       <ul>
-        <li>
+        {/* <li>
           <input
             name="menuTypeList"
             type="checkbox"
@@ -64,97 +66,102 @@ export default function ManualMenu({ setnamePriceList, namePriceList, setIsMenua
           <label className="checkbox" htmlFor="manualMenu">
             Manual Menu
           </label>
-        </li>
+        </li> */}
 
         {isShow && (
           <>
             <div className="manualMenu">
+              <div className="row"></div>
               <form onSubmit={handleSubmit} id="myForm">
-                <div className="form-group">
-                  <label htmlFor="name"> Item Name </label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="form-control"
-                    value={name}
-                    style={{ marginRight: "10px" }}
-                    onChange={(e) => {
-                      setName(e.target.value);
-                      setNameError(false);
-                    }}
-                  />
+                <div className="contant">
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={name}
+                      style={{ marginRight: "10px" }}
+                      placeholder="Item Name"
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        setNameError(false);
+                      }}
+                    />
 
-                  {nameError && (
-                    <div
-                      className="error"
-                      style={{ color: "red", marginTop: "10px" }}
-                    >
-                      {" "}
-                      Name Can't Be Empty
-                    </div>
-                  )}
+                    {nameError && (
+                      <div
+                        className="error"
+                        style={{ color: "red", marginTop: "10px" }}
+                      >
+                        Name Can't Be Empty
+                      </div>
+                    )}
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="number"
+                      min={0}
+                      className="form-control"
+                      value={price}
+                      placeholder="Item Price"
+                      style={{ marginLeft: "10px" }}
+                      onChange={(e) => {
+                        setPrice(e.target.value);
+                        setPriceError(false);
+                      }}
+                    />
+                    {priceError && (
+                      <div
+                        className="error"
+                        style={{ color: "red", marginTop: "10px" }}
+                      >
+                        Price Can't Be Empty
+                      </div>
+                    )}
+                  </div>
+
+                  <button type="submit" className="btn btn-primary add">
+                    <img src={addBtn} alt="addBtn" />
+                  </button>
                 </div>
-                <div className="form-group">
-                  <label htmlFor="price">Item Price</label>
-                  <input
-                    type="number"
-                    id="price"
-                    min={0}
-                    className="form-control"
-                    value={price}
-                    style={{ marginLeft: "10px" }}
-                    onChange={(e) => {
-                      setPrice(e.target.value);
-                      setPriceError(false);
-                    }}
-                  />
-                  {priceError && (
-                    <div
-                      className="error"
-                      style={{ color: "red", marginTop: "10px" }}
-                    >
-                      {" "}
-                      Price Can't Be Empty
-                    </div>
-                  )}
+
+                <div className="details">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Item Name</th>
+                        <th>Item Pric</th>
+                        <th></th>
+                      </tr>
+          
+                    </thead>
+                    <tbody>
+                      {namePriceList.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{item.name}</td>
+                            <td>{item.price}</td>
+                            <td>
+                              <button
+                                onClick={() =>
+                                  setnamePriceList((prev) => {
+                                    const newList = prev.slice();
+                                    newList.splice(index, 1);
+                                    return newList;
+                                  })
+                                }
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
-                <button type="submit" className="btn btn-primary add"
-                >
-                  + Add
-                </button>
               </form>
             </div>
           </>
-        )}
-
-        {namePriceList && namePriceList.length > 0 && (
-          <ol>
-            {namePriceList?.map((item, index) => {
-              return (
-                <li key={index}>
-                  {item.name} --- {item.price}
-                  <button
-                    style={{
-                      position: "absolute",
-                      borderRadius: "15px",
-                      marginLeft: "10px",
-                      border: "none",
-                    }}
-                    onClick={() => {
-                      // console.log(index);
-                      setnamePriceList((prev) => {
-                        const newList = prev.slice();
-                        newList.splice(index, 1);
-                        return newList;
-                      });
-                    }}
-                  >
-                    <MdDeleteForever />
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
         )}
       </ul>
     </div>
