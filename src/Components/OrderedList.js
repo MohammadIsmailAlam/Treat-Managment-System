@@ -1,9 +1,8 @@
-import { Button, Modal } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { MdDeleteForever } from "react-icons/md";
 import { BiCopy } from "react-icons/bi";
+import { MdDeleteForever } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
+import { useNavigate } from "react-router-dom";
 // import OrderedList from "../Menu/OrderedList";
 
 export default function Landing() {
