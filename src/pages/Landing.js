@@ -215,7 +215,6 @@ export default function Landing() {
           </li>
         ))}
       </div>
-      {/* <OrderedList/> */}
     </>
   );
 }
