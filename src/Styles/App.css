@@ -28,9 +28,9 @@ div#root {
   color: white;
 }
 
-.App-link {
-  /* color: #61dafb; */
-}
+/* .App-link {
+  color: #61dafb;
+} */
 
 @keyframes App-logo-spin {
   from {
@@ -59,6 +59,7 @@ h1 {
 img {
   display: grid;
   max-width: 175px;
+  cursor: pointer;
   /* margin-top: 20px;
   margin-left: auto;
   margin-right: auto; */
@@ -89,6 +90,7 @@ button.btn.btn-primary.add{
 label {
   margin-left: 5px;
   margin-right: 5px;
+  font-size: 20px;
 }
 .cointainer {
   display: flex;
@@ -193,7 +195,8 @@ p {
 svg {
   height: 30px;
   width: 35px;
-  margin-right: 20px;
+  transform: scale(0.7);
+  /* margin-right: 20px; */
 }
 .plus {
   margin: 2em;
@@ -203,6 +206,7 @@ svg {
 }
 input[type="checkbox"] {
   margin-right: 10px;
+  transform: scale(1.5);
 }
 
 h2.orderList {
@@ -276,4 +280,32 @@ input.form-control{
   display: grid;
   width: 60%;
   margin: 2em;
+}
+
+button.deletBtn {
+  padding: 0;
+  color: darkred;
+  border: none;
+  background: none;
+}
+
+.col-3 {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  padding: 2em;
+  margin: 2em;
+  position: relative;
+  height: 10%;
+  row-gap: 1em;
+}
+
+.limitation.row {
+  border: 2px solid rgba(255, 0, 0, 0.25);
+  border-radius: 17px;
+  margin: inherit;
+}
+
+.limit.form-control {
+  background-color: rgba(238, 238, 238, 1);
 }
