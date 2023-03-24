@@ -73,14 +73,6 @@ export default function Landing() {
       setIsCopied(null);
     }, 3000);
   };
-  // const auth = getAuth();
-
-  // let handleLogOut = () => {
-  //   signOut(auth).then(() => {
-  //     // Sign-out successful.
-  //     navigate("/");
-  //   });
-  // };
 
   const editItem = (value, key) => {
     console.log("item ", value);
