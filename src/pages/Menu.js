@@ -192,12 +192,25 @@ const Menu = () => {
               setBudgetError={setBudgetError}
               setTimeError={setTimeError}
             />
+            <div className="checkbox">
+              <input
+                name="menuTypeList"
+                type="checkbox"
+                className="manualMenuInput"
+                value="manualMenu"
+                id="manualMenu"
+              />
+              <label className="checkbox" htmlFor="manualMenu">
+                Make it a public template ?
+              </label>
+            </div>
           </div>
-        </div>
-        <div className="btn-submit">
-        <button className="submit" onClick={handleSubmit}>
-        Press and Hold to Say “ Bye Bye “ to your  Money !
-        </button>
+
+          <div className="btn-submit">
+            <button className="submit" onClick={handleSubmit}>
+              Press and Hold to Say “ Bye Bye “ to your Money !
+            </button>
+          </div>
         </div>
       </div>
     </div>
