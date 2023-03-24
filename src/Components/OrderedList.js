@@ -51,6 +51,7 @@ export default function Landing() {
                             <span style={{fontWeight: "bold"}}>Created By:</span>
                             <span style={{marginLeft: "0.5em"}}>{value.name}</span>
                         </div> */}
+                       <strong style={{fontSize: "xx-large"}}> Gas tolai cha er treat ! </strong>
               <table>
                 <thead>
                   <tr>
