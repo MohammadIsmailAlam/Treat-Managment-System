@@ -24,8 +24,8 @@ export default function Limits( { budgetData, setbudget, timeData ,settime, budg
       </div>
 
       <div className='time mb-3'>
-        <input type="" placeholder='Time Limit' value={timeData} className='form-control' 
-        onChange={(event) => {
+        <input type="time" placeholder='Time Limit' value={timeData} className='form-control' 
+          onChange={(event) => {
           event.preventDefault();
           settime(event.target.value)
           setTimeError(false)
