@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <header>
-      <img src={Logo} alt="Logo"/>
+      <img src={Logo} alt="Logo" onClick={()=> navigate("/dashboard")}/>
       <i className="bi bi-box-arrow-right" style={{ marginRight: "auto" }}></i>
       <IoExitOutline onClick={handleLogOut} style={{ cursor: "pointer" }} />
     </header>
