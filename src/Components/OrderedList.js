@@ -1,158 +1,141 @@
 import React, { useEffect, useState } from "react";
-import { BiCopy } from "react-icons/bi";
-import { MdDeleteForever } from "react-icons/md";
+import { IoReload } from "react-icons/io5";
 import { TiTick } from "react-icons/ti";
-import { useNavigate } from "react-router-dom";
+import { FaUserEdit } from "react-icons/fa";
+import Header from "./Header";
 // import OrderedList from "../Menu/OrderedList";
 
 export default function Landing() {
-    const [show, setShow] = useState(false);
-    const [id, setId] = useState();
+  const [data, setData] = useState([]);
 
-    const handleClose = () => setShow(false);
+  //Get
+  useEffect(() => {
+    //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json
+    fetch(
+      "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      });
+  }, []);
 
-    const handleShow = (id) => {
-        setShow(true);
-        setId(id);
-    };
+  const [isCopied, setIsCopied] = useState(null);
 
-    const [data, setData] = useState([]);
-    const navigate = useNavigate();
+  const handleCopyClick = (id) => {
+    const url = `${window.location.origin}/order/${id}`;
+    navigator.clipboard.writeText(url);
+    setIsCopied(id);
 
-    //Get
-    useEffect(() => {
-        //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json
-        fetch("https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json")
-            .then((response) => response.json())
-            .then((data) => {
-                setData(data);
-            });
-    }, []);
+    setTimeout(() => {
+      setIsCopied(null);
+    }, 3000);
+  };
 
-    //Delete
-    const handleDelete = (id) => {
-        fetch(`https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${id}.json`, {
-            method: "DELETE",
-        })
-            .then(() => {
-                const newData = { ...data };
-                delete newData[id];
-                setData(newData);
-            });
-    };
-
-    function handleOnHome() {
-        navigate("/Home");
-    }
-
-    const [isCopied, setIsCopied] = useState(null);
-
-    const handleCopyClick = (id) => {
-        navigator.clipboard.writeText(id);
-        setIsCopied(id);
-
-        setTimeout(() => {
-            setIsCopied(null);
-        }, 3000);
-    };
-
-    return (
-        <>
-            <div>
-                {Object.entries(data).map(([key, value], index) => (
-        <li
-            key={index}
-            style={{
-                border: "1px solid grey",
-                borderRadius: "12px",
+  return (
+    <>
+      <Header />
+      {Object.entries(data).map(([key, value], index) => (
+        <div className=" limitation row">
+          <div className="col-8">
+            <li
+              key={index}
+              style={{
                 padding: "2em",
                 margin: "2em",
-                background: "aliceblue",
+                background: "#FFFFFF",
                 position: "relative",
-            }}
-        >
-            <button
-                type="button"
-                className="close"
-                aria-label="Delete"
-                variant="primary"
-                onClick={() => handleShow(key)}
-                style={{
-                    position: "absolute",
-                    top: "5px",
-                    right: "5em",
-                    borderRadius: "10px",
-                    border: "none",
-                }}
+              }}
             >
-                <MdDeleteForever />
-            </button>
+              {/* <div style={{display: "flex"}}>
+                            <span style={{fontWeight: "bold"}}>Created By:</span>
+                            <span style={{marginLeft: "0.5em"}}>{value.name}</span>
+                        </div> */}
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item Name</th>
+                    <th>Item Price</th>
+                    {/* <th>Orderd By</th> */}
+                  </tr>
+                </thead>
 
-            <button
+                <tbody>
+                  {value.manualMenuList?.map((item, index) => {
+                    // console.log(item);
+                    return (
+                      <tr key={index}>
+                        <td>{item?.name}</td>
+                        <td>{item?.price}</td>
+                        {/* <td>
+                                {item?.selectedBy
+                                    ?.map((person) => person.name)
+                                    .join(", ")}
+                                </td> */}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </li>
+          </div>
+          <div className="col-3">
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <button
                 type="button"
                 className="copy"
                 aria-label="Copy"
                 variant="primary"
                 onClick={() => handleCopyClick(key)}
                 style={{
-                    position: "absolute",
-                    top: "5px",
-                    right: "1em",
-                    borderRadius: "10px",
-                    border: "none",
-                    height:"0"
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "none",
                 }}
-            >
-                <BiCopy />
+              >
+                <IoReload  />
                 {isCopied === key && (
-                    <p className="success-message">
-                        <TiTick />
-                    </p>
+                  <p className="success-message">
+                    <TiTick />
+                  </p>
                 )}
-            </button>
+              </button>
 
-            {/* <div style={{display: "flex"}}>
-                <span style={{fontWeight: "bold"}}>Created By:</span>
-                <span style={{marginLeft: "0.5em"}}>{value.name}</span>
-            </div> */}
-            
-            <div style={{display: "flex"}}>
-                <span style={{fontWeight: "bold"}}>Budget:</span>
-                <span style={{marginLeft: "0.5em"}}>{value.budgetLimitPerPerson}</span>
+              <button
+                type="button"
+                className="copy"
+                aria-label="Copy"
+                variant="primary"
+                onClick={() => handleCopyClick(key)}
+                style={{
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "none",
+                }}
+              >
+                <FaUserEdit />
+                {isCopied === key && (
+                  <p className="success-message">
+                    <TiTick />
+                  </p>
+                )}
+              </button>
             </div>
-            
-            {/* <div style={{display: "flex"}}>
-                <span style={{fontWeight: "bold"}}>Time:</span>
-                <span style={{marginLeft: "0.5em"}}>{value.timeLimit}</span>
-            </div> */}
 
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Orderd By</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                                {value.manualMenuList?.map((item, index) => {
-                                    // console.log(item);
-                                    return (
-                                        <tr key={index}>
-                                            <td>{item?.name}</td>
-                                            <td>{item?.price}</td>
-                                            <td>{item?.selectedBy?.map((person) => person.name).join(", ")}</td>
-                                        </tr>
-                                    );
-                                })}
-
-                            </tbody>
-                        </table>
-                    </li>
-                ))}
+            <div className="limit form-control" style={{ display: "flex" }}>
+              <span style={{ fontWeight: "bold" }}>Budget:</span>
+              <span style={{ marginLeft: "0.5em" }}>
+                {value.budgetLimitPerPerson}
+              </span>
             </div>
-        </>
-    );
+
+            <div className=" limit form-control" style={{ display: "flex" }}>
+              <span style={{ fontWeight: "bold" }}>Time:</span>
+              <span style={{ marginLeft: "0.5em" }}>{value.timeLimit}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </>
+  );
 }
