@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "../Styles/table.css";
 import { useState } from "react";
+import {IoTrashOutline} from "react-icons/io5"
 import addBtn from "../asset/img/Ellipse 1.png";
 
 export default function ManualMenu({
@@ -141,7 +142,8 @@ export default function ManualMenu({
                             <td>{item.name}</td>
                             <td>{item.price}</td>
                             <td>
-                              <button
+                              <button 
+                              className="deletBtn"
                                 onClick={() =>
                                   setnamePriceList((prev) => {
                                     const newList = prev.slice();
@@ -150,7 +152,7 @@ export default function ManualMenu({
                                   })
                                 }
                               >
-                                Delete
+                                <IoTrashOutline />
                               </button>
                             </td>
                           </tr>
