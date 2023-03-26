@@ -67,10 +67,6 @@ const Menu = () => {
     }
   }, [img]);
 
-  const handleBackButton = () => {
-    navigate("/DashBoard");
-  };
-
   const handleSubmit = (e) => {
     if (isMenuSelected && img.length === 0) {
       setImgErrorMessage(true);
