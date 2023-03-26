@@ -12,6 +12,7 @@ import Login from "./Auth/Login";
 import SignUp from "./Auth/SignUp";
 import Dashboard from "./Auth/DashBoard";
 import { useState } from "react";
+import Landing from "./pages/Landing";
 
 export const userContext = React.createContext(null);
 
@@ -26,7 +27,7 @@ function App() {
             <Route exact path="/" element={<Login />} />
             <Route exact path="/signup" element={<SignUp />} />
             <Route exact path="/dashboard" element={<Dashboard />} />
-            {/* <Route exact path="/landing" element={<Landing />} /> */}
+            <Route exact path="/landing" element={<Landing />} />
             <Route exact path="/menu/:key" element={<Home />} />
             <Route exact path="/menu" element={<Home />} />
             <Route exact path="/details" element={<Details />} />

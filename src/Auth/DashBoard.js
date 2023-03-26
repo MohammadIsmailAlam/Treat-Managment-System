@@ -91,7 +91,7 @@ const DashBoard = () => {
           </p>
           <button
             className="btn btn-primary"
-            onClick={() => navigate("/Order")}
+            onClick={() => navigate("/landing")}
             // style={{marginTop: "10px"}}
           >
             Let's Go
