@@ -3,6 +3,7 @@ import { IoReload } from "react-icons/io5";
 import { TiTick } from "react-icons/ti";
 import { FaUserEdit } from "react-icons/fa";
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 // import OrderedList from "../Menu/OrderedList";
 
 export default function Landing() {
@@ -31,12 +32,26 @@ export default function Landing() {
       setIsCopied(null);
     }, 3000);
   };
+  
+  const Navigate = useNavigate();
+    const editItem = (value, key) => {
+    // console.log("item ", value);
+    Navigate("/menu?key=" + key, {
+      state: {
+        menuList: value.manualMenuList,
+        budget: value.budgetLimitPerPerson,
+        time: value.timeLimit,
+        isMenualMenuChecked: true,
+        key: key,
+      },
+    });
+  };
 
   return (
     <>
       <Header />
       {Object.entries(data).map(([key, value], index) => (
-        <div className=" limitation row">
+        <div className="limitation row">
           <div className="col-8">
             <li
               key={index}
@@ -51,7 +66,7 @@ export default function Landing() {
                             <span style={{fontWeight: "bold"}}>Created By:</span>
                             <span style={{marginLeft: "0.5em"}}>{value.name}</span>
                         </div> */}
-                       <strong style={{fontSize: "xx-large"}}> Gas tolai cha er treat ! </strong>
+              <strong style={{fontSize: "xx-large"}}> Gas tolai cha er treat ! </strong>
               <table>
                 <thead>
                   <tr>
@@ -102,25 +117,19 @@ export default function Landing() {
                 )}
               </button>
 
-              <button
-                type="button"
-                className="copy"
-                aria-label="Copy"
-                variant="primary"
-                onClick={() => handleCopyClick(key)}
-                style={{
-                  borderRadius: "10px",
-                  border: "none",
-                  background: "none",
-                }}
-              >
-                <FaUserEdit />
-                {isCopied === key && (
-                  <p className="success-message">
-                    <TiTick />
-                  </p>
-                )}
-              </button>
+                <div className="edit-treat">
+                  <button
+                    type="button"
+                    style={{
+                      borderRadius: "10px",
+                      border: "none",
+                      background: "none",
+                    }}
+                    onClick={() => editItem(value, key)}
+                  >
+                    <FaUserEdit />
+                  </button>
+                </div>
             </div>
 
             <div className="limit form-control" style={{ display: "flex" }}>

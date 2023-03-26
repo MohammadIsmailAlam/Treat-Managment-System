@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { BiCopy } from "react-icons/bi";
+import { FaUserEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../App";
+import Header from "../Components/Header";
 // import { getAuth, signOut } from "firebase/auth";
 // import OrderedList from "../Menu/OrderedList";
 
@@ -58,10 +60,6 @@ export default function Landing() {
     });
   };
 
-  function handleOnHome() {
-    navigate("/menu");
-  }
-
   const [isCopied, setIsCopied] = useState(null);
 
   const handleCopyClick = (id) => {
@@ -89,124 +87,129 @@ export default function Landing() {
 
   return (
     <>
-      <div
-        className="plus"
-        style={{ display: "flex", justifyContent: "space-between" }}
-      >
-        <button onClick={handleOnHome}> + </button>
-        {/* <button onClick={handleLogOut}>Log Out</button> */}
-      </div>
-      <h2 style={{ fontSize: "23px" }}> Previous Treats</h2>
-      <div>
-        {Object.entries(data).map(([key, value], index) => (
-          <li
-            key={index}
-            style={{
-              border: "1px solid grey",
-              borderRadius: "12px",
-              padding: "2em",
-              margin: "2em",
-              background: "aliceblue",
-              position: "relative",
-            }}
-          >
-            <button
-              type="button"
-              className="close"
-              aria-label="Delete"
-              variant="primary"
-              onClick={() => handleShow(key)}
+      <Header />
+      {Object.entries(data).map(([key, value], index) => (
+        <div className="limitation row">
+          <div className="col-8">
+            <li
+              key={index}
               style={{
-                position: "absolute",
-                top: "5px",
-                right: "5em",
-                borderRadius: "10px",
-                border: "none",
+                padding: "2em",
+                margin: "2em",
+                background: "#FFFFFF",
+                position: "relative",
               }}
             >
-              <MdDeleteForever />
-            </button>
-            <button
-              type="button"
-              className="copy"
-              aria-label="Copy"
-              variant="primary"
-              onClick={() => handleCopyClick(key)}
-              style={{
-                position: "absolute",
-                top: "5px",
-                right: "1em",
-                borderRadius: "10px",
-                border: "none",
-                height: "0",
-              }}
-            >
-              <BiCopy />
-              {isCopied === key && (
-                <p className="success-message">
-                  <TiTick />
-                </p>
-              )}
-            </button>
-            <Modal show={show} onHide={handleClose}>
-              <Modal.Body>Are You Sure You Want To Delete It..!!!</Modal.Body>
+              <Modal show={show} onHide={handleClose}>
+                <Modal.Body>Are You Sure You Want To Delete It..!!!</Modal.Body>
 
-              <Modal.Footer>
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    handleDelete(id);
-                    handleClose();
+                <Modal.Footer>
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      handleDelete(id);
+                      handleClose();
+                    }}
+                  >
+                    Ok
+                  </Button>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+              <strong style={{ fontSize: "xx-large" }}>
+                {" "}
+                Gas tolai cha er treat !{" "}
+              </strong>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Orderd By</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {value.manualMenuList?.map((item, index) => {
+                    const selectedCount = item.selectedBy?.length || 0;
+                    return (
+                      <tr key={index}>
+                        <td>{item?.name}</td>
+                        <td>{item?.price}</td>
+                        <td>
+                          {item?.selectedBy
+                            ?.map((person) => person.name)
+                            .join(", ")}
+                        </td>
+                        <td>{selectedCount}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </li>
+          </div>
+
+          <div className="col-3">
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+
+              <div style={{ display: "flex", gap: "5px" }}>
+                <button
+                  type="button"
+                  style={{
+                    borderRadius: "10px",
+                    border: "none",
+                    background: "none",
                   }}
+                  onClick={() => handleCopyClick(key)}
                 >
-                  Ok
-                </Button>
-                <Button variant="secondary" onClick={handleClose}>
-                  Close
-                </Button>
-              </Modal.Footer>
-            </Modal>
-            Budget: {value.budgetLimitPerPerson} ----- Time:{value.timeLimit}
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Orderd By</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
+                  <BiCopy />
+                </button>
+                {isCopied === key && <TiTick />}
 
-              <tbody>
-                {value.manualMenuList?.map((item, index) => {
-                  const selectedCount = item.selectedBy?.length || 0;
-                  return (
-                    <tr key={index}>
-                      <td>{item?.name}</td>
-                      <td>{item?.price}</td>
-                      <td>
-                        {item?.selectedBy
-                          ?.map((person) => person.name)
-                          .join(", ")}
-                      </td>
-                      <td>{selectedCount}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-            <div className="edit-treat">
-              <button
+                <button
+                  type="button"
+                  style={{
+                    borderRadius: "10px",
+                    border: "none",
+                    background: "none",
+                  }}
+                  onClick={() => editItem(value, key)}
+                >
+                  <FaUserEdit />
+                </button>
+
+                <button
                 type="button"
-                style={{ marginTop: "15px" }}
-                onClick={() => editItem(value, key)}
+                onClick={() => handleShow(key)}
+                style={{
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "none",
+                }}
               >
-                Edit Treat
+                <MdDeleteForever />
               </button>
+
+              </div>
             </div>
-          </li>
-        ))}
-      </div>
+            <div className="limit form-control" style={{ display: "flex" }}>
+              <span style={{ fontWeight: "bold" }}>Budget:</span>
+              <span style={{ marginLeft: "0.5em" }}>
+                {value.budgetLimitPerPerson}
+              </span>
+            </div>
+
+            <div className=" limit form-control" style={{ display: "flex" }}>
+              <span style={{ fontWeight: "bold" }}>Time:</span>
+              <span style={{ marginLeft: "0.5em" }}>{value.timeLimit}</span>
+            </div>
+          </div>
+        </div>
+      ))}
     </>
   );
 }
