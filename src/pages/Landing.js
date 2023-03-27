@@ -6,6 +6,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../App";
+import BudgetAndTimeLimit from "../Components/BudgetTimeLimit";
 import Header from "../Components/Header";
 // import { getAuth, signOut } from "firebase/auth";
 // import OrderedList from "../Menu/OrderedList";
@@ -196,17 +197,10 @@ export default function Landing() {
 
               </div>
             </div>
-            <div className="limit form-control" style={{ display: "flex" }}>
-              <span style={{ fontWeight: "bold" }}>Budget:</span>
-              <span style={{ marginLeft: "0.5em" }}>
-                {value.budgetLimitPerPerson}
-              </span>
-            </div>
-
-            <div className=" limit form-control" style={{ display: "flex" }}>
-              <span style={{ fontWeight: "bold" }}>Time:</span>
-              <span style={{ marginLeft: "0.5em" }}>{value.timeLimit}</span>
-            </div>
+            <BudgetAndTimeLimit
+                    budgetLimitPerPerson={value.budgetLimitPerPerson}
+                    timeLimit={value.timeLimit}
+            />
           </div>
         </div>
       ))}
