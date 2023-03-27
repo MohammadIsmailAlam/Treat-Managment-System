@@ -83,9 +83,10 @@ form {
 
 button.btn.btn-primary.add{
   /* margin-top: 24px; */
-  margin-left: 22px;
+  /* margin-left: 22px; */
   border: none;
   background: none;
+  margin-bottom: 30px;
 }
 
 label {
@@ -280,7 +281,7 @@ input.form-control{
 .btn-submit {
   display: grid;
   width: 60%;
-  margin: 2em;
+  margin: 6em;
 }
 
 button.deletBtn {

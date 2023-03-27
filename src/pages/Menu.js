@@ -147,7 +147,7 @@ const Menu = () => {
         value={caption}
         onChange={handleInputChange}
       />
-        <div className="row">
+        <div className="row" style={{display: "flex",marginLeft: "10em"}}>
           <div className="col-6">
             {/* <MenuCreate 
                 isMenuSelected={isMenuSelected}
