@@ -119,10 +119,11 @@ export default function Landing() {
                   </Button>
                 </Modal.Footer>
               </Modal>
+
               <strong style={{ fontSize: "xx-large" }}>
-                {" "}
-                Gas tolai cha er treat !{" "}
+                Gas tolai cha er treat !
               </strong>
+              <h1> Treat Caption: {value.caption}</h1>
               <table>
                 <thead>
                   <tr>
@@ -138,6 +139,7 @@ export default function Landing() {
                     const selectedCount = item.selectedBy?.length || 0;
                     return (
                       <tr key={index}>
+                        {item?.caption}
                         <td>{item?.name}</td>
                         <td>{item?.price}</td>
                         <td>

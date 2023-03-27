@@ -67,6 +67,7 @@ export default function Landing() {
                             <span style={{marginLeft: "0.5em"}}>{value.name}</span>
                         </div> */}
               <strong style={{fontSize: "xx-large"}}> Gas tolai cha er treat ! </strong>
+              <h5> Treat Caption: {value.caption}</h5>
               <table>
                 <thead>
                   <tr>
