@@ -30,6 +30,7 @@ const Details = () => {
         timeLimit: location.state?.time,
         selectedBy: [],
         userEmail: context.userEmail,
+        caption: location.state?.caption
       }),
     };
 
