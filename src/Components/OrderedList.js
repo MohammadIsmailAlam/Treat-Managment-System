@@ -50,6 +50,7 @@ export default function Landing() {
   return (
     <>
       <Header />
+      <h1> Use a template </h1>
       {Object.entries(data).map(([key, value], index) => (
         <div className="limitation row">
           <div className="col-8">
@@ -97,8 +98,8 @@ export default function Landing() {
             </li>
           </div>
           <div className="col-3">
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <button
+            <div style={{ display: "flex", justifyContent: "end" }}>
+              {/* <button
                 type="button"
                 className="copy"
                 aria-label="Copy"
@@ -116,7 +117,7 @@ export default function Landing() {
                     <TiTick />
                   </p>
                 )}
-              </button>
+              </button> */}
 
                 <div className="edit-treat">
                   <button
