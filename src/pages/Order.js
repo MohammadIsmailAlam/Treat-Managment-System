@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Header from "../Components/Header";
 import SuccessMsg from "../Components/SuccessMsg";
 
 export default function Order() {
@@ -193,15 +194,15 @@ export default function Order() {
   const isDisabled = isTimeUp;
 
   return (
+    
     <div className="container">
+      
       {showSucccess ? (
         <SuccessMsg />
       ) : (
         <div className="row">
           <div className="ordersSeelection">
-            <header style={{ textAlign: "center", marginTop: "10px", justifyContent: "space-evenly"}}>
-              Order Form Here....
-            </header>
+            <Header/>
             {values && (
               <div
                 className="title"
