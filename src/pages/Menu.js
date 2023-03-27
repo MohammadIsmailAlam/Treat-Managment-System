@@ -28,6 +28,11 @@ const Menu = () => {
 
   const location = useLocation();
 
+  const [caption, setCaption] = useState("");
+  const handleInputChange = (event) => {
+    setCaption(event.target.value);
+  };
+  
   useEffect(() => {
     console.log("location state : ", location);
     if (location.state) {
@@ -123,6 +128,8 @@ const Menu = () => {
           time: timeData,
           isMenualMenuChecked: isMenualMenuSelected,
           isMenuChecked: isMenuSelected,
+          caption: caption,
+          // isMenuTempletSelected: isMenuTempletSelected,
           key: key,
         },
       });
@@ -134,10 +141,12 @@ const Menu = () => {
       <div className="App">
         <Header />
         <input
-          type="text"
-          className="form-control"
-          placeholder="Caption your source of misery......"
-        />
+        type="text"
+        className="form-control"
+        placeholder="Caption your source of misery......"
+        value={caption}
+        onChange={handleInputChange}
+      />
         <div className="row">
           <div className="col-6">
             {/* <MenuCreate 
@@ -188,15 +197,14 @@ const Menu = () => {
               setBudgetError={setBudgetError}
               setTimeError={setTimeError}
             />
-            <div className="checkbox">
+            <div className="templet checkbox">
               <input
-                name="menuTypeList"
                 type="checkbox"
-                className="manualMenuInput"
-                value="manualMenu"
-                id="manualMenu"
+                className="menuTemplet"
+                value="menuTemplet"
+                id="menuTemplet"
               />
-              <label className="checkbox" htmlFor="manualMenu">
+              <label className="checkbox" htmlFor="menuTemplet">
                 Make it a public template ?
               </label>
             </div>
