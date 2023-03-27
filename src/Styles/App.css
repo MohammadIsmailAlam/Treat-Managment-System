@@ -51,9 +51,10 @@ body {
     background: rgba(255, 255, 255, 1);
     position: relative;
 }
-h1 {
+h1, h5 {
   font-weight: 100;
   margin-bottom: 2.5rem;
+  margin-top: 1em;
 }
 
 img {
