@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "../Styles/table.css";
 import { useState } from "react";
-import {IoTrashOutline} from "react-icons/io5"
+import { IoTrashOutline } from "react-icons/io5";
 import addBtn from "../asset/img/Ellipse 1.png";
 
 export default function ManualMenu({
@@ -12,21 +12,22 @@ export default function ManualMenu({
 }) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [isShow, setIsShow] = useState(true);
+  // const [isShow, setIsShow] = useState(true);
 
   const [nameError, setNameError] = useState(false);
   const [priceError, setPriceError] = useState(false);
+  const [hasItems, setHasItems] = useState(false);
 
-  useEffect(() => {
-    if (isMenualMenuSelected) {
-      setIsShow(true);
-    }
-  }, [isMenualMenuSelected]);
+  // useEffect(() => {
+  //   if (isMenualMenuSelected) {
+  //     setIsShow(true);
+  //   }
+  // }, [isMenualMenuSelected]);
 
-  const handleShow = (e) => {
-    setIsShow(e.target.checked);
-    setIsMenualMenuSelected(e.target.checked);
-  };
+  // const handleShow = (e) => {
+  //   setIsShow(e.target.checked);
+  //   setIsMenualMenuSelected(e.target.checked);
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,6 +50,19 @@ export default function ManualMenu({
       setName("");
       setPrice("");
     }
+    if (name.length > 0 && price.length > 0) {
+      // Update state with new item
+      const newItem = { name, price };
+      const updatedList = [...namePriceList, newItem];
+      setnamePriceList(updatedList);
+
+      // Reset input fields
+      setName("");
+      setPrice("");
+
+      // Set hasItems to true
+      setHasItems(true);
+    }
   };
 
   return (
@@ -69,10 +83,10 @@ export default function ManualMenu({
           </label>
         </li> */}
 
-        {isShow && (
-          <>
-            <div className="manualMenu">
-              <div className="row"></div>
+        {/* {isShow && ( */}
+        <>
+          <div className="manualMenu">
+            <div className="row">
               <form onSubmit={handleSubmit} id="myForm">
                 <div className="contant">
                   <div className="form-group">
@@ -130,10 +144,9 @@ export default function ManualMenu({
                     <thead>
                       <tr>
                         <th>Item Name</th>
-                        <th>Item Pric</th>
+                        <th>Item Price</th>
                         <th></th>
                       </tr>
-          
                     </thead>
                     <tbody>
                       {namePriceList.map((item, index) => {
@@ -142,8 +155,8 @@ export default function ManualMenu({
                             <td>{item.name}</td>
                             <td>{item.price}</td>
                             <td>
-                              <button 
-                              className="deletBtn"
+                              <button
+                                className="deletBtn"
                                 onClick={() =>
                                   setnamePriceList((prev) => {
                                     const newList = prev.slice();
@@ -159,12 +172,20 @@ export default function ManualMenu({
                         );
                       })}
                     </tbody>
+                    <tfoot>
+                      {namePriceList.length === 0 && (
+                        <tr>
+                          <td colSpan="3">Nothing here</td>
+                        </tr>
+                      )}
+                    </tfoot>
                   </table>
                 </div>
               </form>
             </div>
-          </>
-        )}
+          </div>
+        </>
+        {/* )} */}
       </ul>
     </div>
   );
