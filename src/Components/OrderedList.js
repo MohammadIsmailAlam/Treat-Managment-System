@@ -4,6 +4,7 @@ import { TiTick } from "react-icons/ti";
 import { FaUserEdit } from "react-icons/fa";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
+import BudgetAndTimeLimit from "./BudgetTimeLimit";
 // import OrderedList from "../Menu/OrderedList";
 
 export default function Landing() {
@@ -34,15 +35,14 @@ export default function Landing() {
   };
   
   const Navigate = useNavigate();
-    const editItem = (value, key) => {
+    const editItem = (value) => {
     // console.log("item ", value);
-    Navigate("/menu?key=" + key, {
+    Navigate("/menu", {
       state: {
         menuList: value.manualMenuList,
         budget: value.budgetLimitPerPerson,
         time: value.timeLimit,
-        isMenualMenuChecked: true,
-        key: key,
+        isMenualMenuChecked: true
       },
     });
   };
@@ -132,17 +132,10 @@ export default function Landing() {
                 </div>
             </div>
 
-            <div className="limit form-control" style={{ display: "flex" }}>
-              <span style={{ fontWeight: "bold" }}>Budget:</span>
-              <span style={{ marginLeft: "0.5em" }}>
-                {value.budgetLimitPerPerson}
-              </span>
-            </div>
-
-            <div className=" limit form-control" style={{ display: "flex" }}>
-              <span style={{ fontWeight: "bold" }}>Time:</span>
-              <span style={{ marginLeft: "0.5em" }}>{value.timeLimit}</span>
-            </div>
+            <BudgetAndTimeLimit
+                    budgetLimitPerPerson={value.budgetLimitPerPerson}
+                    timeLimit={value.timeLimit}
+            />
           </div>
         </div>
       ))}
