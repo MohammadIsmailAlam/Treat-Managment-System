@@ -55,7 +55,7 @@ export default function OderedList() {
   return (
     <>
       <Header />
-      <div className="search">
+      <div className="search" style={{display: "flex"}}>
         <div className="caption">
         <input
           type="text"
