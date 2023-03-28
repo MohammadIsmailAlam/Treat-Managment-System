@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { IoReload } from "react-icons/io5";
-import { TiTick } from "react-icons/ti";
 import { FaUserEdit } from "react-icons/fa";
+import Button from '@mui/material/Button';
+
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 import BudgetAndTimeLimit from "./BudgetTimeLimit";
@@ -9,7 +9,7 @@ import BudgetAndTimeLimit from "./BudgetTimeLimit";
 
 export default function Landing() {
   const [data, setData] = useState([]);
-
+  const [showMore, setShowMore] = useState(false);
   //Get
   useEffect(() => {
     //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json
@@ -21,20 +21,9 @@ export default function Landing() {
         setData(data);
       });
   }, []);
-
-  const [isCopied, setIsCopied] = useState(null);
-
-  const handleCopyClick = (id) => {
-    const url = `${window.location.origin}/order/${id}`;
-    navigator.clipboard.writeText(url);
-    setIsCopied(id);
-
-    setTimeout(() => {
-      setIsCopied(null);
-    }, 3000);
-  };
   
   const Navigate = useNavigate();
+
     const editItem = (value) => {
     // console.log("item ", value);
     Navigate("/menu", {
@@ -47,10 +36,14 @@ export default function Landing() {
     });
   };
 
+  const handleShowMoreClick = () => {
+    setShowMore(true);
+  };
+
   return (
     <>
       <Header />
-      <h1> Use a template </h1>
+      <strong style={{fontSize: "xx-large"}}> Use a template ! </strong>
       {Object.entries(data).map(([key, value], index) => (
         <div className="limitation row">
           <div className="col-8">
@@ -67,7 +60,10 @@ export default function Landing() {
                             <span style={{fontWeight: "bold"}}>Created By:</span>
                             <span style={{marginLeft: "0.5em"}}>{value.name}</span>
                         </div> */}
-              <strong style={{fontSize: "xx-large"}}> Gas tolai cha er treat ! </strong>
+              <strong style={{ fontSize: "x-large" }}>
+                {" "}
+                Gas tolai cha er treat !{" "}
+              </strong>
               <h5> Treat Caption: {value.caption}</h5>
               <table>
                 <thead>
@@ -79,22 +75,27 @@ export default function Landing() {
                 </thead>
 
                 <tbody>
-                  {value.manualMenuList?.map((item, index) => {
-                    // console.log(item);
-                    return (
-                      <tr key={index}>
-                        <td>{item?.name}</td>
-                        <td>{item?.price}</td>
-                        {/* <td>
+                  {value.manualMenuList
+                    ?.slice(0, showMore ? undefined : 3)
+                    .map((item, index) => {
+                      // console.log(item);
+                      return (
+                        <tr key={index}>
+                          <td>{item?.name}</td>
+                          <td>{item?.price}</td>
+                          {/* <td>
                                 {item?.selectedBy
                                     ?.map((person) => person.name)
                                     .join(", ")}
                                 </td> */}
-                      </tr>
-                    );
-                  })}
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
+              {value.manualMenuList?.length > 3 && !showMore && (
+                <Button onClick={handleShowMoreClick}>See More</Button>
+              )}
             </li>
           </div>
           <div className="col-3">
