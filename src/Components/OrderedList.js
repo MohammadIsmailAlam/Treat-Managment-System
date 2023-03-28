@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaUserEdit } from "react-icons/fa";
 import Button from "@mui/material/Button";
-
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 import BudgetAndTimeLimit from "./BudgetTimeLimit";
@@ -9,6 +8,9 @@ import BudgetAndTimeLimit from "./BudgetTimeLimit";
 export default function OderedList() {
   const [data, setData] = useState([]);
   const [showMore, setShowMore] = useState(false);
+  const [searchCaption, setSearchCaption] = useState('');
+  const [filterBy, setFilterBy] = useState("");
+
   //Get
   useEffect(() => {
     fetch(
@@ -19,17 +21,16 @@ export default function OderedList() {
         setData(data);
       });
   }, []);
-  
+
   const Navigate = useNavigate();
 
-    const editItem = (value) => {
-    // console.log("item ", value);
+  const editItem = (value) => {
     Navigate("/menu", {
       state: {
         menuList: value.manualMenuList,
         budget: value.budgetLimitPerPerson,
         time: value.timeLimit,
-        isMenualMenuChecked: true
+        isMenualMenuChecked: true,
       },
     });
   };
@@ -38,11 +39,43 @@ export default function OderedList() {
     setShowMore(true);
   };
 
+  const handleCaptionSearch = (event) => {
+    setSearchCaption(event.target.value);
+  };
+
+  const handleFilterBy = (event) => {
+    setFilterBy(event.target.value);
+  };
+
+  const filteredData = Object.entries(data).filter(
+    ([key, value]) =>
+      value.caption && value.caption.toLowerCase().includes(searchCaption.toLowerCase()) &&
+      (filterBy === "" || filterBy === value.type)
+  );
   return (
     <>
       <Header />
-      <strong style={{fontSize: "xx-large"}}> Use a template ! </strong>
-      {Object.entries(data).map(([key, value], index) => (
+      <div className="search">
+        <div className="caption">
+        <input
+          type="text"
+          placeholder="Search by caption"
+          value={searchCaption}
+          onChange={handleCaptionSearch}
+          className= "form-control"
+        />
+        </div>
+        <div className="filter">
+        <select value={filterBy} 
+        className= "form-control"
+        onChange={handleFilterBy}>
+          <option value="">Filter by</option>
+          <option value="budget">Budget</option>
+          <option value="Number of Item">Items</option>
+        </select>
+        </div>
+      </div>
+      {filteredData.map(([key, value], index) => (
         <div className="limitation row">
           <div className="col-8">
             <li
@@ -99,8 +132,8 @@ export default function OderedList() {
             </div>
 
             <BudgetAndTimeLimit
-                    budgetLimitPerPerson={value.budgetLimitPerPerson}
-                    timeLimit={value.timeLimit}
+              budgetLimitPerPerson={value.budgetLimitPerPerson}
+              timeLimit={value.timeLimit}
             />
           </div>
         </div>
