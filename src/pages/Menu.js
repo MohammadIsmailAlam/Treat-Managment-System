@@ -179,14 +179,14 @@ const Menu = () => {
               </div>
             )}
 
-            {listError && (
+            {/* {listError && (
               <div
                 className="error"
                 style={{ color: "red", marginTop: "10px" }}
               >
                 Make One
               </div>
-            )}
+            )} */}
           </div>
           <div className="col-6">
             <Limits
