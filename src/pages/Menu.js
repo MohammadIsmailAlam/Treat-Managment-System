@@ -119,7 +119,9 @@ const Menu = () => {
     if (
       (img && img.length > 0) ||
       (namePriceList && namePriceList.length > 0)
-    ) {
+    ) 
+    
+    {
       navigate(key ? "/details?key=" + key : "/details", {
         state: {
           img: img,
