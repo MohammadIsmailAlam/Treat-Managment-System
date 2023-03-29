@@ -120,11 +120,7 @@ export default function Landing() {
                   </Button>
                 </Modal.Footer>
               </Modal>
-
-              <strong style={{ fontSize: "xx-large" }}>
-                Gas tolai cha er treat !
-              </strong>
-              <h1> Treat Caption: {value.caption}</h1>
+              <h4> Treat Caption: {value.caption}</h4>
               <table>
                 <thead>
                   <tr>
@@ -159,7 +155,6 @@ export default function Landing() {
 
           <div className="col-3">
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-
               <div style={{ display: "flex", gap: "5px" }}>
                 <button
                   type="button"
@@ -187,22 +182,21 @@ export default function Landing() {
                 </button>
 
                 <button
-                type="button"
-                onClick={() => handleShow(key)}
-                style={{
-                  borderRadius: "10px",
-                  border: "none",
-                  background: "none",
-                }}
-              >
-                <MdDeleteForever />
-              </button>
-
+                  type="button"
+                  onClick={() => handleShow(key)}
+                  style={{
+                    borderRadius: "10px",
+                    border: "none",
+                    background: "none",
+                  }}
+                >
+                  <MdDeleteForever />
+                </button>
               </div>
             </div>
             <BudgetAndTimeLimit
-                    budgetLimitPerPerson={value.budgetLimitPerPerson}
-                    timeLimit={value.timeLimit}
+              budgetLimitPerPerson={value.budgetLimitPerPerson}
+              timeLimit={value.timeLimit}
             />
           </div>
         </div>
