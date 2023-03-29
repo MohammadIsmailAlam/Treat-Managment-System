@@ -8,8 +8,8 @@ import BudgetAndTimeLimit from "./BudgetTimeLimit";
 export default function OderedList() {
   const [data, setData] = useState([]);
   const [showMore, setShowMore] = useState(false);
-  const [searchCaption, setSearchCaption] = useState('');
-  const [filterBy, setFilterBy] = useState("");
+  const [searchCaption, setSearchCaption] = useState("");
+  const [sortBy, setSortBy] = useState("");
 
   //Get
   useEffect(() => {
@@ -44,36 +44,46 @@ export default function OderedList() {
   };
 
   const handleFilterBy = (event) => {
-    setFilterBy(event.target.value);
-  };
+    setSortBy(event.target.value);
+    if (event.target.value === "budget") {
+      const sortedData = filteredData.sort(
+        (a, b) => a[1].budgetLimitPerPerson - b[1].budgetLimitPerPerson
+      );
+      setData(sortedData);
+    }
+  };  
 
   const filteredData = Object.entries(data).filter(
     ([key, value]) =>
-      value.caption && value.caption.toLowerCase().includes(searchCaption.toLowerCase()) &&
-      (filterBy === "" || filterBy === value.type)
+      value.caption &&
+      value.caption.toLowerCase().includes(searchCaption.toLowerCase()) &&
+      (sortBy === "" || sortBy === value.type)
   );
+
   return (
     <>
       <Header />
       <h1> Use a Template ! </h1>
-      <div className="search" style={{display: "flex"}}>
+      <div className="search" style={{ display: "flex" }}>
         <div className="caption">
-        <input
-          type="text"
-          placeholder="Search by caption"
-          value={searchCaption}
-          onChange={handleCaptionSearch}
-          className= "form-control"
-        />
+          <input
+            type="text"
+            placeholder="Search by caption"
+            value={searchCaption}
+            onChange={handleCaptionSearch}
+            className="form-control"
+          />
         </div>
-        <div className="filter">
-        <select value={filterBy} 
-        className= "form-control"
-        onChange={handleFilterBy}>
-          <option value="">Filter by</option>
-          <option value="budget">Budget</option>
-          <option value="Number of Item">Items</option>
-        </select>
+        <div className="">
+          <select
+            value={sortBy}
+            className="form-control"
+            onChange={handleFilterBy}
+          >
+            <option value="">Sort By</option>
+            <option value="budget">Budget</option>
+            <option value="Number of Item">Items</option>
+          </select>
         </div>
       </div>
       {filteredData.map(([key, value], index) => (
