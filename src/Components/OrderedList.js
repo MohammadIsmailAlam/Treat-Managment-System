@@ -64,7 +64,7 @@ export default function OderedList() {
     <>
       <Header />
       <h1> Use a Template ! </h1>
-      <div className="search" style={{ display: "flex" }}>
+      <div className="search" style={{ display: "flex", gap: "1em" }}>
         <div className="caption">
           <input
             type="text"
