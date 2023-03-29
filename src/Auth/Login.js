@@ -60,18 +60,21 @@ const Login = () => {
 
   const handleGoogleAuth = () => {
     signInWithPopup(auth, provider)
-    .then((userCredential) => {
-      context.setUserEmail(email);
-      localStorage.setItem("userEmail", email);
-    })
-    .catch((error) => {
-      console.log(error.code);
-if (error.code === "auth/user-not-found") {
-        setErr("Email not registered!");
-      } else {
-        setErr("");
-      }
-    });
+      .then((userCredential) => {
+        console.log("user email", email);
+        console.log("auth", auth);
+        console.log("provider", provider);
+        context.setUserEmail(auth.currentUser.email);
+        localStorage.setItem("userEmail", auth.currentUser.email);
+      })
+      .catch((error) => {
+        console.log(error.code);
+        if (error.code === "auth/user-not-found") {
+          setErr("Email not registered!");
+        } else {
+          setErr("");
+        }
+      });
   };
 
   onAuthStateChanged(auth, (user) => {

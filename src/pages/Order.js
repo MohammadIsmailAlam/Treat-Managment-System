@@ -7,10 +7,6 @@ export default function Order() {
   const [values, setValues] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedItemsError, setSelectedItemsError] = useState(false);
-
-  const [isTimeUp, setIsTimeUp] = useState(false);
-
-
   const [showSucccess, setShowSuccess] = useState(false);
 
   const [name, setName] = useState("");
@@ -20,6 +16,7 @@ export default function Order() {
 
   const [rTime, setrTime] = useState("12:00");
   const [showTime, setShowTime] = useState("00:00");
+  const [isTimeUp, setIsTimeUp] = useState(false);
 
   //   Get
   useEffect(() => {
