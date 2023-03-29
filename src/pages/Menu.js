@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useContext } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { userContext } from "../App";
 import Header from "../Components/Header";
 import Limits from "../Components/Limits";
 import ManualMenu from "../Components/ManualMenu";
@@ -25,26 +27,24 @@ const Menu = () => {
   const [listError, setListError] = useState(null);
 
   const navigate = useNavigate();
+  
+  const context = useContext(userContext);
 
-  const location = useLocation();
+  // const location = useLocation();
 
   const [caption, setCaption] = useState("");
   const handleInputChange = (event) => {
     setCaption(event.target.value);
   };
   
-  useEffect(() => {
-    console.log("location state : ", location);
-    if (location.state) {
-      setImg(location.state.img);
-      setnamePriceList(location.state.menuList);
-      setBudget(location.state.budget);
-      setTime(location.state.time);
-      setIsMenuSelected(location.state.isMenuChecked);
-      setIsMenualMenuSelected(location.state.isMenualMenuChecked);
-      window.history.replaceState({}, document.title);
-    }
-  }, [location]);
+  const state = {
+    manualMenuList: namePriceList,
+    budgetLimitPerPerson: budgetData,
+    timeLimit: timeData,
+    selectedBy: [],
+    userEmail: context.userEmail,
+    caption: caption
+  };
 
   useEffect(() => {
     if (isMenuSelected || isMenualMenuSelected) {
@@ -120,23 +120,29 @@ const Menu = () => {
       (img && img.length > 0) ||
       (namePriceList && namePriceList.length > 0)
     ) 
-    
     {
-      navigate(key ? "/details?key=" + key : "/details", {
-        state: {
-          img: img,
-          menuList: namePriceList,
-          budget: budgetData,
-          time: timeData,
-          isMenualMenuChecked: isMenualMenuSelected,
-          isMenuChecked: isMenuSelected,
-          caption: caption,
-          // isMenuTempletSelected: isMenuTempletSelected,
-          key: key,
-        },
-      });
+      const requestOptions = {
+        method: key ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(state),
+      };
+  
+      let url =
+        "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json";
+      if (key) {
+        url = `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${key}.json`;
+      }
+      //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/
+      fetch(url, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          console.log(typeof data);
+        });
+  
+        navigate("/DashBoard");
     }
-  };
+  }; 
 
   return (
     <div className="Container">
