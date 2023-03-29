@@ -4,7 +4,9 @@ import firebase from "../Config/FireBase";
 import {
   getAuth,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
+  signInWithPopup,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import "../Styles/Login.css";
@@ -13,6 +15,8 @@ import { userContext } from "../App";
 const Login = () => {
   const auth = getAuth();
   const navigate = useNavigate();
+
+  const provider = new GoogleAuthProvider();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,13 +38,12 @@ const Login = () => {
       setErr("Password must be at least 8 characters long!");
     } else {
       signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setErr("");
-        console.log("sjfvbhdskjvbdsvjsdfj", email);
-        context.setUserEmail(email);
-        localStorage.setItem('userEmail', email); // save email in local storage
-        navigate("/DashBoard");
-      })
+        .then((userCredential) => {
+          setErr("");
+          context.setUserEmail(email);
+          localStorage.setItem("userEmail", email); // save email in local storage
+          navigate("/DashBoard");
+        })
 
         .catch((error) => {
           console.log(error.code);
@@ -53,6 +56,22 @@ const Login = () => {
           }
         });
     }
+  };
+
+  const handleGoogleAuth = () => {
+    signInWithPopup(auth, provider)
+    .then((userCredential) => {
+      context.setUserEmail(email);
+      localStorage.setItem("userEmail", email);
+    })
+    .catch((error) => {
+      console.log(error.code);
+if (error.code === "auth/user-not-found") {
+        setErr("Email not registered!");
+      } else {
+        setErr("");
+      }
+    });
   };
 
   onAuthStateChanged(auth, (user) => {
@@ -80,6 +99,9 @@ const Login = () => {
         <div className="footer" style={{ marginTop: "10px" }}>
           Don't have an account? <Link to="/SignUp">Sign Up</Link>
         </div>
+        <button style={{ marginTop: "1em" }} onClick={handleGoogleAuth}>
+          Login with Google
+        </button>
       </div>
     </div>
   );
