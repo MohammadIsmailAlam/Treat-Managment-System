@@ -11,6 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import "../Styles/Login.css";
 import { userContext } from "../App";
+import { Button } from "@mui/material";
 
 const Login = () => {
   const auth = getAuth();
@@ -98,13 +99,13 @@ const Login = () => {
           placeholder="Enter your password"
         />
         <p>{err}</p>
-        <button onClick={handleSubmit}>Login</button>
+        <Button onClick={handleSubmit}>Login</Button>
         <div className="footer" style={{ marginTop: "10px" }}>
           Don't have an account? <Link to="/SignUp">Sign Up</Link>
         </div>
-        <button style={{ marginTop: "1em" }} onClick={handleGoogleAuth}>
+        <Button style={{background: "none", textDecoration: "underline", color: "rgb(25, 118, 210)"}} onClick={handleGoogleAuth}>
           Login with Google
-        </button>
+        </Button>
       </div>
     </div>
   );
