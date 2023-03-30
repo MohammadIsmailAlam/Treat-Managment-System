@@ -1,15 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { BiCopy } from "react-icons/bi";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
-import { useNavigate } from "react-router-dom";
-import { userContext } from "../App";
+import {  useLocation, useNavigate } from "react-router-dom";
 import BudgetAndTimeLimit from "../Components/BudgetTimeLimit";
 import Header from "../Components/Header";
-// import { getAuth, signOut } from "firebase/auth";
-// import OrderedList from "../Menu/OrderedList";
 
 export default function Landing() {
   const [show, setShow] = useState(false);
@@ -24,9 +21,7 @@ export default function Landing() {
 
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-
-  const context = useContext(userContext);
-  // console.log(context);
+  const location = useLocation();
 
   //Get
   useEffect(() => {
@@ -35,16 +30,12 @@ export default function Landing() {
     )
       .then((response) => response.json())
       .then((data) => {
-        // console.log("Before", data);
-        // const filteredData = Object.values(data)
-        //   .filter((treat, key) => treat.userEmail === context.userEmail);
         const filteredData = Object.entries(data)
           .filter(
             ([key, treat]) =>
               treat.userEmail === localStorage.getItem("userEmail")
           )
           .map(([key, treat]) => [key, treat]);
-        // console.log("filtered ", Object.fromEntries(filteredData));
         setData(Object.fromEntries(filteredData));
       });
   }, []);
@@ -76,16 +67,11 @@ export default function Landing() {
     }, 3000);
   };
 
-  const editItem = (value, key) => {
-    console.log("item ", value);
-    navigate("/menu?key=" + key, {
-      state: {
-        menuList: value.manualMenuList,
-        budget: value.budgetLimitPerPerson,
-        time: value.timeLimit,
-        isMenualMenuChecked: true,
-        key: key,
-      },
+  const editItem = (value) => {
+    console.log(value);
+    console.log(location);
+    navigate("/menu", {
+      state: value,
     });
   };
 
