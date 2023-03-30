@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import firebase from "../Config/FireBase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import Landing from "../pages/Landing";
 import Header from "../Components/Header";
 import { userContext } from "../App";
 import "../Styles/Design.css";
@@ -72,7 +70,7 @@ const DashBoard = () => {
           </p>
           <button
             className="btn btn-primary"
-            onClick={() => navigate("/orderedList")}
+            onClick={() => navigate("/template")}
           >
             Let's Go
           </button>
@@ -91,18 +89,12 @@ const DashBoard = () => {
           </p>
           <button
             className="btn btn-primary"
-            onClick={() => navigate("/landing")}
-            // style={{marginTop: "10px"}}
+            onClick={() => navigate("/re-order")}
           >
             Let's Go
           </button>
         </div>
       </div>
-
-      {/* <div className="home" style={{ borderRadius: "10px", margin: "1em" }}>
-        <h2>Welcome, {user?.displayName}</h2>
-        {user && <Landing data={data} />}
-      </div> */}
     </>
   );
 };

@@ -28,13 +28,13 @@ function App() {
             <Route exact path="/" element={<Login />} />
             <Route exact path="/signup" element={<SignUp />} />
             <Route exact path="/dashboard" element={<Dashboard />} />
-            <Route exact path="/landing" element={<Landing />} />
+            <Route exact path="/re-order" element={<Landing />} />
             <Route exact path="/menu/:key" element={<Home />} />
             <Route exact path="/menu" element={<Home />} />
             <Route exact path="/details" element={<Details />} />
             {/* <Route exact path="/order" element= {<Order/>}/> */}
             <Route exact path="/order/:treatId" element={<Order />} />
-            <Route exact path="/orderedList" element={<OrderedList />} />
+            <Route exact path="/template" element={<OrderedList />} />
           </Routes>
         </Router>
       </userContext.Provider>
