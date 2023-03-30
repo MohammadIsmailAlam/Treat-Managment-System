@@ -7,11 +7,10 @@ import "../src/Styles/App.css";
 
 import Details from "./pages/Details";
 import Order from "./pages/Order";
-import OrderedList from "./Components/OrderedList";
+import Template from "./Components/Template";
 import Login from "./Auth/Login";
 import SignUp from "./Auth/SignUp";
 import Dashboard from "./Auth/DashBoard";
-
 import Landing from "./pages/Landing";
 import Header from "./Components/Header";
 
@@ -34,7 +33,7 @@ function App() {
             <Route exact path="/menu" element={<Home />} />
             <Route exact path="/details" element={<Details />} />
             <Route exact path="/order/:treatId" element={<Order />} />
-            <Route exact path="/template" element={<OrderedList />} />
+            <Route exact path="/template" element={<Template />} />
           </Routes>
         </Router>
       </userContext.Provider>
