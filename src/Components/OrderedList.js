@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaUserEdit } from "react-icons/fa";
 import Button from "@mui/material/Button";
 import Header from "./Header";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import BudgetAndTimeLimit from "./BudgetTimeLimit";
 
 export default function OderedList() {
@@ -10,6 +10,7 @@ export default function OderedList() {
   const [showMore, setShowMore] = useState(false);
   const [searchCaption, setSearchCaption] = useState("");
   const [sortBy, setSortBy] = useState("");
+  const location = useLocation();
 
   //Get
   useEffect(() => {
@@ -25,13 +26,10 @@ export default function OderedList() {
   const Navigate = useNavigate();
 
   const editItem = (value) => {
+    console.log(value);
+    console.log(location);
     Navigate("/menu", {
-      state: {
-        menuList: value.manualMenuList,
-        budget: value.budgetLimitPerPerson,
-        time: value.timeLimit,
-        isMenualMenuChecked: true,
-      },
+      state: value,
     });
   };
 
@@ -51,7 +49,7 @@ export default function OderedList() {
       );
       setData(sortedData);
     }
-  };  
+  };
 
   const filteredData = Object.entries(data).filter(
     ([key, value]) =>

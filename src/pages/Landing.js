@@ -39,7 +39,10 @@ export default function Landing() {
         // const filteredData = Object.values(data)
         //   .filter((treat, key) => treat.userEmail === context.userEmail);
         const filteredData = Object.entries(data)
-          .filter(([key, treat]) => treat.userEmail === context.userEmail)
+          .filter(
+            ([key, treat]) =>
+              treat.userEmail === localStorage.getItem("userEmail")
+          )
           .map(([key, treat]) => [key, treat]);
         // console.log("filtered ", Object.fromEntries(filteredData));
         setData(Object.fromEntries(filteredData));

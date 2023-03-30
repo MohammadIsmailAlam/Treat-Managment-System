@@ -15,7 +15,7 @@ const Menu = () => {
   const [timeData, setTime] = useState("");
   const [searchParam, setSearchParam] = useSearchParams();
   const key = searchParam.get("key");
-  console.log("Key ", key);
+  // console.log("Key ", key);
 
   const [budgetError, setBudgetError] = useState(false);
   const [timeError, setTimeError] = useState(false);
@@ -27,24 +27,34 @@ const Menu = () => {
   const [listError, setListError] = useState(null);
 
   const navigate = useNavigate();
-  
-  const context = useContext(userContext);
+  const location = useLocation();
 
-  // const location = useLocation();
+  const context = useContext(userContext);
 
   const [caption, setCaption] = useState("");
   const handleInputChange = (event) => {
     setCaption(event.target.value);
   };
-  
+
   const state = {
     manualMenuList: namePriceList,
     budgetLimitPerPerson: budgetData,
     timeLimit: timeData,
     selectedBy: [],
     userEmail: context.userEmail,
-    caption: caption
+    caption: caption,
+    key: key,
   };
+
+  useEffect(() => {
+    console.log("from menu", location.state);
+    if (location.state?.manualMenuList) {
+      setnamePriceList([...location?.state?.manualMenuList]);
+      setBudget(location?.state?.budgetLimitPerPerson);
+      setTime(location?.state?.timeLimit);
+      setCaption(location?.state?.caption);
+    }
+  }, []);
 
   useEffect(() => {
     if (isMenuSelected || isMenualMenuSelected) {
@@ -119,14 +129,13 @@ const Menu = () => {
     if (
       (img && img.length > 0) ||
       (namePriceList && namePriceList.length > 0)
-    ) 
-    {
+    ) {
       const requestOptions = {
         method: key ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(state),
       };
-  
+
       let url =
         "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json";
       if (key) {
@@ -139,23 +148,23 @@ const Menu = () => {
           console.log(data);
           console.log(typeof data);
         });
-  
-        navigate("/DashBoard");
+
+      navigate("/DashBoard");
     }
-  }; 
+  };
 
   return (
     <div className="Container">
       <div className="App">
         <Header />
         <input
-        type="text"
-        className="form-control"
-        placeholder="Caption your source of misery......"
-        value={caption}
-        onChange={handleInputChange}
-      />
-        <div className="row" style={{display: "flex",marginLeft: "10em"}}>
+          type="text"
+          className="form-control"
+          placeholder="Caption your source of misery......"
+          value={caption}
+          onChange={handleInputChange}
+        />
+        <div className="row" style={{ display: "flex", marginLeft: "10em" }}>
           <div className="col-6">
             {/* <MenuCreate 
                 isMenuSelected={isMenuSelected}
