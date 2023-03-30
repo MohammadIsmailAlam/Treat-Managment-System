@@ -11,7 +11,7 @@ import Template from "./Components/Template";
 import Login from "./Auth/Login";
 import SignUp from "./Auth/SignUp";
 import Dashboard from "./Auth/DashBoard";
-import Landing from "./pages/Landing";
+import ReOrder from "./pages/ReOrder";
 import Header from "./Components/Header";
 
 export const userContext = React.createContext(null);
@@ -28,7 +28,7 @@ function App() {
             <Route exact path="/" element={<Login />} />
             <Route exact path="/signup" element={<SignUp />} />
             <Route exact path="/dashboard" element={<Dashboard />} />
-            <Route exact path="/re-order" element={<Landing />} />
+            <Route exact path="/re-order" element={<ReOrder />} />
             <Route exact path="/menu/:key" element={<Home />} />
             <Route exact path="/menu" element={<Home />} />
             <Route exact path="/details" element={<Details />} />
