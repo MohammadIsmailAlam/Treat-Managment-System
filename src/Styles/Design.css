@@ -6,11 +6,6 @@
   margin: 2rem;
 }
 
-.card {
-  /* Other styles here */
-  
-}
-
 @keyframes slideIn {
   0% {
     transform: translateY(50%);
