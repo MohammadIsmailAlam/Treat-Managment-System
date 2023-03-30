@@ -119,8 +119,14 @@ export default function ManualMenu({
                       placeholder="Item Price"
                       style={{ marginLeft: "10px" }}
                       onChange={(e) => {
-                        setPrice(e.target.value);
-                        setPriceError(false);
+                        const input = e.target.value;
+                        if (!/^[0-9]*$/.test(input)) {
+                          // Input contains non-numeric characters
+                          setPriceError(true);
+                        } else {
+                          setPrice(input);
+                          setPriceError(false);
+                        }
                       }}
                     />
                     {priceError && (
