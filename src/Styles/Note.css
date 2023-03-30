@@ -1,0 +1,25 @@
+.wavy {
+    position: relative;
+    font-size: xx-small;
+}
+
+.wavy span{
+    display: inline-block;
+    font-size: 2em;
+    animation: animate 1s ease-in-out infinite;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes animate {
+    0% {
+        transform: translateY(0px);
+    } 
+
+    20% {
+        transform: translateY(-20px);
+    }
+
+    40%, 100% {
+        transform: translateY(0px);
+    }    
+}
