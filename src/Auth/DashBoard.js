@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import Header from "../Components/Header";
 import { userContext } from "../App";
-import "../Styles/Design.css";
 import panBook from "../asset/img/Rectangle 10.png";
 import dairy from "../asset/img/Rectangle 13.png";
 import clock from "../asset/img/Rectangle 16.png";
@@ -12,7 +10,6 @@ const DashBoard = () => {
   const auth = getAuth();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [data, setData] = useState([]);
 
   const context = useContext(userContext);
 
@@ -34,7 +31,6 @@ const DashBoard = () => {
 
   return (
     <>
-      <Header />
       <div className="card-group">
         <div className="card">
           <img src={panBook} className="card-img-top" alt="panBook" />

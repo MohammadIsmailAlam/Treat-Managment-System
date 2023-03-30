@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { userContext } from "../App";
-import Header from "../Components/Header";
 import Limits from "../Components/Limits";
 import ManualMenu from "../Components/ManualMenu";
 // import MenuCreate from "../Components/MenuCreate";
@@ -156,7 +155,6 @@ const Menu = () => {
   return (
     <div className="Container">
       <div className="App">
-        <Header />
         <input
           type="text"
           className="form-control"

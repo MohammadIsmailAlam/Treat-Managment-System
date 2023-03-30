@@ -6,7 +6,6 @@ import { MdDeleteForever } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import {  useLocation, useNavigate } from "react-router-dom";
 import BudgetAndTimeLimit from "../Components/BudgetTimeLimit";
-import Header from "../Components/Header";
 
 export default function Landing() {
   const [show, setShow] = useState(false);
@@ -77,7 +76,6 @@ export default function Landing() {
 
   return (
     <>
-      <Header />
       <h1> Re-Order </h1>
       {Object.entries(data).map(([key, value], index) => (
         <div className="limitation row">

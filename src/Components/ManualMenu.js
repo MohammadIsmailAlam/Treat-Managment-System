@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "../Styles/table.css";
 import { useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 import addBtn from "../asset/img/Ellipse 1.png";

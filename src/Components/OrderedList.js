@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaUserEdit } from "react-icons/fa";
 import Button from "@mui/material/Button";
-import Header from "./Header";
 import { useLocation, useNavigate } from "react-router-dom";
 import BudgetAndTimeLimit from "./BudgetTimeLimit";
 
@@ -60,7 +59,6 @@ export default function OderedList() {
 
   return (
     <>
-      <Header />
       <h1> Use a Template ! </h1>
       <div className="search" style={{ display: "flex", gap: "1em" }}>
         <div className="caption">
