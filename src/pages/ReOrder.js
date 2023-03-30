@@ -4,7 +4,7 @@ import { BiCopy } from "react-icons/bi";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
-import {  useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import BudgetAndTimeLimit from "../Components/BudgetTimeLimit";
 import Note from "../Components/Note";
 
@@ -78,7 +78,10 @@ export default function Landing() {
   return (
     <>
       <h1> Re-Order </h1>
-      <Note />
+      <div style={{ display: "flex" }}>
+        <div>Note: &nbsp;</div>
+        <Note note="Click On The Copy Button and Share The Link" />
+      </div>
       {Object.entries(data).map(([key, value], index) => (
         <div className="limitation row">
           <div className="col-8">
