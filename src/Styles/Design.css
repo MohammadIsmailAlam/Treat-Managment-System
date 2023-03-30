@@ -7,6 +7,23 @@
 }
 
 .card {
+  /* Other styles here */
+  
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+.card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,10 +35,17 @@
   padding: 1rem;
   text-align: center;
   border-radius: 30px !important;
+  
+  animation: slideIn 0.5s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .card:hover {
   box-shadow: 0 2px 6px rgba(255, 0, 0, 0.25);
+  cursor: pointer;
+  background-color: lightgray;
+  transition: background-color 0.3s ease-in-out;
+  margin-bottom: 8px;
 }
 
 .card-img-top {
