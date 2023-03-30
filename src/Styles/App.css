@@ -1,6 +1,11 @@
 /* .App {
   text-align: center;
 } */
+@import "DashBoard.css";
+@import "Design.css";
+@import "Login.css";
+@import "Signup.css";
+@import "table.css";
 
 .App-logo {
   height: 40vmin;
