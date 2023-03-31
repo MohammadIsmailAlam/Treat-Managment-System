@@ -40,7 +40,7 @@
   cursor: pointer;
   background-color: lightgray;
   transition: background-color 0.3s ease-in-out;
-  margin-bottom: 8px;
+  margin-bottom: -8px;
 }
 
 .card-img-top {
