@@ -45,7 +45,7 @@ const Menu = () => {
     userEmail: context.userEmail,
     caption: caption,
     key: key,
-    templet: isPublicTemplate,
+    template: isPublicTemplate,
   };
 
   useEffect(() => {

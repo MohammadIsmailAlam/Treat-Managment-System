@@ -18,9 +18,16 @@ export default function OderedList() {
     )
       .then((response) => response.json())
       .then((data) => {
-        setData(data);
+        const filteredData = Object.entries(data)
+          .filter(
+            ([key, treat]) =>
+              treat.template
+          )
+          .map(([key, treat]) => [key, treat]);
+        setData(Object.fromEntries(filteredData));
       });
   }, []);
+  
 
   const Navigate = useNavigate();
 
