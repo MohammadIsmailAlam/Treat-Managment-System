@@ -7,23 +7,25 @@ import ManualMenu from "../Components/ManualMenu";
 import HoldAndPressButton from "../Components/HoldAndPressBtn";
 const Menu = () => {
   const [img, setImg] = useState([]);
-  const [imgErrorMessage, setImgErrorMessage] = useState(null);
-
   const [namePriceList, setnamePriceList] = useState([]);
   const [budgetData, setBudget] = useState("");
   const [timeData, setTime] = useState("");
+
   const [searchParam, setSearchParam] = useSearchParams();
   const key = searchParam.get("key");
   // console.log("Key ", key);
 
+  const [imgErrorMessage, setImgErrorMessage] = useState(null);
   const [budgetError, setBudgetError] = useState(false);
   const [timeError, setTimeError] = useState(false);
+  const [shouldShowError, setShouldShowError] = useState(null);
+  const [listError, setListError] = useState(null);
 
   const [isMenuSelected, setIsMenuSelected] = useState(false);
   const [isMenualMenuSelected, setIsMenualMenuSelected] = useState(false);
-  const [shouldShowError, setShouldShowError] = useState(null);
 
-  const [listError, setListError] = useState(null);
+
+  const [isPublicTemplate, setIsPublicTemplate] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,6 +45,7 @@ const Menu = () => {
     userEmail: context.userEmail,
     caption: caption,
     key: key,
+    templet: isPublicTemplate,
   };
 
   useEffect(() => {
@@ -52,7 +55,7 @@ const Menu = () => {
       setBudget(location?.state?.budgetLimitPerPerson);
       setTime(location?.state?.timeLimit);
       setCaption(location?.state?.caption);
-      
+      setIsPublicTemplate(location?.state?.templet);
     }
   }, []);
 
@@ -141,7 +144,6 @@ const Menu = () => {
       if (key) {
         url = `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${key}.json`;
       }
-      //     https://treat-management-system-691e2-default-rtdb.firebaseio.com/
       fetch(url, requestOptions)
         .then((response) => response.json())
         .then((data) => {
@@ -212,18 +214,9 @@ const Menu = () => {
               timeError={timeError}
               setBudgetError={setBudgetError}
               setTimeError={setTimeError}
+              isPublicTemplate={isPublicTemplate}
+              setIsPublicTemplate={setIsPublicTemplate}
             />
-            <div className="templet checkbox">
-              <input
-                type="checkbox"
-                className="menuTemplet"
-                value="menuTemplet"
-                id="menuTemplet"
-              />
-              <label className="checkbox" htmlFor="menuTemplet">
-                Make it a public template ?
-              </label>
-            </div>
           </div>
 
           <div className="btn-submit">
