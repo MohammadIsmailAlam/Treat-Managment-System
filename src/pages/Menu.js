@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { userContext } from "../App";
 import Limits from "../Components/Limits";
 import ManualMenu from "../Components/ManualMenu";
-// import MenuCreate from "../Components/MenuCreate";
+import HoldAndPressButton from "../Components/HoldAndPressBtn";
 const Menu = () => {
   const [img, setImg] = useState([]);
   const [imgErrorMessage, setImgErrorMessage] = useState(null);
@@ -52,6 +52,7 @@ const Menu = () => {
       setBudget(location?.state?.budgetLimitPerPerson);
       setTime(location?.state?.timeLimit);
       setCaption(location?.state?.caption);
+      
     }
   }, []);
 
@@ -226,9 +227,10 @@ const Menu = () => {
           </div>
 
           <div className="btn-submit">
-            <button className="submit" onClick={handleSubmit}>
-              Press and Hold to Say “ Bye Bye “ to your Money !
-            </button>
+            <HoldAndPressButton
+              isBtnParamFull={"btn-submit" !== ""}
+              onSubmit={handleSubmit}
+            />
           </div>
         </div>
       </div>
