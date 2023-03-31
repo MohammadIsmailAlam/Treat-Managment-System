@@ -150,7 +150,7 @@ export default function ManualMenu({
                       <tr>
                         <th>Item Name</th>
                         <th>Item Price</th>
-                        <th></th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
