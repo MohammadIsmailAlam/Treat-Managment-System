@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { BiCopy } from "react-icons/bi";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { FaUserEdit } from "react-icons/fa";
-import { MdDeleteForever } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import { useLocation, useNavigate } from "react-router-dom";
 import BudgetAndTimeLimit from "../Components/BudgetTimeLimit";
 import Note from "../Components/Note";
+import { IconButton, Tooltip } from "@mui/material";
+import { DeleteOutline } from "@mui/icons-material";
 
 export default function Landing() {
   const [show, setShow] = useState(false);
@@ -146,46 +147,27 @@ export default function Landing() {
           </div>
 
           <div className="col-3">
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div style={{ display: "flex", gap: "5px" }}>
-                <button
-                  type="button"
-                  style={{
-                    borderRadius: "10px",
-                    border: "none",
-                    background: "none",
-                  }}
-                  onClick={() => handleCopyClick(key)}
-                >
-                  <BiCopy />
-                </button>
+              <div style={{ display: "flex",  justifyContent: "space-between", gap: "5px"}}>
+
+              <Tooltip sx={{fontStyle: "normal"}} title="Copy" placement="top" arrow type="button" onClick={() => handleCopyClick(key)}>
+                    <IconButton>
+                      <ContentCopyIcon/>
+                    </IconButton>
+                  </Tooltip>
                 {isCopied === key && <TiTick />}
+                
+                <Tooltip title="Edit" placement="top" arrow onClick={() => editItem(value, key)}>
+                    <IconButton>
+                      <FaUserEdit/>
+                    </IconButton>
+                  </Tooltip>
 
-                <button
-                  type="button"
-                  style={{
-                    borderRadius: "10px",
-                    border: "none",
-                    background: "none",
-                  }}
-                  onClick={() => editItem(value, key)}
-                >
-                  <FaUserEdit />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleShow(key)}
-                  style={{
-                    borderRadius: "10px",
-                    border: "none",
-                    background: "none",
-                  }}
-                >
-                  <MdDeleteForever />
-                </button>
+                  <Tooltip title="Delete" placement="top" arrow type="button"  onClick={() => handleShow(key)}>
+                    <IconButton>
+                    <DeleteOutline />
+                    </IconButton>
+                  </Tooltip>
               </div>
-            </div>
             <BudgetAndTimeLimit
               budgetLimitPerPerson={value.budgetLimitPerPerson}
               timeLimit={value.timeLimit}

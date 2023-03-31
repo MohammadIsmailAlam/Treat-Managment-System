@@ -3,6 +3,7 @@ import { FaUserEdit } from "react-icons/fa";
 import Button from "@mui/material/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import BudgetAndTimeLimit from "./BudgetTimeLimit";
+import { IconButton, Tooltip } from "@mui/material";
 
 export default function OderedList() {
   const [data, setData] = useState([]);
@@ -113,17 +114,11 @@ export default function OderedList() {
           <div className="col-3">
             <div style={{ display: "flex", justifyContent: "end" }}>
               <div className="edit-treat">
-                <button
-                  type="button"
-                  style={{
-                    borderRadius: "10px",
-                    border: "none",
-                    background: "none",
-                  }}
-                  onClick={() => editItem(value, key)}
-                >
-                  <FaUserEdit />
-                </button>
+              <Tooltip title="Edit" placement="top" arrow onClick={() => editItem(value, key)}>
+                    <IconButton>
+                      <FaUserEdit/>
+                    </IconButton>
+                  </Tooltip>
               </div>
             </div>
 

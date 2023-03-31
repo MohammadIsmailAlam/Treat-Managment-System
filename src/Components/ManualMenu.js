@@ -139,7 +139,7 @@ export default function ManualMenu({
                       </div>
                     )}
                   </div>
-                  <Tooltip style={{marginLeft: "10px"}} title="Add" placement="top" arrow>
+                  <Tooltip style={{marginLeft: "10px"}} type="submit" title="Add" placement="top" arrow>
                     <IconButton>
                       <img src={addBtn} alt="addBtn" />
                     </IconButton>

@@ -204,7 +204,8 @@ svg {
   height: 30px;
   width: 35px;
   transform: scale(0.7);
-  margin-right: 20px;
+  /* margin-right: 20px; */
+  color: black;
 }
 .plus {
   margin: 2em;
@@ -317,4 +318,9 @@ button.deletBtn {
 .limit.form-control {
   background-color: rgba(238, 238, 238, 1);
   margin-top: 10px;
+}
+
+svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root {
+  font-size: larger;
+  width: 26px;
 }
