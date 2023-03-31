@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { IoTrashOutline } from "react-icons/io5";
+import { Tooltip, IconButton, Toolbar } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import addBtn from "../asset/img/Ellipse 1.png";
 
 export default function ManualMenu({
@@ -138,10 +139,11 @@ export default function ManualMenu({
                       </div>
                     )}
                   </div>
-
-                  <button type="submit" className="btn btn-primary add">
-                    <img src={addBtn} alt="addBtn" />
-                  </button>
+                  <Tooltip style={{marginLeft: "10px"}} title="Add" placement="top" arrow>
+                    <IconButton>
+                      <img src={addBtn} alt="addBtn" />
+                    </IconButton>
+                  </Tooltip>
                 </div>
 
                 <div className="details">
@@ -170,7 +172,7 @@ export default function ManualMenu({
                                   })
                                 }
                               >
-                                <IoTrashOutline />
+                                <DeleteIcon fontSize="large" />
                               </button>
                             </td>
                           </tr>
