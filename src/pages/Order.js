@@ -195,7 +195,10 @@ export default function Order() {
     <div className="container">
       
       {showSucccess ? (
-        <SuccessMsg />
+        <SuccessMsg 
+        showSucccess= {showSucccess}
+        setShowSuccess= {setShowSuccess}
+        />
       ) : (
         <div className="row">
           <div className="ordersSeelection">

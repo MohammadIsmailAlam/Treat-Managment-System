@@ -17,7 +17,6 @@
   }
 }
 
-
 .card {
   display: flex;
   flex-direction: column;
@@ -30,7 +29,7 @@
   padding: 1rem;
   text-align: center;
   border-radius: 30px !important;
-  
+
   animation: slideIn 0.5s ease-in-out;
   transition: background-color 0.3s ease-in-out;
 }
@@ -85,4 +84,9 @@ button.btn.btn-primary {
   font-size: 1rem;
   box-shadow: 0 2px 6px rgba(255, 0, 0, 0.25);
   background-color: rgba(255, 255, 255, 1);
+}
+
+h2#modal-title {
+  display: flex;
+  justify-content: center;
 }

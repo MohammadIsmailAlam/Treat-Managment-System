@@ -5,6 +5,8 @@ import { userContext } from "../App";
 import Limits from "../Components/Limits";
 import ManualMenu from "../Components/ManualMenu";
 import HoldAndPressButton from "../Components/HoldAndPressBtn";
+import SuccessMsg from "../Components/SuccessMsg";
+
 const Menu = () => {
   const [img, setImg] = useState([]);
   const [namePriceList, setnamePriceList] = useState([]);
@@ -23,6 +25,7 @@ const Menu = () => {
 
   const [isMenuSelected, setIsMenuSelected] = useState(false);
   const [isMenualMenuSelected, setIsMenualMenuSelected] = useState(false);
+  const [showSucccess, setShowSuccess] = useState(false);
 
 
   const [isPublicTemplate, setIsPublicTemplate] = useState(false);
@@ -149,14 +152,21 @@ const Menu = () => {
         .then((data) => {
           console.log(data);
           console.log(typeof data);
+          setShowSuccess(true);
         });
 
-      navigate("/DashBoard");
+        setShowSuccess(true);
     }
   };
 
   return (
     <div className="Container">
+      {showSucccess ? (
+        <SuccessMsg 
+        showSucccess= {showSucccess}
+        setShowSuccess= {setShowSuccess}
+        />
+      ) : (
       <div className="App">
         <input
           type="text"
@@ -227,6 +237,7 @@ const Menu = () => {
           </div>
         </div>
       </div>
+        )}
     </div>
   );
 };
