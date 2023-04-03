@@ -35,21 +35,22 @@
   margin-bottom: 15px;
 }
 
-.login button {
+.login Button {
   width: 100%;
   padding: 10px;
   border: none;
   border-radius: 10px;
-  background-color: #00bcd4;
-  color: #fff;
+  background-color: #f8f9fa;
+  color: #000000;
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.login button:hover {
+.login .login-btn:hover {
   background-color: #0097a7;
 }
+
 
 .login .footer {
   font-size: 14px;

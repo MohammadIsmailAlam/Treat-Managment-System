@@ -98,12 +98,16 @@ const Login = () => {
           placeholder="Enter your password"
         />
         <p>{err}</p>
-        <Button onClick={handleSubmit}>Login</Button>
+        <Button onClick={handleSubmit} className="login-btn">
+          Login
+        </Button>
+
         <div className="footer" style={{ marginTop: "10px" }}>
           Don't have an account? <Link to="/SignUp">Sign Up</Link>
         </div>
-        <Button style={{height: "40px"}} onClick={handleGoogleAuth}>
-          <img src= {GoogleIcon} alt="Google" />
+
+        <Button style={{ height: "40px" }} onClick={handleGoogleAuth}>
+          <img src={GoogleIcon} alt="Google" />
           <span>Log in with Google</span>
         </Button>
       </div>
