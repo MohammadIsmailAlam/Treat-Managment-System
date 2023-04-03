@@ -50,7 +50,7 @@ function HoldAndPressButton({ isBtnParamFull, onSubmit }) {
   };
 
   const buttonStyle = {
-    background: `linear-gradient(to right, red ${transitionTime}%, transparent 0%)`,
+    background: `linear-gradient(to right, rgb(249 200 46) ${transitionTime}%, transparent 0%)`,
     border: "solid red 1px",
     transition: "background 0.05s linear",
     padding: "10px 20px",
