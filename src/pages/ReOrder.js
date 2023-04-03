@@ -9,7 +9,7 @@ import Note from "../Components/Note";
 import { IconButton, Tooltip } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
 
-export default function Landing() {
+export default function ReOrder() {
   const [show, setShow] = useState(false);
   const [id, setId] = useState();
 
