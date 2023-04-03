@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import firebase from "../Config/FireBase";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -11,6 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../App";
 import { Button } from "@mui/material";
+import GoogleIcon from "../asset/img/7123025_logo_google_g_icon (1).png";
 
 const Login = () => {
   const auth = getAuth();
@@ -102,8 +102,9 @@ const Login = () => {
         <div className="footer" style={{ marginTop: "10px" }}>
           Don't have an account? <Link to="/SignUp">Sign Up</Link>
         </div>
-        <Button style={{background: "none", textDecoration: "underline", color: "rgb(25, 118, 210)"}} onClick={handleGoogleAuth}>
-          Login with Google
+        <Button style={{height: "40px"}} onClick={handleGoogleAuth}>
+          <img src= {GoogleIcon} alt="Google" />
+          <span>Log in with Google</span>
         </Button>
       </div>
     </div>
