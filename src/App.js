@@ -1,6 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation
+} from "react-router-dom";
 import Home from "./pages/Menu";
 import "bootstrap/dist/css/bootstrap.css";
 import "../src/Styles/App.css";
@@ -19,11 +24,19 @@ export const userContext = React.createContext(null);
 function App() {
   const [userEmail, setUserEmail] = useState("");
 
+  function HeaderWithCondition() {
+    const location = useLocation();
+    if (location.pathname === '/' || location.pathname === '/signup') {
+      return null; // don't render Header component
+    }
+    return <Header />;
+  }
+  
   return (
     <>
       <userContext.Provider value={{ userEmail, setUserEmail }}>
         <Router>
-          <Header />
+          <HeaderWithCondition />
           <Routes>
             <Route exact path="/" element={<Login />} />
             <Route exact path="/signup" element={<SignUp />} />
