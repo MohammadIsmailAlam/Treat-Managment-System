@@ -103,7 +103,7 @@ const Login = () => {
         </Button>
 
         <div className="footer" style={{ marginTop: "10px" }}>
-          Don't have an account? <Link to="/SignUp">Sign Up</Link>
+          Don't have an account? <Link to="/signup">Sign Up</Link>
         </div>
 
         <Button style={{ height: "40px" }} onClick={handleGoogleAuth}>
