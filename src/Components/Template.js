@@ -4,6 +4,8 @@ import Button from "@mui/material/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import BudgetAndTimeLimit from "./BudgetTimeLimit";
 import { IconButton, Tooltip } from "@mui/material";
+import PictureAsPdfSharpIcon from "@mui/icons-material/PictureAsPdfSharp";
+import { handlePDFDownload } from "../asset/Buttons/pdf";
 
 export default function OderedList() {
   const [data, setData] = useState([]);
@@ -20,15 +22,11 @@ export default function OderedList() {
       .then((response) => response.json())
       .then((data) => {
         const filteredData = Object.entries(data)
-          .filter(
-            ([key, treat]) =>
-              treat.template
-          )
+          .filter(([key, treat]) => treat.template)
           .map(([key, treat]) => [key, treat]);
         setData(Object.fromEntries(filteredData));
       });
   }, []);
-  
 
   const Navigate = useNavigate();
 
@@ -49,14 +47,17 @@ export default function OderedList() {
   };
 
   const filteredData = Object.entries(data)
-  .filter(
-    ([key, value]) =>
-      value.caption &&
-      value.caption.toLowerCase().includes(searchCaption.toLowerCase()) &&
-      (sortBy === "" || sortBy === value.type)
-  )
-  .sort((a, b) => a[1].budgetLimitPerPerson - b[1].budgetLimitPerPerson);
+    .filter(
+      ([key, value]) =>
+        value.caption &&
+        value.caption.toLowerCase().includes(searchCaption.toLowerCase()) &&
+        (sortBy === "" || sortBy === value.type)
+    )
+    .sort((a, b) => a[1].budgetLimitPerPerson - b[1].budgetLimitPerPerson);
 
+  const handleClick = (key) => {
+    handlePDFDownload(key, data);
+  };
 
   return (
     <>
@@ -112,15 +113,30 @@ export default function OderedList() {
             </li>
           </div>
           <div className="col-3">
-            <div style={{ display: "flex", justifyContent: "end" }}>
-              <div className="edit-treat">
-              <Tooltip title="Edit" placement="top" arrow onClick={() => editItem(value, key)}>
-                    <IconButton>
-                      <FaUserEdit/>
-                    </IconButton>
-                  </Tooltip>
+              <div className="btn-style">
+                <Tooltip
+                  title="Edit"
+                  placement="top"
+                  arrow
+                  onClick={() => editItem(value, key)}
+                >
+                  <IconButton>
+                    <FaUserEdit />
+                  </IconButton>
+                </Tooltip>
+
+                <Tooltip
+                  title="Download PDF"
+                  placement="top"
+                  arrow
+                  type="button"
+                  onClick={() => handleClick(key)}
+                >
+                  <IconButton>
+                    <PictureAsPdfSharpIcon />
+                  </IconButton>
+                </Tooltip>
               </div>
-            </div>
 
             <BudgetAndTimeLimit
               budgetLimitPerPerson={value.budgetLimitPerPerson}

@@ -90,3 +90,8 @@ h2#modal-title {
   display: flex;
   justify-content: center;
 }
+
+.btn-style {
+  display: flex;
+  justify-content: space-evenly;
+}

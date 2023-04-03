@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { FaUserEdit } from "react-icons/fa";
 import { TiTick } from "react-icons/ti";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -8,6 +8,8 @@ import BudgetAndTimeLimit from "../Components/BudgetTimeLimit";
 import Note from "../Components/Note";
 import { IconButton, Tooltip } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
+import PictureAsPdfSharpIcon from "@mui/icons-material/PictureAsPdfSharp";
+import { handlePDFDownload } from "../asset/Buttons/pdf";
 
 export default function ReOrder() {
   const [show, setShow] = useState(false);
@@ -74,6 +76,10 @@ export default function ReOrder() {
     navigate("/menu", {
       state: value,
     });
+  };
+
+  const handleClick = (key) => {
+    handlePDFDownload(key, data);
   };
 
   return (
@@ -147,27 +153,56 @@ export default function ReOrder() {
           </div>
 
           <div className="col-3">
-              <div style={{ display: "flex",  justifyContent: "space-between", gap: "5px"}}>
+            <div className="btn-style">
+              <Tooltip
+                sx={{ fontStyle: "normal" }}
+                title="Copy"
+                placement="top"
+                arrow
+                type="button"
+                onClick={() => handleCopyClick(key)}
+              >
+                <IconButton>
+                  <ContentCopyIcon />
+                </IconButton>
+              </Tooltip>
+              {isCopied === key && <TiTick />}
 
-              <Tooltip sx={{fontStyle: "normal"}} title="Copy" placement="top" arrow type="button" onClick={() => handleCopyClick(key)}>
-                    <IconButton>
-                      <ContentCopyIcon/>
-                    </IconButton>
-                  </Tooltip>
-                {isCopied === key && <TiTick />}
-                
-                <Tooltip title="Edit" placement="top" arrow onClick={() => editItem(value, key)}>
-                    <IconButton>
-                      <FaUserEdit/>
-                    </IconButton>
-                  </Tooltip>
+              <Tooltip
+                title="Edit"
+                placement="top"
+                arrow
+                onClick={() => editItem(value, key)}
+              >
+                <IconButton>
+                  <FaUserEdit />
+                </IconButton>
+              </Tooltip>
 
-                  <Tooltip title="Delete" placement="top" arrow type="button"  onClick={() => handleShow(key)}>
-                    <IconButton>
-                    <DeleteOutline />
-                    </IconButton>
-                  </Tooltip>
-              </div>
+              <Tooltip
+                title="Delete"
+                placement="top"
+                arrow
+                type="button"
+                onClick={() => handleShow(key)}
+              >
+                <IconButton>
+                  <DeleteOutline />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip
+                title="Download PDF"
+                placement="top"
+                arrow
+                type="button"
+                onClick={() => handleClick(key)}
+              >
+                <IconButton>
+                  <PictureAsPdfSharpIcon />
+                </IconButton>
+              </Tooltip>
+            </div>
             <BudgetAndTimeLimit
               budgetLimitPerPerson={value.budgetLimitPerPerson}
               timeLimit={value.timeLimit}
