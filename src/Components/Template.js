@@ -6,6 +6,7 @@ import BudgetAndTimeLimit from "./BudgetTimeLimit";
 import { IconButton, Tooltip } from "@mui/material";
 import PictureAsPdfSharpIcon from "@mui/icons-material/PictureAsPdfSharp";
 import { handlePDFDownload } from "../asset/Buttons/pdf";
+import { TREAT_API_ENDPOINT } from "../Config/Api";
 
 export default function OderedList() {
   const [data, setData] = useState([]);
@@ -16,9 +17,7 @@ export default function OderedList() {
 
   //Get
   useEffect(() => {
-    fetch(
-      "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json"
-    )
+    fetch(TREAT_API_ENDPOINT)
       .then((response) => response.json())
       .then((data) => {
         const filteredData = Object.entries(data)

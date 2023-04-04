@@ -6,6 +6,7 @@ import Limits from "../Components/Limits";
 import ManualMenu from "../Components/ManualMenu";
 import HoldAndPressButton from "../Components/HoldAndPressBtn";
 import SuccessMsg from "../Components/SuccessMsg";
+import { TREAT_API_ENDPOINT } from "../Config/Api";
 
 const Menu = () => {
   const [img, setImg] = useState([]);
@@ -142,8 +143,7 @@ const Menu = () => {
         body: JSON.stringify(state),
       };
 
-      let url =
-        "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json";
+      let url = TREAT_API_ENDPOINT
       if (key) {
         url = `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${key}.json`;
       }

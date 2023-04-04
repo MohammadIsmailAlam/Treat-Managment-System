@@ -10,6 +10,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
 import PictureAsPdfSharpIcon from "@mui/icons-material/PictureAsPdfSharp";
 import { handlePDFDownload } from "../asset/Buttons/pdf";
+import { TREAT_API_ENDPOINT } from "../Config/Api";
 
 export default function ReOrder() {
   const [show, setShow] = useState(false);
@@ -28,9 +29,7 @@ export default function ReOrder() {
 
   //Get
   useEffect(() => {
-    fetch(
-      "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json"
-    )
+    fetch(TREAT_API_ENDPOINT)
       .then((response) => response.json())
       .then((data) => {
         const filteredData = Object.entries(data)
@@ -85,10 +84,15 @@ export default function ReOrder() {
   return (
     <>
       <h1> Re-Order </h1>
-      <div style={{ display: "flex" }}>
-        <div>Note: &nbsp;</div>
-        <Note note="Click On The Copy Button and Share The Link" />
-      </div>
+      {!data ? (
+        <div>No data is here.</div>
+      ) : (
+        <div style={{ display: "flex" }}>
+          <div>Note: &nbsp;</div>
+          <Note note="Click On The Copy Button and Share The Link" />
+        </div>
+      )}
+
       {Object.entries(data).map(([key, value], index) => (
         <div className="limitation row" key={key}>
           <div className="col-8">
