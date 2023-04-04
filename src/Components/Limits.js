@@ -75,9 +75,15 @@ export default function Limits({
             checked={isPublicTemplate}
             onChange={handleCheckboxChange}
           />
-          {isPublicTemplate
-            ? "Public template"
-            : "Click if you want to make it public templet"}
+          {isPublicTemplate ? (
+            <>
+              Public template
+              <br />
+              <span style={{fontSize: "0.8rem"}}>This menu can be used by others</span>
+            </>
+          ) : (
+              "Click if you want to make it public template"
+          )}
         </label>
       </div>
     </div>
