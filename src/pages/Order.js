@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../Components/Header";
 import SuccessMsg from "../Components/SuccessMsg";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 
 export default function Order() {
   const [values, setValues] = useState(null);
@@ -10,9 +12,9 @@ export default function Order() {
   const [showSucccess, setShowSuccess] = useState(false);
 
   const [name, setName] = useState("");
-  const [nameError, setNameError] = useState(false);
   const [budgetError, setBudgetError] = useState(false);
   const { treatId } = useParams();
+  const [quantities, setQuantities] = useState({});
 
   const [rTime, setrTime] = useState("12:00");
   const [showTime, setShowTime] = useState("00:00");
@@ -79,9 +81,11 @@ export default function Order() {
         // console.log("time is showing", showTime);
         setIsTimeUp(true);
       } else {
-        setShowTime(`${diffHours.toString().padStart(2, "0")}:${diffMinutes
-          .toString()
-          .padStart(2, "0")}:${diffSecond.toString().padStart(2, "0")}`);        
+        setShowTime(
+          `${diffHours.toString().padStart(2, "0")}:${diffMinutes
+            .toString()
+            .padStart(2, "0")}:${diffSecond.toString().padStart(2, "0")}`
+        );
         // setShowTime(diffSecond.toString());
       }
     }, 1000);
@@ -104,52 +108,45 @@ export default function Order() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     let hasError = false;
-  
-    if (!name) {
-      setNameError(true);
-      hasError = true;
-    }
-  
+
     if (isTimeUp) {
       hasError = true;
     }
-  
+
     if (selectedItems.length === 0) {
       setSelectedItemsError(true);
       hasError = true;
     }
-  
+
     // Calculate total cost of selected items
     const selectedItemsData = values?.manualMenuList?.filter((item) =>
       selectedItems.includes(item.name)
     );
 
-    const totalCost = selectedItemsData.reduce(
-      (acc, item) => {
+    const totalCost = selectedItemsData
+      .reduce((acc, item) => {
         const price = parseInt(item.price);
         if (!isNaN(price)) {
           return acc + price;
         } else {
           return acc;
         }
-      },
-      0
-    ).toFixed(2);
-    
-  
+      }, 0)
+      .toFixed(2);
+
     // Check if total cost exceeds budget limit
-    if ( parseInt(totalCost) > values.budgetLimitPerPerson ) {
+    if (parseInt(totalCost) > values.budgetLimitPerPerson) {
       setBudgetError(true);
       // console.log("JHVKHASJVGSDVH" , totalCost);
       hasError = true;
     }
-  
+
     if (hasError) {
       return;
     }
-  
+
     // Patch/Update
     fetch(
       `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${treatId}.json`,
@@ -179,142 +176,140 @@ export default function Order() {
         setSelectedItems([]);
         setShowSuccess(true);
       });
-  
+
     setShowSuccess(true);
     // console.log(showSucccess);
-  
+
     setSelectedItems([]);
     setName("");
-    setNameError(false);
   };
 
   const isDisabled = isTimeUp;
 
   return (
-    
     <div className="container">
-      
       {showSucccess ? (
-        <SuccessMsg 
-        showSucccess= {showSucccess}
-        setShowSuccess= {setShowSuccess}
+        <SuccessMsg
+          showSucccess={showSucccess}
+          setShowSuccess={setShowSuccess}
         />
       ) : (
-        <div className="row">
-          <div className="ordersSeelection">
-            <Header/>
-            {values && (
-              <div
-                className="title"
-                style={{
-                  textAlign: "center",
-                  marginTop: "10px",
-                  backgroundColor: "lightblue",
-                  fontSize: "24px",
-                }}
-              >
-                <p style={{ fontFamily: "monospace" }}>
-                  Budget: {values?.budgetLimitPerPerson}
-                </p>
-
-                {budgetError && (
-                  <div
-                    className="error"
-                    style={{ color: "red", marginTop: "10px" }}
-                  >
-                    Budget Limit Crossed
-                  </div>
-                )}
-                
-              </div>
-            )}
-
-            <div style={{ textAlign: "center" }}>
-              {isTimeUp ? (
-                <p style={{ color: "red" }}>Time is up, this is not valid anymore.</p>
-              ) : (
-                <p>Time Limit: {showTime}</p>
-              )}
-            </div>
-
-            <form
-              className="order"
-              style={{ display: "block" }}
-              onSubmit={handleSubmit}
-            >
-              {values?.manualMenuList?.map((data, index) => (
+        <div className="ordersSeelection row">
+          <Header />
+          <form className="order col-6" onSubmit={handleSubmit}>
+            {values?.manualMenuList?.map((data, index) => (
+              <div className="limits">
                 <li
                   key={index}
                   style={{
-                    border: "1px solid grey",
-                    borderRadius: "12px",
                     padding: "2em",
                     margin: "2em",
-                    background: "aliceblue",
+                    background: "#FFFFFF",
                     position: "relative",
                   }}
                 >
-                  <div className="checkboxes">
-                    <label>
-                      <input
-                        type="checkbox"
-                        value={data.name}
-                        onChange={(e) => handleChecked(e, data.name)}
-                      />
-                      {data.name} ---- {data.price}
-                    </label>
-                  </div>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {values.manualMenuList?.map((item, index) => {
+                        const quantity = quantities[item.id] || 0;
+                        return (
+                          <tr key={index}>
+                            <td>{item?.name}</td>
+                            <td>{item?.price}</td>
+                            <td>
+                              <button
+                                onClick={() =>
+                                  setQuantities({
+                                    ...quantities,
+                                    [item.id]: quantity + 1,
+                                  })
+                                }
+                              >
+                                <AddCircleOutlineOutlinedIcon />
+                              </button>
+
+                              <span>{quantity}</span>
+                              
+                              <button
+                                onClick={() =>
+                                  setQuantities({
+                                    ...quantities,
+                                    [item.id]: quantity - 1,
+                                  })
+                                }
+                              >
+                                <RemoveCircleOutlineOutlinedIcon />
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </li>
-              ))}
-              {selectedItemsError && (
+              </div>
+            ))}
+            {selectedItemsError && (
+              <div
+                className="error"
+                style={{ color: "red", marginTop: "10px" }}
+              >
+                {" "}
+                Please select at least one item
+              </div>
+            )}
+            <div
+              className="input"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "2em",
+              }}
+            >
+              <div style={{ textAlign: "center" }}>
+                <button type="submit" disabled={isDisabled}>
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
+
+          {values && (
+            <div
+              className="limits col-6"
+              style={{ textAlign: "center", marginTop: "2em" }}
+            >
+              <p style={{ fontFamily: "monospace" }}>
+                Budget: {values?.budgetLimitPerPerson}
+              </p>
+
+              {budgetError && (
                 <div
                   className="error"
                   style={{ color: "red", marginTop: "10px" }}
                 >
-                  {" "}
-                  Please select at least one item
+                  Budget Limit Crossed
                 </div>
               )}
-              <div className="form-group">
-                <label htmlFor="name">Name </label>
-                <input
-                  type="text"
-                  name="name"
-                  className="form-control"
-                  value={name}
-                  style={{ marginRight: "10px" }}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    setNameError(false);
-                  }}
-                />
-
-                {nameError && (
-                  <div
-                    className="error"
-                    style={{ color: "red", marginTop: "10px" }}
-                  >
-                    {" "}
-                    Name Can't Be Empty
-                  </div>
+              <div style={{ textAlign: "center" }}>
+                {isTimeUp ? (
+                  <p style={{ color: "red" }}>
+                    Time is up, this is not valid anymore.
+                  </p>
+                ) : (
+                  <p>Time Limit: {showTime}</p>
                 )}
               </div>
-              <div
-                className="input"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  padding: "2em"
-                }}
-              >
-                <div style={{ textAlign: "center" }}>
-                  <button type="submit" disabled={isDisabled}>
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
+            </div>
+          )}
         </div>
       )}
     </div>
