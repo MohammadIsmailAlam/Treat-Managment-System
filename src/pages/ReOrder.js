@@ -83,7 +83,7 @@ export default function ReOrder() {
   return (
     <>
       <h1> Re-Order </h1>
-      {!data ? (
+      {data.values ? (
         <div>No data is here.</div>
       ) : (
         <div style={{ display: "flex" }}>
@@ -126,8 +126,8 @@ export default function ReOrder() {
               <table>
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Price</th>
+                    <th>Item Name</th>
+                    <th>Item Price</th>
                     <th>Orderd By</th>
                     <th>Total</th>
                   </tr>
