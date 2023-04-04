@@ -276,13 +276,13 @@ input.form-control{
 }
 
 .limit.row {
+  border: 2px solid rgba(255,0,0,.25);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  border: 2px solid rgba(255, 0, 0, 0.25);
-  padding: 20px;
-  border-radius: 10px;
-  width: fit-content;
   margin: 2em;
+  padding: 20px;
+  width: fit-content;
 }
 
 .btn-submit {

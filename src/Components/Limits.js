@@ -23,7 +23,7 @@ export default function Limits({
   };
 
   return (
-    <div className="limits">
+    <div className="limit">
       <div className="limit row">
         <div className="budget mb-3">
           <input
