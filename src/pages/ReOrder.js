@@ -5,7 +5,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { TiTick } from "react-icons/ti";
 import { useLocation, useNavigate } from "react-router-dom";
 import BudgetAndTimeLimit from "../Components/BudgetTimeLimit";
-import Note from "../Components/Note";
+import Note from "../asset/Notify/Note";
 import { IconButton, Tooltip } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
 import PictureAsPdfSharpIcon from "@mui/icons-material/PictureAsPdfSharp";
@@ -90,7 +90,7 @@ export default function ReOrder() {
         <Note note="Click On The Copy Button and Share The Link" />
       </div>
       {Object.entries(data).map(([key, value], index) => (
-        <div className="limitation row">
+        <div className="limitation row" key={key}>
           <div className="col-8">
             <li
               key={index}
