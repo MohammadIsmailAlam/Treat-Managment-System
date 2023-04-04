@@ -115,7 +115,7 @@ export default function OderedList() {
           <div className="col-3">
               <div className="btn-style">
                 <Tooltip
-                  title="Edit"
+                  title="re-use"
                   placement="top"
                   arrow
                   onClick={() => editItem(value, key)}
