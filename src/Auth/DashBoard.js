@@ -5,6 +5,7 @@ import { userContext } from "../App";
 import panBook from "../asset/img/Rectangle 10.png";
 import dairy from "../asset/img/Rectangle 13.png";
 import clock from "../asset/img/Rectangle 16.png";
+import Status from "../asset/Notify/Status";
 
 const DashBoard = () => {
   const auth = getAuth();
@@ -31,6 +32,7 @@ const DashBoard = () => {
 
   return (
     <>
+      <Status />
       <div className="card-group">
         <div className="card">
           <img src={panBook} className="card-img-top" alt="panBook" />
@@ -44,10 +46,7 @@ const DashBoard = () => {
             Add list of items (dont forget to mention prices) and also the
             budget per person and set a time limit !
           </p>
-          <button
-            className="btn btn-primary"
-            onClick={() => navigate("/menu")}
-          >
+          <button className="btn btn-primary" onClick={() => navigate("/menu")}>
             Let's Go
           </button>
         </div>
@@ -78,7 +77,8 @@ const DashBoard = () => {
             className="card-title"
             style={{ fontWeight: "bold", textDecoration: "underline" }}
           >
-            Re-order !
+            {/* Re-order ! */}
+            Order History
           </div>
           <p className="card-text" style={{ marginTop: "0.5em" }}>
             Simply reuse your old and favorite list :D

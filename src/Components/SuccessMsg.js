@@ -1,9 +1,17 @@
 import Modal from "@mui/joy/Modal";
-import ModalClose from "@mui/joy/ModalClose";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
+import IconButton from "@mui/joy/IconButton";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useNavigate } from "react-router";
 
 export default function BasicModal({showSucccess, setShowSuccess}) {
+  const navigate = useNavigate()
+  const handleClose = () => {
+    setShowSuccess(false);
+    navigate("/dashboard")
+  };
+
   return (
     <>
       <Modal
@@ -22,16 +30,16 @@ export default function BasicModal({showSucccess, setShowSuccess}) {
             boxShadow: "lg",
           }}
         >
-          <ModalClose
-            variant="outlined"
+          <IconButton
+            onClick={handleClose}
             sx={{
-              top: "calc(-1/4 * var(--IconButton-size))",
-              right: "calc(-1/4 * var(--IconButton-size))",
-              boxShadow: "0 2px 12px 0 rgba(0 0 0 / 0.2)",
-              borderRadius: "50%",
-              bgcolor: "background.body",
+              position: "absolute",
+              top: 8,
+              right: 8,
             }}
-          />
+          >
+            <CheckCircleIcon />
+          </IconButton>
           <Typography
             component="h2"
             id="modal-title"
