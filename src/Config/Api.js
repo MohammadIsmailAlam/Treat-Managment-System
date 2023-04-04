@@ -1,1 +1,0 @@
-export const TREAT_API_ENDPOINT = "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json";
