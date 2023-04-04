@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useContext } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { userContext } from "../App";
 import Limits from "../Components/Limits";
 import ManualMenu from "../Components/ManualMenu";
@@ -29,8 +29,6 @@ const Menu = () => {
 
 
   const [isPublicTemplate, setIsPublicTemplate] = useState(false);
-
-  const navigate = useNavigate();
   const location = useLocation();
 
   const context = useContext(userContext);
@@ -49,6 +47,7 @@ const Menu = () => {
     caption: caption,
     key: key,
     template: isPublicTemplate,
+    createdAt: Date.now() 
   };
 
   useEffect(() => {
@@ -128,10 +127,6 @@ const Menu = () => {
       formData.menuList = namePriceList;
     }
     console.log("formData", formData);
-
-    // if (formData.img?.length && formData.budget && formData.time) {
-    //   navigate('/details', {state: {img:img, budget:budgetData, time: timeData,  isMenuChecked: isMenuSelected}});
-    // }
     if (
       (img && img.length > 0) ||
       (namePriceList && namePriceList.length > 0)
