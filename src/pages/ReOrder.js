@@ -10,7 +10,6 @@ import { IconButton, Tooltip } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
 import PictureAsPdfSharpIcon from "@mui/icons-material/PictureAsPdfSharp";
 import { handlePDFDownload } from "../asset/Buttons/pdf";
-import { TREAT_API_ENDPOINT } from "../Config/Api";
 
 export default function ReOrder() {
   const [show, setShow] = useState(false);
@@ -29,7 +28,7 @@ export default function ReOrder() {
 
   //Get
   useEffect(() => {
-    fetch(TREAT_API_ENDPOINT)
+    fetch("https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json")
       .then((response) => response.json())
       .then((data) => {
         const filteredData = Object.entries(data)

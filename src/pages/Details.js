@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { userContext } from "../App";
-import { TREAT_API_ENDPOINT } from "../Config/Api";
 
 const Details = () => {
   const location = useLocation();
@@ -35,7 +34,7 @@ const Details = () => {
       }),
     };
 
-    let url = TREAT_API_ENDPOINT
+    let url = "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json"
     if (key) {
       url = `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${key}.json`;
     }
