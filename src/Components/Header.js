@@ -1,7 +1,7 @@
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { IoExitOutline } from "react-icons/io5";
-import Logo from "../asset/img/cover-removebg-preview 3.png";
+import Logo from "../asset/img/cover-removebg-preview 4.svg";
 import { useEffect, useState } from "react";
 import LoginIcon from "@mui/icons-material/Login";
 import { IconButton, Tooltip } from "@mui/material";
