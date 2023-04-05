@@ -204,12 +204,14 @@ export default function Order() {
 
                               <button className="decress"
                                 type="button"
-                                onClick={() =>
-                                  setQuantities({
-                                    ...quantities,
-                                    [item.id]: quantity - 1,
-                                  })
-                                }
+                                onClick={() => {
+                                  if (quantity > 0) {
+                                    setQuantities({
+                                      ...quantities,
+                                      [item.id]: quantity - 1,
+                                    });
+                                  }
+                                }}
                               >
                                 <RemoveCircleOutlineOutlinedIcon />
                               </button>
