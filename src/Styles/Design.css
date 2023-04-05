@@ -95,3 +95,19 @@ h2#modal-title {
   display: flex;
   justify-content: space-evenly;
 }
+
+svg.CircularProgressbar.progressBar {
+  height: 15em;
+}
+
+button.incress {
+  border: none;
+    background: #fff;
+    position: relative;
+
+  }
+button.decress {
+  border: none;
+    background: #fff;
+    position: relative;
+}

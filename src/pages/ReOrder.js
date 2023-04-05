@@ -22,13 +22,15 @@ export default function ReOrder() {
     setId(id);
   };
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
 
   //Get
   useEffect(() => {
-    fetch("https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json")
+    fetch(
+      "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json"
+    )
       .then((response) => response.json())
       .then((data) => {
         const filteredData = Object.entries(data)
@@ -83,7 +85,8 @@ export default function ReOrder() {
   return (
     <>
       <h1> Re-Order </h1>
-      {data.values ? (
+      {console.log("======>", data)}
+      {Object.keys(data).length === 0 ? (
         <div>No data is here.</div>
       ) : (
         <div style={{ display: "flex" }}>

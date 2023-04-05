@@ -4,11 +4,12 @@ import Header from "../Components/Header";
 import SuccessMsg from "../Components/SuccessMsg";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 export default function Order() {
   const [values, setValues] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [selectedItemsError, setSelectedItemsError] = useState(false);
   const [showSucccess, setShowSuccess] = useState(false);
 
   const [name, setName] = useState("");
@@ -16,10 +17,8 @@ export default function Order() {
   const { treatId } = useParams();
   const [quantities, setQuantities] = useState({});
 
-  const [rTime, setrTime] = useState("12:00");
-  const [showTime, setShowTime] = useState("00:00");
   const [isTimeUp, setIsTimeUp] = useState(false);
-
+  const [timeInfo, setTimeInfo] = useState(null);
   //   Get
   useEffect(() => {
     fetch(
@@ -30,7 +29,6 @@ export default function Order() {
         // console.log("data", data);
         console.log("need to eatch", data.timeLimit);
         setValues(data);
-        setrTime(data.timeLimit);
         // console.log("reminnimg time", rTime);
       })
       .catch((error) => {
@@ -38,73 +36,43 @@ export default function Order() {
       });
   }, [treatId]);
 
+  function getTimeDifference(createdAt, expiry) {
+    let now = new Date().getTime();
+  
+    // Calculate the time difference in milliseconds
+    let timeDiff = expiry - now;
+  
+    // Calculate the time difference in hours, minutes, and seconds
+    let hours = Math.floor(timeDiff / (1000 * 60 * 60));
+    let minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+  
+    // Calculate the percentage of time remaining until the expiry timestamp
+    let percentageRemaining = (timeDiff / (expiry - createdAt)) * 100;
+  
+    return {
+      hours,
+      minutes,
+      seconds,
+      percentageRemaining,
+      isExpired: now > expiry,
+    };
+  }
+
   useEffect(() => {
-    // Get the current date as a Date object
-    const today = new Date();
-
-    // Create a new Date object with the input time set for today's date
-    const inputTime = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate(),
-      0,
-      0,
-      0
-    );
-    inputTime.setHours(parseInt(rTime.split(":")[0], 10));
-    inputTime.setMinutes(parseInt(rTime.split(":")[1], 10));
-
     const countdownInterval = setInterval(() => {
-      const now = new Date();
-
-      // console.log(
-      //   "time",
-      //   inputTime.toLocaleTimeString(),
-      //   now.toLocaleTimeString()
-      // );
-      const diffMs = inputTime - now;
-
-      const diffHours = Math.floor(Math.abs(diffMs) / (1000 * 60 * 60));
-      const diffMinutes = Math.floor(
-        (Math.abs(diffMs) % (1000 * 60 * 60)) / (1000 * 60)
-      );
-      const diffSecond = Math.floor(
-        ((Math.abs(diffMs) % (1000 * 60 * 60)) % (1000 * 60)) / 1000
-      );
-
-      // console.log("Se", ((diffMs % (1000 * 60 * 60)) % (1000 * 60)) / 1000);
-      // console.log("Second", diffSecond);
-
-      if (diffMs <= 0) {
-        clearInterval(countdownInterval);
-        setShowTime("Time's up!");
-        // console.log("time is showing", showTime);
-        setIsTimeUp(true);
-      } else {
-        setShowTime(
-          `${diffHours.toString().padStart(2, "0")}:${diffMinutes
-            .toString()
-            .padStart(2, "0")}:${diffSecond.toString().padStart(2, "0")}`
-        );
-        // setShowTime(diffSecond.toString());
+      if (values?.timeLimit) {
+        let newInfo = getTimeDifference(values?.createdAt, values?.timeLimit);
+        if (newInfo.isExpired) {
+          setIsTimeUp(true);
+        } else {
+          setTimeInfo(newInfo);
+        }
       }
     }, 1000);
+
     return () => clearInterval(countdownInterval);
-  }, [rTime]);
-
-  const handleChecked = (e, itemName) => {
-    const checked = e.target.checked;
-
-    setSelectedItemsError(false);
-
-    setSelectedItems((prevSelectedItems) => {
-      if (checked) {
-        return [...prevSelectedItems, itemName];
-      } else {
-        return prevSelectedItems.filter((item) => item !== itemName);
-      }
-    });
-  };
+  }, [values]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -112,11 +80,6 @@ export default function Order() {
     let hasError = false;
 
     if (isTimeUp) {
-      hasError = true;
-    }
-
-    if (selectedItems.length === 0) {
-      setSelectedItemsError(true);
       hasError = true;
     }
 
@@ -225,7 +188,8 @@ export default function Order() {
                             <td>{item?.name}</td>
                             <td>{item?.price}</td>
                             <td>
-                              <button
+                              <button className="incress"
+                                type="button"
                                 onClick={() =>
                                   setQuantities({
                                     ...quantities,
@@ -237,8 +201,9 @@ export default function Order() {
                               </button>
 
                               <span>{quantity}</span>
-                              
-                              <button
+
+                              <button className="decress"
+                                type="button"
                                 onClick={() =>
                                   setQuantities({
                                     ...quantities,
@@ -257,15 +222,7 @@ export default function Order() {
                 </li>
               </div>
             ))}
-            {selectedItemsError && (
-              <div
-                className="error"
-                style={{ color: "red", marginTop: "10px" }}
-              >
-                {" "}
-                Please select at least one item
-              </div>
-            )}
+
             <div
               className="input"
               style={{
@@ -275,7 +232,7 @@ export default function Order() {
               }}
             >
               <div style={{ textAlign: "center" }}>
-                <button type="submit" disabled={isDisabled}>
+                <button className="submit" type="submit" disabled={isDisabled}>
                   Submit
                 </button>
               </div>
@@ -299,13 +256,21 @@ export default function Order() {
                   Budget Limit Crossed
                 </div>
               )}
-              <div style={{ textAlign: "center" }}>
-                {isTimeUp ? (
-                  <p style={{ color: "red" }}>
-                    Time is up, this is not valid anymore.
-                  </p>
-                ) : (
-                  <p>Time Limit: {showTime}</p>
+              {isTimeUp && (
+                <div
+                  className="error"
+                  style={{ color: "red", marginTop: "10px" }}
+                >
+                  Time is up
+                </div>
+              )}
+              <div className="timeLimit">
+                {timeInfo && (
+                  <CircularProgressbar className="progressBar" 
+                    value={timeInfo.percentageRemaining}
+                    maxValue={100}
+                    text={`${timeInfo.hours}:${timeInfo.minutes}:${timeInfo.seconds}`}
+                  />
                 )}
               </div>
             </div>

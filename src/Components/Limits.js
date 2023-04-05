@@ -49,7 +49,7 @@ export default function Limits({
 
         <div className="time mb-3">
           <input
-            type="time"
+            type="datetime-local"
             placeholder="Time Limit"
             value={timeData}
             className="form-control"
@@ -57,6 +57,7 @@ export default function Limits({
               event.preventDefault();
               settime(event.target.value);
               setTimeError(false);
+              console.log(event.target.value);
             }}
           />
 
@@ -79,10 +80,12 @@ export default function Limits({
             <>
               Public template
               <br />
-              <span style={{fontSize: "0.8rem"}}>This menu can be used by others</span>
+              <span style={{ fontSize: "0.8rem" }}>
+                This menu can be used by others
+              </span>
             </>
           ) : (
-              "Click if you want to make it public template"
+            "Click if you want to make it public template"
           )}
         </label>
       </div>

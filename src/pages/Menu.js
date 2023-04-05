@@ -27,7 +27,6 @@ const Menu = () => {
   const [isMenualMenuSelected, setIsMenualMenuSelected] = useState(false);
   const [showSucccess, setShowSuccess] = useState(false);
 
-
   const [isPublicTemplate, setIsPublicTemplate] = useState(false);
   const location = useLocation();
 
@@ -41,13 +40,13 @@ const Menu = () => {
   const state = {
     manualMenuList: namePriceList,
     budgetLimitPerPerson: budgetData,
-    timeLimit: timeData,
+    timeLimit: new Date(timeData).getTime(),
     selectedBy: [],
     userEmail: context.userEmail,
     caption: caption,
     key: key,
     template: isPublicTemplate,
-    createdAt: Date.now() 
+    createdAt: Date.now(),
   };
 
   useEffect(() => {
@@ -138,7 +137,7 @@ const Menu = () => {
       };
 
       let url =
-        "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json"
+        "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json";
       if (key) {
         url = `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${key}.json`;
       }
@@ -150,29 +149,29 @@ const Menu = () => {
           setShowSuccess(true);
         });
 
-        setShowSuccess(true);
+      setShowSuccess(true);
     }
   };
 
   return (
     <div className="Container">
       {showSucccess ? (
-        <SuccessMsg 
-        showSucccess= {showSucccess}
-        setShowSuccess= {setShowSuccess}
+        <SuccessMsg
+          showSucccess={showSucccess}
+          setShowSuccess={setShowSuccess}
         />
       ) : (
-      <div className="App">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Caption your source of misery......"
-          value={caption}
-          onChange={handleInputChange}
-        />
-        <div className="row" style={{ display: "flex", marginLeft: "10em" }}>
-          <div className="col-6">
-            {/* <MenuCreate 
+        <div className="App">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Caption your source of misery......"
+            value={caption}
+            onChange={handleInputChange}
+          />
+          <div className="row" style={{ display: "flex", marginLeft: "10em" }}>
+            <div className="col-6">
+              {/* <MenuCreate 
                 isMenuSelected={isMenuSelected}
                 setIsMenuSelected={setIsMenuSelected}
                 img={img}
@@ -183,24 +182,24 @@ const Menu = () => {
                   imgErrorMessage &&
                   <div className="error" style={{ color: 'red', marginTop: '10px' }}> Upload Img </div>
                 } */}
-            <ManualMenu
-              setnamePriceList={setnamePriceList}
-              namePriceList={namePriceList}
-              isMenualMenuSelected={isMenualMenuSelected}
-              setIsMenualMenuSelected={setIsMenualMenuSelected}
-            />
+              <ManualMenu
+                setnamePriceList={setnamePriceList}
+                namePriceList={namePriceList}
+                isMenualMenuSelected={isMenualMenuSelected}
+                setIsMenualMenuSelected={setIsMenualMenuSelected}
+              />
 
-            {shouldShowError && (
-              <div
-                className="error"
-                style={{ color: "red", marginTop: "10px" }}
-              >
-                {/* Choose At List One */}
-                Make A Menu First
-              </div>
-            )}
+              {shouldShowError && (
+                <div
+                  className="error"
+                  style={{ color: "red", marginTop: "10px" }}
+                >
+                  {/* Choose At List One */}
+                  Make A Menu First
+                </div>
+              )}
 
-            {/* {listError && (
+              {/* {listError && (
               <div
                 className="error"
                 style={{ color: "red", marginTop: "10px" }}
@@ -208,31 +207,31 @@ const Menu = () => {
                 Make One
               </div>
             )} */}
-          </div>
-          <div className="col-6">
-            <Limits
-              budgetData={budgetData}
-              setbudget={setBudget}
-              timeData={timeData}
-              settime={setTime}
-              budgetError={budgetError}
-              timeError={timeError}
-              setBudgetError={setBudgetError}
-              setTimeError={setTimeError}
-              isPublicTemplate={isPublicTemplate}
-              setIsPublicTemplate={setIsPublicTemplate}
-            />
-          </div>
+            </div>
+            <div className="col-6">
+              <Limits
+                budgetData={budgetData}
+                setbudget={setBudget}
+                timeData={timeData}
+                settime={setTime}
+                budgetError={budgetError}
+                timeError={timeError}
+                setBudgetError={setBudgetError}
+                setTimeError={setTimeError}
+                isPublicTemplate={isPublicTemplate}
+                setIsPublicTemplate={setIsPublicTemplate}
+              />
+            </div>
 
-          <div className="btn-submit">
-            <HoldAndPressButton
-              isBtnParamFull={"btn-submit" !== ""}
-              onSubmit={handleSubmit}
-            />
+            <div className="btn-submit">
+              <HoldAndPressButton
+                isBtnParamFull={"btn-submit" !== ""}
+                onSubmit={handleSubmit}
+              />
+            </div>
           </div>
         </div>
-      </div>
-        )}
+      )}
     </div>
   );
 };

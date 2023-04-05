@@ -291,6 +291,13 @@ input.form-control{
   margin: 5em;
 }
 
+button.submit {
+  border: 1px solid gray;
+  border-radius : 12px;
+  background : #FFFFFF;
+  position: relative;
+}
+
 button.deletBtn {
   padding: 0;
   color: darkred;

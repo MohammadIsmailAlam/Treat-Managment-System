@@ -3,6 +3,8 @@ import React from "react";
 function BudgetAndTimeLimit(props) {
   const { budgetLimitPerPerson, timeLimit } = props;
 
+  const formattedTimeLimit = new Date(timeLimit).toLocaleString();
+
   return (
     <div>
       <div className="limit form-control" style={{ display: "flex" }}>
@@ -11,7 +13,7 @@ function BudgetAndTimeLimit(props) {
       </div>
       <div className="limit form-control" style={{ display: "flex" }}>
         <span style={{ fontWeight: "bold" }}>Time:</span>
-        <span style={{ marginLeft: "0.5em" }}>{timeLimit}</span>
+        <span style={{ marginLeft: "0.5em" }}>{formattedTimeLimit}</span>
       </div>
     </div>
   );
