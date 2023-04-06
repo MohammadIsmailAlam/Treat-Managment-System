@@ -54,11 +54,14 @@ const Menu = () => {
     if (location.state?.manualMenuList) {
       setnamePriceList([...location?.state?.manualMenuList]);
       setBudget(location?.state?.budgetLimitPerPerson);
-      setTime(location?.state?.timeLimit);
+      if (location?.state?.timeLimit) { // update timeData if it's not null
+        setTime(new Date(location?.state?.timeLimit).toISOString().slice(0, -1));
+      }
       setCaption(location?.state?.caption);
       setIsPublicTemplate(location?.state?.templet);
     }
   }, []);
+  
 
   useEffect(() => {
     if (isMenuSelected || isMenualMenuSelected) {
