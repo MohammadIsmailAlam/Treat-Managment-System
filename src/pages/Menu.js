@@ -58,7 +58,7 @@ const Menu = () => {
         setTime(new Date(location?.state?.timeLimit).toISOString().slice(0, -1));
       }
       setCaption(location?.state?.caption);
-      setIsPublicTemplate(location?.state?.templet);
+      setIsPublicTemplate(location?.state?.template)
     }
   }, []);
   
@@ -190,6 +190,8 @@ const Menu = () => {
                 namePriceList={namePriceList}
                 isMenualMenuSelected={isMenualMenuSelected}
                 setIsMenualMenuSelected={setIsMenualMenuSelected}
+                isPublicTemplate={isPublicTemplate}
+                setIsPublicTemplate={setIsPublicTemplate}
               />
 
               {shouldShowError && (
