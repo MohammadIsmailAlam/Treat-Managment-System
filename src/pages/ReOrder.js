@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { FaUserEdit } from "react-icons/fa";
-import { TiTick } from "react-icons/ti";
 import { useLocation, useNavigate } from "react-router-dom";
 import BudgetAndTimeLimit from "../Components/BudgetTimeLimit";
 import Note from "../asset/Notify/Note";
@@ -10,6 +9,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
 import PictureAsPdfSharpIcon from "@mui/icons-material/PictureAsPdfSharp";
 import { handlePDFDownload } from "../asset/Buttons/pdf";
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 
 export default function ReOrder() {
   const [show, setShow] = useState(false);
@@ -172,7 +172,7 @@ export default function ReOrder() {
                   <ContentCopyIcon />
                 </IconButton>
               </Tooltip>
-              {isCopied === key && <TiTick />}
+              {isCopied === key && <CheckRoundedIcon/>}
 
               <Tooltip
                 title="Edit"
