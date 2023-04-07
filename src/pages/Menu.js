@@ -52,12 +52,13 @@ const Menu = () => {
   useEffect(() => {
     // console.log("from menu", location.state);
     if (location.state?.manualMenuList) {
+      console.log("location?.state?.timeLimit", location?.state?.timeLimit);
       setnamePriceList([...location?.state?.manualMenuList]);
       setBudget(location?.state?.budgetLimitPerPerson);
-      setTime(location?.state?.timeLimit);
+      setTime(new Date(location?.state?.timeLimit).getTime());
       setCaption(location?.state?.caption);
       setIsPublicTemplate(location?.state?.template);
-      window.history.replaceState({}, document.title)
+      window.history.replaceState({}, document.title);
     }
   }, []);
 

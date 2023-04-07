@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Util } from "../common/Util.js";
 
 export default function Limits({
   budgetData,
@@ -51,7 +52,7 @@ export default function Limits({
           <input
             type="datetime-local"
             placeholder="Time Limit"
-            value={timeData}
+            value={Util.getLocalDate(timeData)}
             className="form-control"
             onChange={(event) => {
               event.preventDefault();
