@@ -29,8 +29,8 @@ export default function OderedList() {
   const Navigate = useNavigate();
 
   const editItem = (value) => {
-    console.log(value);
-    console.log(location);
+    // console.log(value);
+    // console.log(location);
     Navigate("/menu", {
       state: value,
     });

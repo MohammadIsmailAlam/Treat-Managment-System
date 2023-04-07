@@ -13,10 +13,6 @@ const Menu = () => {
   const [budgetData, setBudget] = useState("");
   const [timeData, setTime] = useState("");
 
-  const [searchParam, setSearchParam] = useSearchParams();
-  const key = searchParam.get("key");
-  // console.log("Key ", key);
-
   const [imgErrorMessage, setImgErrorMessage] = useState(null);
   const [budgetError, setBudgetError] = useState(false);
   const [timeError, setTimeError] = useState(false);
@@ -28,9 +24,13 @@ const Menu = () => {
   const [showSucccess, setShowSuccess] = useState(false);
 
   const [isPublicTemplate, setIsPublicTemplate] = useState(false);
-  const location = useLocation();
 
   const context = useContext(userContext);
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const key = searchParams.get("key");
+  // console.log("Key ", key);
 
   const [caption, setCaption] = useState("");
   const handleInputChange = (event) => {
@@ -48,20 +48,18 @@ const Menu = () => {
     template: isPublicTemplate,
     createdAt: Date.now(),
   };
-
+  // console.log("...............dsjkgds.", key);
   useEffect(() => {
-    console.log("from menu", location.state);
+    // console.log("from menu", location.state);
     if (location.state?.manualMenuList) {
       setnamePriceList([...location?.state?.manualMenuList]);
       setBudget(location?.state?.budgetLimitPerPerson);
-      if (location?.state?.timeLimit) { // update timeData if it's not null
-        setTime(new Date(location?.state?.timeLimit).toISOString().slice(0, -1));
-      }
+      setTime(location?.state?.timeLimit);
       setCaption(location?.state?.caption);
-      setIsPublicTemplate(location?.state?.template)
+      setIsPublicTemplate(location?.state?.template);
+      window.history.replaceState({}, document.title)
     }
   }, []);
-  
 
   useEffect(() => {
     if (isMenuSelected || isMenualMenuSelected) {
@@ -128,7 +126,7 @@ const Menu = () => {
     if (isMenualMenuSelected) {
       formData.menuList = namePriceList;
     }
-    console.log("formData", formData);
+    // console.log("formData", formData);
     if (
       (img && img.length > 0) ||
       (namePriceList && namePriceList.length > 0)
@@ -141,14 +139,15 @@ const Menu = () => {
 
       let url =
         "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json";
+      // console.log(" is ++++++++++", key);
       if (key) {
         url = `https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats/${key}.json`;
       }
       fetch(url, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
-          console.log(typeof data);
+          // console.log(data);
+          // console.log(typeof data);
           setShowSuccess(true);
         });
 
@@ -190,8 +189,6 @@ const Menu = () => {
                 namePriceList={namePriceList}
                 isMenualMenuSelected={isMenualMenuSelected}
                 setIsMenualMenuSelected={setIsMenualMenuSelected}
-                isPublicTemplate={isPublicTemplate}
-                setIsPublicTemplate={setIsPublicTemplate}
               />
 
               {shouldShowError && (
