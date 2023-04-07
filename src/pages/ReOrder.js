@@ -70,10 +70,10 @@ export default function ReOrder() {
     }, 3000);
   };
 
-  const editItem = (value) => {
+  const editItem = (value,key) => {
     console.log(value);
     console.log(location);
-    navigate("/menu", {
+    navigate("/menu?key=" + key, {
       state: value,
     });
   };
