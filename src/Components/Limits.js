@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Util } from "../common/Util.js";
+import { Util } from "../common/util";
 
 export default function Limits({
   budgetData,
