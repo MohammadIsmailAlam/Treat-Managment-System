@@ -9,7 +9,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
 import PictureAsPdfSharpIcon from "@mui/icons-material/PictureAsPdfSharp";
 import { handlePDFDownload } from "../asset/Buttons/pdf";
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 
 export default function ReOrder() {
   const [show, setShow] = useState(false);
@@ -70,9 +70,9 @@ export default function ReOrder() {
     }, 3000);
   };
 
-  const editItem = (value,key) => {
-    console.log(value);
-    console.log(location);
+  const editItem = (value, key) => {
+    // console.log(value);
+    // console.log(location);
     navigate("/menu?key=" + key, {
       state: value,
     });
@@ -85,7 +85,7 @@ export default function ReOrder() {
   return (
     <>
       <h1> Re-Order </h1>
-      {console.log("======>", data)}
+      {/* {console.log("======>", data)} */}
       {Object.keys(data).length === 0 ? (
         <div>No data is here.</div>
       ) : (
