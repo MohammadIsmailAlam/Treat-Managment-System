@@ -1,8 +1,12 @@
 const offset = new Date().getTimezoneOffset() * 1000 * 60;
 const getLocalDate = (value) => {
-  const offsetDate = value - offset; // takes data as milliseconds / timestamp format
-  const date = new Date(offsetDate).toISOString();
-  return date.substring(0, 16);
+  const date = new Date(value);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const hour = date.getHours().toString().padStart(2, '0');
+  const minute = date.getMinutes().toString().padStart(2, '0');
+  return `${year}-${month}-${day}T${hour}:${minute}`;
 };
 
 export const Util = {
