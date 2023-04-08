@@ -172,7 +172,7 @@ const Menu = () => {
             value={caption}
             onChange={handleInputChange}
           />
-          <div className="row" style={{ display: "flex", marginLeft: "10em" }}>
+          <div className="row" style={{ display: "flex", justifyContent: "center"}}>
             <div className="col-6">
               {/* <MenuCreate 
                 isMenuSelected={isMenuSelected}
@@ -226,13 +226,14 @@ const Menu = () => {
               />
             </div>
 
-            <div className="btn-submit">
+           
+          </div>
+          <div className="btn-submit">
               <HoldAndPressButton
                 isBtnParamFull={"btn-submit" !== ""}
                 onSubmit={handleSubmit}
               />
             </div>
-          </div>
         </div>
       )}
     </div>

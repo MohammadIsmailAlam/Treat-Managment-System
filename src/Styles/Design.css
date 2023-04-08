@@ -102,12 +102,18 @@ svg.CircularProgressbar.progressBar {
 
 button.incress {
   border: none;
-    background: #fff;
-    position: relative;
-
-  }
+  background: #fff;
+  position: relative;
+}
 button.decress {
   border: none;
-    background: #fff;
-    position: relative;
+  background: #fff;
+  position: relative;
+}
+
+.col-6 {
+  flex: 0 0 auto;
+  width: 50%;
+  display: flex;
+  justify-content: center;
 }
