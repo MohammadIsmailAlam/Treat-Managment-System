@@ -5,7 +5,7 @@ import IconButton from "@mui/joy/IconButton";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate } from "react-router";
 
-export default function BasicModal({ showSucccess, setShowSuccess }) {
+export default function SuccessMsg({ showSucccess, setShowSuccess }) {
   const navigate = useNavigate();
   const handleClose = () => {
     setShowSuccess(false);
