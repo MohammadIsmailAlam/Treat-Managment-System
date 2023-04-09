@@ -21,7 +21,7 @@ const Menu = () => {
 
   const [isMenuSelected, setIsMenuSelected] = useState(false);
   const [isMenualMenuSelected, setIsMenualMenuSelected] = useState(false);
-  const [showSucccess, setShowSuccess] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const [isPublicTemplate, setIsPublicTemplate] = useState(false);
 
@@ -149,19 +149,19 @@ const Menu = () => {
         .then((data) => {
           // console.log(data);
           // console.log(typeof data);
-          setShowSuccess(true);
+          setOpen(true);
         });
 
-      setShowSuccess(true);
+      setOpen(true);
     }
   };
 
   return (
     <div className="Container">
-      {showSucccess ? (
+      {open ? (
         <SuccessMsg
-          showSucccess={showSucccess}
-          setShowSuccess={setShowSuccess}
+          open={open}
+          setOpen={setOpen}
         />
       ) : (
         <div className="App">

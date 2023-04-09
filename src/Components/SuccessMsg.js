@@ -9,7 +9,7 @@ export default function SuccessMsg({ open, setOpen }) {
   const navigate = useNavigate();
   const handleClose = () => {
     setOpen(false);
-    navigate("/dashboard");
+    navigate("/re-order");
   };
 
   return (
