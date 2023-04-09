@@ -114,6 +114,6 @@ button.decress {
 .col-6 {
   flex: 0 0 auto;
   width: 50%;
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center; */
 }

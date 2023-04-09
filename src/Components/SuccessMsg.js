@@ -5,10 +5,10 @@ import IconButton from "@mui/joy/IconButton";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate } from "react-router";
 
-export default function SuccessMsg({ showSucccess, setShowSuccess }) {
+export default function SuccessMsg({ open, setOpen }) {
   const navigate = useNavigate();
   const handleClose = () => {
-    setShowSuccess(false);
+    setOpen(false);
     navigate("/dashboard");
   };
 
@@ -17,8 +17,8 @@ export default function SuccessMsg({ showSucccess, setShowSuccess }) {
       <Modal
         aria-labelledby="modal-title"
         aria-describedby="modal-desc"
-        open={showSucccess}
-        // onClose={() => setShowSuccess(false)}
+        open={open}
+        // onClose={() => setOpen(false)}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Sheet

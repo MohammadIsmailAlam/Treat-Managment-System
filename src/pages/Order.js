@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../Components/Header";
 import SuccessMsg from "../Components/SuccessMsg";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+
 
 export default function Order() {
   const [values, setValues] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [showSucccess, setShowSuccess] = useState(false);
 
   const [name, setName] = useState("");
+  const [open, setOpen] = useState(false);
   const [budgetError, setBudgetError] = useState(false);
   const { treatId } = useParams();
-  const [quantities, setQuantities] = useState({});
+  const [selectedItemsError, setSelectedItemsError] = useState(false);
+  const [nameError, setNameError] = useState(false);
 
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [timeInfo, setTimeInfo] = useState(null);
@@ -38,18 +38,18 @@ export default function Order() {
 
   function getTimeDifference(createdAt, expiry) {
     let now = new Date().getTime();
-  
+
     // Calculate the time difference in milliseconds
     let timeDiff = expiry - now;
-  
+
     // Calculate the time difference in hours, minutes, and seconds
     let hours = Math.floor(timeDiff / (1000 * 60 * 60));
     let minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
     let seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-  
+
     // Calculate the percentage of time remaining until the expiry timestamp
     let percentageRemaining = (timeDiff / (expiry - createdAt)) * 100;
-  
+
     return {
       hours,
       minutes,
@@ -74,12 +74,36 @@ export default function Order() {
     return () => clearInterval(countdownInterval);
   }, [values]);
 
+  const handleChecked = (e, itemName) => {
+    const checked = e.target.checked;
+
+    setSelectedItemsError(false);
+
+    setSelectedItems((prevSelectedItems) => {
+      if (checked) {
+        return [...prevSelectedItems, itemName];
+      } else {
+        return prevSelectedItems.filter((item) => item !== itemName);
+      }
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let hasError = false;
 
+    if (!name) {
+      setNameError(true);
+      hasError = true;
+    }
+
     if (isTimeUp) {
+      hasError = true;
+    }
+
+    if (selectedItems.length === 0) {
+      setSelectedItemsError(true);
       hasError = true;
     }
 
@@ -137,146 +161,138 @@ export default function Order() {
       .then((data) => {
         // console.log(data);
         setSelectedItems([]);
-        setShowSuccess(true);
+        setOpen(true);
       });
 
-    setShowSuccess(true);
-    // console.log(showSucccess);
+    setOpen(true);
+    console.log(open);
 
     setSelectedItems([]);
     setName("");
+    setNameError(false);
   };
 
   const isDisabled = isTimeUp;
 
   return (
     <div className="container">
-      {showSucccess ? (
-        <SuccessMsg
-          showSucccess={showSucccess}
-          setShowSuccess={setShowSuccess}
-        />
+      {open ? (
+        <SuccessMsg open={open}/>
       ) : (
-        <div className="ordersSeelection row">
-          <Header />
-          <form className="order col-6" onSubmit={handleSubmit}>
-            {values?.manualMenuList?.map((data, index) => (
-              <div className="limits">
+        <div className="row">
+         <div className="ordersSeelection row">
+            <Header />
+            <form className="order col-6" onSubmit={handleSubmit}>
+              {values?.manualMenuList?.map((data, index) => (
                 <li
                   key={index}
                   style={{
+                    border: "1px solid grey",
+                    borderRadius: "12px",
                     padding: "2em",
                     margin: "2em",
-                    background: "#FFFFFF",
+                    background: "aliceblue",
                     position: "relative",
                   }}
                 >
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      {values.manualMenuList?.map((item, index) => {
-                        const quantity = quantities[item.id] || 0;
-                        return (
-                          <tr key={index}>
-                            <td>{item?.name}</td>
-                            <td>{item?.price}</td>
-                            <td>
-                              <button className="incress"
-                                type="button"
-                                onClick={() =>
-                                  setQuantities({
-                                    ...quantities,
-                                    [item.id]: quantity + 1,
-                                  })
-                                }
-                              >
-                                <AddCircleOutlineOutlinedIcon />
-                              </button>
-
-                              <span>{quantity}</span>
-
-                              <button className="decress"
-                                type="button"
-                                onClick={() => {
-                                  if (quantity > 0) {
-                                    setQuantities({
-                                      ...quantities,
-                                      [item.id]: quantity - 1,
-                                    });
-                                  }
-                                }}
-                              >
-                                <RemoveCircleOutlineOutlinedIcon />
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                  <div className="checkboxes">
+                    <label>
+                      <input
+                        type="checkbox"
+                        value={data.name}
+                        onChange={(e) => handleChecked(e, data.name)}
+                      />
+                      {data.name} ---- {data.price}
+                    </label>
+                  </div>
                 </li>
-              </div>
-            ))}
-
-            <div
-              className="input"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                padding: "2em",
-              }}
-            >
-              <div style={{ textAlign: "center" }}>
-                <button className="submit" type="submit" disabled={isDisabled}>
-                  Submit
-                </button>
-              </div>
-            </div>
-          </form>
-
-          {values && (
-            <div
-              className="limits col-6"
-              style={{ textAlign: "center", marginTop: "2em" }}
-            >
-              <p style={{ fontFamily: "monospace" }}>
-                Budget: {values?.budgetLimitPerPerson}
-              </p>
-
-              {budgetError && (
+              ))}
+              {selectedItemsError && (
                 <div
                   className="error"
                   style={{ color: "red", marginTop: "10px" }}
                 >
-                  Budget Limit Crossed
+                  {" "}
+                  Please select at least one item
                 </div>
               )}
-              {isTimeUp && (
-                <div
-                  className="error"
-                  style={{ color: "red", marginTop: "10px" }}
-                >
-                  Time is up
-                </div>
-              )}
-              <div className="timeLimit">
-                {timeInfo && (
-                  <CircularProgressbar className="progressBar" 
-                    value={timeInfo.percentageRemaining}
-                    maxValue={100}
-                    text={`${timeInfo.hours}:${timeInfo.minutes}:${timeInfo.seconds}`}
-                  />
+              <div className="form-group">
+                <label htmlFor="name">Name </label>
+                <input
+                  type="text"
+                  name="name"
+                  className="form-control"
+                  value={name}
+                  style={{ marginRight: "10px" }}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    setNameError(false);
+                  }}
+                />
+
+                {nameError && (
+                  <div
+                    className="error"
+                    style={{ color: "red", marginTop: "10px" }}
+                  >
+                    {" "}
+                    Name Can't Be Empty
+                  </div>
                 )}
               </div>
-            </div>
-          )}
+              <div
+                className="input"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "2em",
+                }}
+              >
+                <div style={{ textAlign: "center" }}>
+                  <button type="submit" disabled={isDisabled}>
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+            {values && (
+              <div
+                className="limits col-6"
+                style={{ textAlign: "center", marginTop: "2em" }}
+              >
+                <p style={{ fontFamily: "monospace" }}>
+                  Budget: {values?.budgetLimitPerPerson}
+                </p>
+
+                {budgetError && (
+                  <div
+                    className="error"
+                    style={{ color: "red", marginTop: "10px" }}
+                  >
+                    Budget Limit Crossed
+                  </div>
+                )}
+                {isTimeUp && (
+                  <div
+                    className="error"
+                    style={{ color: "red", marginTop: "10px" }}
+                  >
+                    Time is up
+                  </div>
+                )}
+                <div className="timeLimit">
+                  {timeInfo && (
+                    <CircularProgressbar
+                      className="progressBar"
+                      value={timeInfo.percentageRemaining}
+                      maxValue={100}
+                      text={`${timeInfo.hours}:${timeInfo.minutes}:${timeInfo.seconds}`}
+                    />
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>
