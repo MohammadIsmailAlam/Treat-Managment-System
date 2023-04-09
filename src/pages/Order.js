@@ -9,6 +9,7 @@ import "react-circular-progressbar/dist/styles.css";
 export default function Order() {
   const [values, setValues] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
@@ -101,6 +102,12 @@ export default function Order() {
     if (isTimeUp) {
       hasError = true;
     }
+
+    if (isSubmitted || localStorage.getItem("formSubmitted")) {
+      return;
+    }
+    setIsSubmitted(true);
+    localStorage.setItem("formSubmitted", true);
 
     if (selectedItems.length === 0) {
       setSelectedItemsError(true);
