@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import Header from "../Components/Header";
 import SuccessMsg from "../Components/SuccessMsg";
 
-
 export default function Order() {
   const [values, setValues] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -104,12 +103,6 @@ export default function Order() {
       hasError = true;
     }
 
-    // if (isSubmitted || localStorage.getItem("formSubmitted")) {
-    //   return;
-    // }
-    // setIsSubmitted(true);
-    // localStorage.setItem("formSubmitted", true);
-
     if (selectedItems.length === 0) {
       setSelectedItemsError(true);
       hasError = true;
@@ -185,84 +178,47 @@ export default function Order() {
   return (
     <div className="container">
       {open ? (
-        <SuccessMsg open={open}/>
+        <SuccessMsg open={open} />
       ) : (
         <div className="row">
-         <div className="ordersSeelection row">
-            <Header />
-            <form className="order col-6" onSubmit={handleSubmit}>
-              {values?.manualMenuList?.map((data, index) => (
-                <li
-                  key={index}
-                  style={{
-                    border: "1px solid grey",
-                    borderRadius: "12px",
-                    padding: "2em",
-                    margin: "2em",
-                    background: "aliceblue",
-                    position: "relative",
-                  }}
-                >
-                  <div className="checkboxes">
-                    <label>
-                      <input
-                        type="checkbox"
-                        value={data.name}
-                        onChange={(e) => handleChecked(e, data.name)}
-                      />
-                      {data.name} ---- {data.price}
-                    </label>
-                  </div>
-                </li>
-              ))}
-              {selectedItemsError && (
-                <div
-                  className="error"
-                  style={{ color: "red", marginTop: "10px" }}
-                >
-                  {" "}
-                  Please select at least one item
-                </div>
-              )}
-              <div className="form-group">
-                <label htmlFor="name">Name </label>
-                <input
-                  type="text"
-                  name="name"
-                  className="form-control"
-                  value={name}
-                  style={{ marginRight: "10px" }}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    setNameError(false);
-                  }}
-                />
-
-                {nameError && (
-                  <div
-                    className="error"
-                    style={{ color: "red", marginTop: "10px" }}
-                  >
-                    {" "}
-                    Name Can't Be Empty
-                  </div>
-                )}
-              </div>
-              <div
-                className="input"
+          <Header />
+          <form
+            className="order col-6"
+            style={{ border: "1px solid grey", borderRadius: "12px" }}
+            onSubmit={handleSubmit}
+          >
+            {values?.manualMenuList?.map((data, index) => (
+              <li
+                key={index}
                 style={{
                   display: "flex",
                   justifyContent: "center",
-                  padding: "2em",
+                  margin: "2em",
                 }}
               >
-                <div style={{ textAlign: "center" }}>
-                  <Button style={{backgroundColor:"#00bcd4", color: "black", width: "220px"}} type="submit" disabled={isDisabled}>
-                    Submit
-                  </Button>
+                <div className="checkboxes">
+                  <label>
+                    <input
+                      type="checkbox"
+                      value={data.name}
+                      onChange={(e) => handleChecked(e, data.name)}
+                    />
+                    {data.name} ---- {data.price}
+                  </label>
                 </div>
+              </li>
+            ))}
+            {selectedItemsError && (
+              <div
+                className="error"
+                style={{ color: "red", marginTop: "10px" }}
+              >
+                {" "}
+                Please select at least one item
               </div>
-            </form>
+            )}
+          </form>
+          <div className="col-6">
             {values && (
               <div
                 className="limits col-6"
@@ -302,7 +258,50 @@ export default function Order() {
             )}
           </div>
         </div>
-      )}
+      )}{" "}
+      <div className="form-group">
+        <label htmlFor="name">Name </label>
+        <input
+          type="text"
+          name="name"
+          className="form-control"
+          value={name}
+          style={{ marginRight: "10px" }}
+          onChange={(e) => {
+            setName(e.target.value);
+            setNameError(false);
+          }}
+        />
+
+        {nameError && (
+          <div className="error" style={{ color: "red", marginTop: "10px" }}>
+            {" "}
+            Name Can't Be Empty
+          </div>
+        )}
+      </div>
+      <div
+        className="input"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          padding: "2em",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <Button
+            style={{
+              backgroundColor: "#00bcd4",
+              color: "black",
+              width: "220px",
+            }}
+            type="submit"
+            disabled={isDisabled}
+          >
+            Submit
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
