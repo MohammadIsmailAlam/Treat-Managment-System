@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
 import { useState } from "react";
-import { Tooltip, IconButton, Toolbar } from "@mui/material";
+import { Tooltip, IconButton, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import addBtn from "../asset/img/Ellipse 1.png";
 
@@ -28,6 +28,14 @@ export default function ManualMenu({
   //   setIsShow(e.target.checked);
   //   setIsMenualMenuSelected(e.target.checked);
   // };
+
+  const handleDelete = (index) => {
+    setnamePriceList((prev) => {
+      const newList = prev.slice();
+      newList.splice(index, 1);
+      return newList;
+    })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -162,18 +170,12 @@ export default function ManualMenu({
                             <td>{item.name}</td>
                             <td>{item.price}</td>
                             <td>
-                              <button
+                              <Button
                                 className="deletBtn"
-                                onClick={() =>
-                                  setnamePriceList((prev) => {
-                                    const newList = prev.slice();
-                                    newList.splice(index, 1);
-                                    return newList;
-                                  })
-                                }
+                                onClick={handleDelete}
                               >
                                 <DeleteIcon fontSize="large" />
-                              </button>
+                              </Button>
                             </td>
                           </tr>
                         );

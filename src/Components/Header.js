@@ -4,6 +4,7 @@ import { IoExitOutline } from "react-icons/io5";
 import Logo from "../asset/img/cover-removebg-preview 4.svg";
 import { useEffect, useState } from "react";
 import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { IconButton, Tooltip } from "@mui/material";
 
 const Header = () => {
@@ -32,10 +33,10 @@ const Header = () => {
           <i
             className="bi bi-box-arrow-right"
             style={{ marginRight: "auto" }}
-          ></i>
+          />
           <Tooltip title="Log Out" placement="top" arrow onClick={handleLogOut}>
             <IconButton>
-              <IoExitOutline />
+              <LogoutIcon />
             </IconButton>
           </Tooltip>
         </>
@@ -44,7 +45,7 @@ const Header = () => {
           <i
             className="bi bi-box-arrow-right"
             style={{ marginRight: "auto" }}
-          ></i>
+          />
           <Tooltip
             title="Log In"
             placement="top"

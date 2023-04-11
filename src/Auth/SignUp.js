@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../App";
+import { Button } from "@mui/material";
 
 const Signup = () => {
   const auth = getAuth();
@@ -81,7 +82,7 @@ const Signup = () => {
           placeholder="Enter your password"
         />
         <p>{err}</p>
-        <button onClick={handleSubmit}>Sign Up</button>
+        <Button onClick={handleSubmit}>Sign Up</Button>
         <div>
           You have already account? <Link to="/">Login</Link>
         </div>

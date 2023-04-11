@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaUserEdit } from "react-icons/fa";
 import Button from "@mui/material/Button";
 import { useLocation, useNavigate } from "react-router-dom";
-import BudgetAndTimeLimit from "./BudgetTimeLimit";
+import BudgetAndTimeLimit from "../Components/BudgetTimeLimit";
 import { IconButton, Tooltip } from "@mui/material";
 import PictureAsPdfSharpIcon from "@mui/icons-material/PictureAsPdfSharp";
 import { handlePDFDownload } from "../asset/Buttons/pdf";
@@ -16,7 +16,9 @@ export default function OderedList() {
 
   //Get
   useEffect(() => {
-    fetch("https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json")
+    fetch(
+      "https://treat-management-system-691e2-default-rtdb.firebaseio.com/treats.json"
+    )
       .then((response) => response.json())
       .then((data) => {
         const filteredData = Object.entries(data)
@@ -111,30 +113,30 @@ export default function OderedList() {
             </li>
           </div>
           <div className="col-3">
-              <div className="btn-style">
-                <Tooltip
-                  title="re-use"
-                  placement="top"
-                  arrow
-                  onClick={() => editItem(value, key)}
-                >
-                  <IconButton>
-                    <FaUserEdit />
-                  </IconButton>
-                </Tooltip>
+            <div className="btn-style">
+              <Tooltip
+                title="re-use"
+                placement="top"
+                arrow
+                onClick={() => editItem(value, key)}
+              >
+                <IconButton>
+                  <FaUserEdit />
+                </IconButton>
+              </Tooltip>
 
-                <Tooltip
-                  title="Download PDF"
-                  placement="top"
-                  arrow
-                  type="button"
-                  onClick={() => handleClick(key)}
-                >
-                  <IconButton>
-                    <PictureAsPdfSharpIcon />
-                  </IconButton>
-                </Tooltip>
-              </div>
+              <Tooltip
+                title="Download PDF"
+                placement="top"
+                arrow
+                type="button"
+                onClick={() => handleClick(key)}
+              >
+                <IconButton>
+                  <PictureAsPdfSharpIcon />
+                </IconButton>
+              </Tooltip>
+            </div>
 
             <BudgetAndTimeLimit
               budgetLimitPerPerson={value.budgetLimitPerPerson}

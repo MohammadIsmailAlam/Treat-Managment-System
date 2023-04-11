@@ -10,9 +10,8 @@ import Home from "./pages/Menu";
 import "bootstrap/dist/css/bootstrap.css";
 import "../src/Styles/App.css";
 
-import Details from "./pages/Details";
 import Order from "./pages/Order";
-import Template from "./Components/Template";
+import Template from "./pages/Template";
 import Login from "./Auth/Login";
 import SignUp from "./Auth/SignUp";
 import Dashboard from "./Auth/DashBoard";
@@ -44,7 +43,6 @@ function App() {
             <Route exact path="/re-order" element={<ReOrder />} />
             <Route exact path="/menu/:key" element={<Home />} />
             <Route exact path="/menu" element={<Home />} />
-            <Route exact path="/details" element={<Details />} />
             <Route exact path="/order/:treatId" element={<Order />} />
             <Route exact path="/template" element={<Template />} />
           </Routes>

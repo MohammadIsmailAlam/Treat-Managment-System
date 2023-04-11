@@ -63,6 +63,10 @@
 button.btn.btn-primary {
   color: black;
 }
+Button.btn.btn-primary:hover{
+  background-color: #0a58ca;
+  border-color: #0a58ca
+}
 
 .home {
   margin: 2rem;
@@ -100,20 +104,7 @@ svg.CircularProgressbar.progressBar {
   height: 15em;
 }
 
-button.incress {
-  border: none;
-  background: #fff;
-  position: relative;
-}
-button.decress {
-  border: none;
-  background: #fff;
-  position: relative;
-}
-
 .col-6 {
   flex: 0 0 auto;
   width: 50%;
-  /* display: flex; */
-  /* justify-content: center; */
 }

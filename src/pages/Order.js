@@ -1,9 +1,10 @@
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import { useParams } from "react-router-dom";
 import Header from "../Components/Header";
 import SuccessMsg from "../Components/SuccessMsg";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
 
 
 export default function Order() {
@@ -103,11 +104,11 @@ export default function Order() {
       hasError = true;
     }
 
-    if (isSubmitted || localStorage.getItem("formSubmitted")) {
-      return;
-    }
-    setIsSubmitted(true);
-    localStorage.setItem("formSubmitted", true);
+    // if (isSubmitted || localStorage.getItem("formSubmitted")) {
+    //   return;
+    // }
+    // setIsSubmitted(true);
+    // localStorage.setItem("formSubmitted", true);
 
     if (selectedItems.length === 0) {
       setSelectedItemsError(true);
@@ -256,9 +257,9 @@ export default function Order() {
                 }}
               >
                 <div style={{ textAlign: "center" }}>
-                  <button type="submit" disabled={isDisabled}>
+                  <Button style={{backgroundColor:"#00bcd4", color: "black", width: "220px"}} type="submit" disabled={isDisabled}>
                     Submit
-                  </button>
+                  </Button>
                 </div>
               </div>
             </form>

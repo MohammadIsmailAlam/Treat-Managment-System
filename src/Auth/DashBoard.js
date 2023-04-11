@@ -6,6 +6,7 @@ import panBook from "../asset/img/Rectangle 10.png";
 import dairy from "../asset/img/Rectangle 13.png";
 import clock from "../asset/img/Rectangle 16.png";
 import Status from "../asset/Notify/Status";
+import { Button } from "@mui/material";
 
 const DashBoard = () => {
   const auth = getAuth();
@@ -46,9 +47,9 @@ const DashBoard = () => {
             Add list of items (dont forget to mention prices) and also the
             budget per person and set a time limit !
           </p>
-          <button className="btn btn-primary" onClick={() => navigate("/menu")}>
+          <Button className="btn btn-primary" onClick={() => navigate("/menu")}>
             Let's Go
-          </button>
+          </Button>
         </div>
 
         <div className="card">
@@ -63,12 +64,12 @@ const DashBoard = () => {
             Save your ordering time by using a template and make use of popular
             ready made template !
           </p>
-          <button
+          <Button
             className="btn btn-primary"
             onClick={() => navigate("/template")}
           >
             Let's Go
-          </button>
+          </Button>
         </div>
 
         <div className="card">
@@ -83,12 +84,12 @@ const DashBoard = () => {
           <p className="card-text" style={{ marginTop: "0.5em" }}>
             Simply reuse your old and favorite list :D
           </p>
-          <button
+          <Button
             className="btn btn-primary"
             onClick={() => navigate("/re-order")}
           >
             Let's Go
-          </button>
+          </Button>
         </div>
       </div>
     </>
