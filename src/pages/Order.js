@@ -1,4 +1,12 @@
-import { Button } from "@mui/material";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -185,27 +193,34 @@ export default function Order() {
           {values && (
             <form className="col-6" onSubmit={handleSubmit}>
               <h4> Treat Caption: {values.caption}</h4>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {values.manualMenuList.map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.name}</td>
-                      <td>{item.price}</td>
-                      <td>
-                        <QuantityField props/>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
+              <TableContainer>
+                <Table className="menu-table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell />
+                      <TableCell>Name</TableCell>
+                      <TableCell>Price</TableCell>
+                      <TableCell>Quantity</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {values?.manualMenuList?.map((item) => (
+                      <TableRow key={item.name}>
+                        <TableCell>
+                          <input
+                            type="checkbox"
+                            checked={selectedItems.includes(item.name)}
+                            onChange={(e) => handleChecked(e, item.name)}
+                          />
+                        </TableCell>
+                        <TableCell>{item.name}</TableCell>
+                        <TableCell>{item.price}</TableCell>
+                        <TableCell><QuantityField props/></TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
               {selectedItemsError && (
                 <div className="error">Please select at least one item.</div>
               )}
