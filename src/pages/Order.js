@@ -5,11 +5,11 @@ import "react-circular-progressbar/dist/styles.css";
 import { useParams } from "react-router-dom";
 import Header from "../Components/Header";
 import SuccessMsg from "../Components/SuccessMsg";
+import QuantityField from "../common/QuantityField";
 
 export default function Order() {
   const [values, setValues] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
@@ -183,12 +183,14 @@ export default function Order() {
         <div className="row">
           <Header />
           {values && (
-            <form className="col-6" onSubmit={handleSubmit} >
+            <form className="col-6" onSubmit={handleSubmit}>
+              <h4> Treat Caption: {values.caption}</h4>
               <table>
                 <thead>
                   <tr>
                     <th>Name</th>
                     <th>Price</th>
+                    <th>Quantity</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -196,6 +198,9 @@ export default function Order() {
                     <tr key={index}>
                       <td>{item.name}</td>
                       <td>{item.price}</td>
+                      <td>
+                        <QuantityField props/>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
