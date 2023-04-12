@@ -114,6 +114,7 @@ export default function Order() {
     if (selectedItems.length === 0) {
       setSelectedItemsError(true);
       hasError = true;
+      return;
     }
 
     // Calculate total cost of selected items
@@ -192,7 +193,7 @@ export default function Order() {
           <Header />
           {values && (
             <form className="col-6" onSubmit={handleSubmit}>
-              <h4> Treat Caption: {values.caption}</h4>
+              <h4 style={{marginTop: "20px"}}> Treat Caption: {values.caption}</h4>
               <TableContainer>
                 <Table className="menu-table">
                   <TableHead>
@@ -204,7 +205,7 @@ export default function Order() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {values?.manualMenuList?.map((item) => (
+                    {values?.manualMenuList?.map((item, index) => (
                       <TableRow key={item.name}>
                         <TableCell>
                           <input
@@ -215,15 +216,61 @@ export default function Order() {
                         </TableCell>
                         <TableCell>{item.name}</TableCell>
                         <TableCell>{item.price}</TableCell>
-                        <TableCell><QuantityField props/></TableCell>
+                        <TableCell>
+                          <QuantityField props />
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
                 </Table>
               </TableContainer>
               {selectedItemsError && (
-                <div className="error">Please select at least one item.</div>
+                <div style={{ color: "red", marginTop: "10px" }} className="error">Please select at least one item.</div>
               )}
+              <div className="form-group">
+                <label htmlFor="name">Name </label>
+                <input
+                  type="text"
+                  name="name"
+                  className="form-control"
+                  value={name}
+                  style={{ marginRight: "10px" }}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    setNameError(false);
+                  }}
+                />
+
+                {nameError && (
+                  <div
+                    className="error"
+                    style={{ color: "red", marginTop: "10px" }}
+                  >
+                    {" "}
+                    Name Can't Be Empty
+                  </div>
+                )}
+              </div>
+
+              <div
+                className="input"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "2em",
+                }}
+              >
+                <div className="submit-container">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    disabled={isDisabled}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </div>
             </form>
           )}
 
@@ -263,47 +310,7 @@ export default function Order() {
             )}
           </div>
         </div>
-      )}{" "}
-      <div className="form-group">
-        <label htmlFor="name">Name </label>
-        <input
-          type="text"
-          name="name"
-          className="form-control"
-          value={name}
-          style={{ marginRight: "10px" }}
-          onChange={(e) => {
-            setName(e.target.value);
-            setNameError(false);
-          }}
-        />
-
-        {nameError && (
-          <div className="error" style={{ color: "red", marginTop: "10px" }}>
-            {" "}
-            Name Can't Be Empty
-          </div>
-        )}
-      </div>
-      <div
-        className="input"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          padding: "2em",
-        }}
-      >
-        <div className="submit-container">
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            disabled={isDisabled}
-          >
-            Submit
-          </Button>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

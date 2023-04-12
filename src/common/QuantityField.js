@@ -15,14 +15,14 @@ function QuantityField(props) {
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value, ref } }) => (
           <>
-            <button onClick={() => onChange(Math.max(value - 1, 0))}>-</button>
+            <button type='button' onClick={() => onChange(Math.max(value - 1, 0))}>-</button>
             <Input
               value={value}
               onChange={onChange}
               onBlur={onBlur}
               ref={ref}
             />
-            <button onClick={() => onChange(value + 1)}>+</button>
+            <button type='button' onClick={() => onChange(value + 1)}>+</button>
           </>
         )}
       />
