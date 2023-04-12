@@ -108,3 +108,14 @@ svg.CircularProgressbar.progressBar {
   flex: 0 0 auto;
   width: 50%;
 }
+
+.quantity {
+  /* justify-content: center; */
+  display: flex;
+  align-items: center;
+  width: 100px;
+}
+
+input.MuiInputBase-input.MuiInput-input.css-1x51dt5-MuiInputBase-input-MuiInput-input {
+  text-align: center;
+}
