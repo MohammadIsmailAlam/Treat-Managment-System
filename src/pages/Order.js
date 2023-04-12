@@ -182,42 +182,31 @@ export default function Order() {
       ) : (
         <div className="row">
           <Header />
-          <form
-            className="order col-6"
-            style={{ border: "1px solid grey", borderRadius: "12px" }}
-            onSubmit={handleSubmit}
-          >
-            {values?.manualMenuList?.map((data, index) => (
-              <li
-                key={index}
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  margin: "2em",
-                }}
-              >
-                <div className="checkboxes">
-                  <label>
-                    <input
-                      type="checkbox"
-                      value={data.name}
-                      onChange={(e) => handleChecked(e, data.name)}
-                    />
-                    {data.name} ---- {data.price}
-                  </label>
-                </div>
-              </li>
-            ))}
-            {selectedItemsError && (
-              <div
-                className="error"
-                style={{ color: "red", marginTop: "10px" }}
-              >
-                {" "}
-                Please select at least one item
-              </div>
-            )}
-          </form>
+          {values && (
+            <form className="col-6" onSubmit={handleSubmit} >
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {values.manualMenuList.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.name}</td>
+                      <td>{item.price}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              {selectedItemsError && (
+                <div className="error">Please select at least one item.</div>
+              )}
+            </form>
+          )}
+
           <div className="col-6">
             {values && (
               <div
@@ -227,13 +216,9 @@ export default function Order() {
                 <p style={{ fontFamily: "monospace" }}>
                   Budget: {values?.budgetLimitPerPerson}
                 </p>
-
                 {budgetError && (
-                  <div
-                    className="error"
-                    style={{ color: "red", marginTop: "10px" }}
-                  >
-                    Budget Limit Crossed
+                  <div className="error">
+                    Total cost of selected items exceeds budget limit.
                   </div>
                 )}
                 {isTimeUp && (
@@ -288,13 +273,10 @@ export default function Order() {
           padding: "2em",
         }}
       >
-        <div style={{ textAlign: "center" }}>
+        <div className="submit-container">
           <Button
-            style={{
-              backgroundColor: "#00bcd4",
-              color: "black",
-              width: "220px",
-            }}
+            variant="contained"
+            color="primary"
             type="submit"
             disabled={isDisabled}
           >
