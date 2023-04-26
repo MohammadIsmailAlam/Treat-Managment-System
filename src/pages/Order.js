@@ -13,7 +13,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { useParams } from "react-router-dom";
 import Header from "../Components/Header";
 import SuccessMsg from "../Components/SuccessMsg";
-import QuantityField from "../common/QuantityField";
+// import QuantityField from "../common/QuantityField";
 
 export default function Order() {
   const [values, setValues] = useState(null);
@@ -201,7 +201,7 @@ export default function Order() {
                       <TableCell />
                       <TableCell>Name</TableCell>
                       <TableCell>Price</TableCell>
-                      <TableCell>Quantity</TableCell>
+                      {/* <TableCell>Quantity</TableCell> */}
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -216,9 +216,9 @@ export default function Order() {
                         </TableCell>
                         <TableCell>{item.name}</TableCell>
                         <TableCell>{item.price}</TableCell>
-                        <TableCell>
+                        {/* <TableCell>
                           <QuantityField props />
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     ))}
                   </TableBody>
