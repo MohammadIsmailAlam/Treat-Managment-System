@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useContext } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { userContext } from "../App";
 import Limits from "../Components/Limits";
 import ManualMenu from "../Components/ManualMenu";
@@ -8,18 +8,16 @@ import HoldAndPressButton from "../Components/HoldAndPressBtn";
 import SuccessMsg from "../Components/SuccessMsg";
 
 const Menu = () => {
-  const [img, setImg] = useState([]);
   const [namePriceList, setnamePriceList] = useState([]);
   const [budgetData, setBudget] = useState("");
   const [timeData, setTime] = useState("");
 
-  const [imgErrorMessage, setImgErrorMessage] = useState(null);
   const [budgetError, setBudgetError] = useState(false);
   const [timeError, setTimeError] = useState(false);
-  const [shouldShowError, setShouldShowError] = useState(null);
+  const [shouldShowError] = useState(null);
   const [listError, setListError] = useState(null);
 
-  const [isMenuSelected, setIsMenuSelected] = useState(false);
+  // const [isMenuSelected, setIsMenuSelected] = useState(false);
   const [isMenualMenuSelected, setIsMenualMenuSelected] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -48,7 +46,7 @@ const Menu = () => {
     template: isPublicTemplate,
     createdAt: Date.now(),
   };
-  // console.log("...............dsjkgds.", key);
+
   useEffect(() => {
     // console.log("from menu", location.state);
     if (location.state?.manualMenuList) {
@@ -60,13 +58,13 @@ const Menu = () => {
       setIsPublicTemplate(location?.state?.template);
       window.history.replaceState({}, document.title);
     }
-  }, []);
-
-  useEffect(() => {
-    if (isMenuSelected || isMenualMenuSelected) {
-      setShouldShowError(false);
-    }
-  }, [isMenuSelected, isMenualMenuSelected]);
+  }, [
+    location.state?.budgetLimitPerPerson,
+    location.state?.caption,
+    location.state?.manualMenuList,
+    location.state?.template,
+    location.state?.timeLimit,
+  ]);
 
   useEffect(() => {
     if (listError !== null) {
@@ -76,96 +74,9 @@ const Menu = () => {
         setListError(false);
       }
     }
-  }, [namePriceList]);
-
-  useEffect(() => {
-    if (imgErrorMessage !== null) {
-      if (img.length === 0) {
-        setImgErrorMessage(true);
-      } else {
-        setImgErrorMessage(false);
-      }
-    }
-  }, [img]);
+  }, [listError, namePriceList]);
 
   const handleSubmit = (e) => {
-    if (isMenuSelected && img.length === 0) {
-      setImgErrorMessage(true);
-
-  const [imgErrorMessage, setImgErrorMessage] = useState(null);
-  const [budgetError, setBudgetError] = useState(false);
-  const [timeError, setTimeError] = useState(false);
-  const [shouldShowError, setShouldShowError] = useState(null);
-  const [listError, setListError] = useState(null);
-
-  const [isMenuSelected, setIsMenuSelected] = useState(false);
-  const [isMenualMenuSelected, setIsMenualMenuSelected] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  const [isPublicTemplate, setIsPublicTemplate] = useState(false);
-
-  const context = useContext(userContext);
-
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const key = searchParams.get("key");
-  // console.log("Key ", key);
-
-  const [caption, setCaption] = useState("");
-  const handleInputChange = (event) => {
-    setCaption(event.target.value);
-  };
-
-  const state = {
-    manualMenuList: namePriceList,
-    budgetLimitPerPerson: budgetData,
-    timeLimit: new Date(timeData).getTime(),
-    selectedBy: [],
-    userEmail: context.userEmail,
-    caption: caption,
-    key: key,
-    template: isPublicTemplate,
-    createdAt: Date.now(),
-  };
-  // console.log("...............dsjkgds.", key);
-  useEffect(() => {
-    // console.log("from menu", location.state);
-    if (location.state?.manualMenuList) {
-      console.log("location?.state?.timeLimit", location?.state?.timeLimit);
-      setnamePriceList([...location?.state?.manualMenuList]);
-      setBudget(location?.state?.budgetLimitPerPerson);
-      setTime(new Date(location?.state?.timeLimit).getTime());
-      setCaption(location?.state?.caption);
-      setIsPublicTemplate(location?.state?.template);
-      window.history.replaceState({}, document.title);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isMenuSelected || isMenualMenuSelected) {
-      setShouldShowError(false);
-    }
-  }, [isMenuSelected, isMenualMenuSelected]);
-
-  useEffect(() => {
-    if (listError !== null) {
-      if (namePriceList.length === 0) {
-        setListError(true);
-      } else {
-        setListError(false);
-      }
-    }
-  }, [namePriceList]);
-    } else {
-      setImgErrorMessage(false);
-    }
-
-    if (isMenuSelected || isMenualMenuSelected) {
-      setShouldShowError(false);
-    } else {
-      setShouldShowError(true);
-    }
-
     if (isMenualMenuSelected && namePriceList.length === 0) {
       setListError(true);
     } else {
@@ -185,18 +96,11 @@ const Menu = () => {
       time: timeData,
     };
 
-    if (isMenuSelected) {
-      formData.img = img;
-    }
-
     if (isMenualMenuSelected) {
       formData.menuList = namePriceList;
     }
     // console.log("formData", formData);
-    if (
-      (img && img.length > 0) ||
-      (namePriceList && namePriceList.length > 0)
-    ) {
+    if (namePriceList && namePriceList.length > 0) {
       const requestOptions = {
         method: key ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
@@ -224,10 +128,7 @@ const Menu = () => {
   return (
     <div className="Container">
       {open ? (
-        <SuccessMsg
-          open={open}
-          setOpen={setOpen}
-        />
+        <SuccessMsg open={open} setOpen={setOpen} />
       ) : (
         <div className="App">
           <input
@@ -237,7 +138,10 @@ const Menu = () => {
             value={caption}
             onChange={handleInputChange}
           />
-          <div className="row" style={{ display: "flex", justifyContent: "center"}}>
+          <div
+            className="row"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
             <div className="col-6">
               {/* <MenuCreate 
                 isMenuSelected={isMenuSelected}
@@ -290,15 +194,13 @@ const Menu = () => {
                 setIsPublicTemplate={setIsPublicTemplate}
               />
             </div>
-
-           
           </div>
           <div className="btn-submit">
-              <HoldAndPressButton
-                isBtnParamFull={"btn-submit" !== ""}
-                onSubmit={handleSubmit}
-              />
-            </div>
+            <HoldAndPressButton
+              isBtnParamFull={"btn-submit" !== ""}
+              onSubmit={handleSubmit}
+            />
+          </div>
         </div>
       )}
     </div>
