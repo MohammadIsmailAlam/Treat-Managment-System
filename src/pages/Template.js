@@ -74,10 +74,10 @@ export default function OderedList() {
         </div>
       </div>
       {filteredData.map(([key, value], index) => (
-        <div className="limitation row">
+        <div className="limitation row" key={key}>
           <div className="col-8">
             <li
-              key={index}
+              key={key} // Add a unique key prop here
               style={{
                 padding: "2em",
                 margin: "2em",

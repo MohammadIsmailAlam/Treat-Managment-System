@@ -14,10 +14,10 @@ export const handlePDFDownload = (id, data) => {
       tableData.push(["Name", "Price", "Ordered By", "Total"]);
 
       value.manualMenuList.forEach((item) => {
-        const selectedBy = item.selectedBy
+        const selectedBy = (item.selectedBy ?? [])
           .map((person) => person.name)
           .join(", ");
-        const selectedCount = item.selectedBy.length;
+        const selectedCount = (item.selectedBy ?? []).length;
 
         tableData.push([item.name, item.price, selectedBy, selectedCount]);
       });
